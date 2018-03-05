@@ -27,5 +27,5 @@ deploy:
   file_glob: true
   file: "dist/releases/*"
   on:
-    repo: FreeCol/freecol
-    branch: slim
+    repo: antFlep/freecol
+    branch: master
