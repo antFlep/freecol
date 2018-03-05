@@ -55,7 +55,7 @@ public final class TileType extends FreeColSpecObjectType
     private boolean forest;
 
     /** Is this a water tile? */
-    private boolean water;
+    private boolean aqua;
 
     /** Can this tile be settled? */
     private boolean canSettle;
@@ -115,7 +115,7 @@ public final class TileType extends FreeColSpecObjectType
     private TileType(String id, boolean water) {
         super(id, null);
 
-        this.water = water;
+        this.aqua = water;
     }
 
 
@@ -134,7 +134,7 @@ public final class TileType extends FreeColSpecObjectType
      * @return True if this is a water tile type.
      */
     public boolean isWater() {
-        return water;
+        return aqua;
     }
 
     /**
@@ -461,7 +461,7 @@ public final class TileType extends FreeColSpecObjectType
         TileType o = copyInCast(other, TileType.class);
         if (o == null || !super.copyIn(o)) return false;
         this.forest = o.isForested();
-        this.water = o.isWater();
+        this.aqua = o.isWater();
         this.canSettle = o.canSettle();
         this.connected = o.isHighSeasConnected();
         this.elevation = o.isElevation();
@@ -498,7 +498,7 @@ public final class TileType extends FreeColSpecObjectType
     private static final String IS_CONNECTED_TAG = "is-connected";
     private static final String IS_ELEVATION_TAG = "is-elevation";
     private static final String IS_FOREST_TAG = "is-forest";
-    private static final String IS_WATER_TAG = "is-water";
+    private static final String IS_WATER_TAG = "is-aqua";
     private static final String PROBABILITY_TAG = "probability";
     private static final String PRODUCTION_TAG = "production";
     private static final String RESOURCE_TAG = "resource";
@@ -532,7 +532,7 @@ public final class TileType extends FreeColSpecObjectType
 
         xw.writeAttribute(IS_FOREST_TAG, this.forest);
 
-        xw.writeAttribute(IS_WATER_TAG, this.water);
+        xw.writeAttribute(IS_WATER_TAG, this.aqua);
 
         xw.writeAttribute(IS_ELEVATION_TAG, this.elevation);
 
@@ -604,11 +604,11 @@ public final class TileType extends FreeColSpecObjectType
 
         this.forest = xr.getAttribute(IS_FOREST_TAG, false);
 
-        this.water = xr.getAttribute(IS_WATER_TAG, false);
+        this.aqua = xr.getAttribute(IS_WATER_TAG, false);
 
         this.elevation = xr.getAttribute(IS_ELEVATION_TAG, false);
 
-        this.canSettle = xr.getAttribute(CAN_SETTLE_TAG, !water);
+        this.canSettle = xr.getAttribute(CAN_SETTLE_TAG, !aqua);
 
         this.connected = xr.getAttribute(IS_CONNECTED_TAG, false);
 
