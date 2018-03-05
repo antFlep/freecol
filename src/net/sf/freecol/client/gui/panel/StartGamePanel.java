@@ -63,7 +63,7 @@ public final class StartGamePanel extends FreeColPanel {
 
     private JTextArea chatArea;
 
-    private JButton start, cancel, gameOptions, mapGeneratorOptions;
+    private JButton gameStart, gameCancel, gameOptions, mapGeneratorOptions;
 
     private PlayersTable table;
 
@@ -139,15 +139,15 @@ public final class StartGamePanel extends FreeColPanel {
 
         NationOptions nationOptions = getGame().getNationOptions();
 
-        cancel = Utility.localizedButton("cancel");
-        setCancelComponent(cancel);
+        gameCancel = Utility.localizedButton("cancel");
+        setCancelComponent(gameCancel);
 
         JScrollPane chatScroll = null, tableScroll;
 
         table = new PlayersTable(getFreeColClient(), nationOptions,
                                  getMyPlayer());
 
-        start = Utility.localizedButton("startGame");
+        gameStart = Utility.localizedButton("startGame");
 
         gameOptions = Utility.localizedButton(Messages
             .nameKey(GameOptions.TAG));
@@ -186,8 +186,8 @@ public final class StartGamePanel extends FreeColPanel {
             add(chat, "grow, top");
         }
         add(readyBox, "newline");
-        add(start, "newline, span, split 2, tag ok");
-        add(cancel, "tag cancel");
+        add(gameStart, "newline, span, split 2, tag ok");
+        add(gameCancel, "tag cancel");
 
         if (!singlePlayerGame) {
             chat.addActionListener(chatCmd);
@@ -197,8 +197,8 @@ public final class StartGamePanel extends FreeColPanel {
             chatArea.setText("");
         }
 
-        start.addActionListener(startCmd);
-        cancel.addActionListener(cancelCmd);
+        gameStart.addActionListener(startCmd);
+        gameCancel.addActionListener(cancelCmd);
         readyBox.addActionListener(readyBoxCmd);
         gameOptions.addActionListener(gameOptionsCmd);
         mapGeneratorOptions.addActionListener(mapGeneratorOptionsCmd);
@@ -267,8 +267,8 @@ public final class StartGamePanel extends FreeColPanel {
         // Do not propagate to superclass.  This panel is reused so
         // avoid the destructive cleanups in FreeColPanel.removeNotify.
 
-        start.removeActionListener(startCmd);
-        cancel.removeActionListener(cancelCmd);
+        gameStart.removeActionListener(startCmd);
+        gameCancel.removeActionListener(cancelCmd);
         readyBox.removeActionListener(readyBoxCmd);
         gameOptions.removeActionListener(gameOptionsCmd);
         mapGeneratorOptions.removeActionListener(mapGeneratorOptionsCmd);
@@ -280,7 +280,7 @@ public final class StartGamePanel extends FreeColPanel {
      */
     @Override
     public void requestFocus() {
-        start.requestFocus();
+        gameStart.requestFocus();
     }
 
     /**
@@ -300,7 +300,7 @@ public final class StartGamePanel extends FreeColPanel {
         }
 
         if (enabled) {
-            start.setEnabled(getFreeColClient().isAdmin());
+            gameStart.setEnabled(getFreeColClient().isAdmin());
         }
 
         gameOptions.setEnabled(enabled);

@@ -209,7 +209,7 @@ public class ConfirmDeclarationDialog extends FreeColDialog<List<String>>
     private Flag flag;
 
     /** A box to select the flag background from. */
-    private final JComboBox<Background> background
+    private final JComboBox<Background> flagBackground
         = new JComboBox<>(Background.values());
 
     /** A box to select the flag decoration from. */
@@ -290,7 +290,7 @@ public class ConfirmDeclarationDialog extends FreeColDialog<List<String>>
 
         panel.add(this.label, "skip, width 200, height 100");
 
-        addComboBox(panel, this.background, "flag.background.",
+        addComboBox(panel, this.flagBackground, "flag.flagBackground.",
                     this.flag.getBackground());
         addComboBox(panel, this.decoration, "flag.decoration.",
                     this.flag.getDecoration());
@@ -411,7 +411,7 @@ public class ConfirmDeclarationDialog extends FreeColDialog<List<String>>
     @Override
     public void itemStateChanged(ItemEvent e) {
         Background newBackground
-            = (Background)this.background.getSelectedItem();
+            = (Background)this.flagBackground.getSelectedItem();
         Decoration newDecoration
             = (Decoration)this.decoration.getSelectedItem();
         UnionPosition newPosition

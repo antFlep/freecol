@@ -50,7 +50,7 @@ import net.sf.freecol.common.i18n.Messages;
  */
 public class FreeColOptionPaneUI extends BasicOptionPaneUI {
 
-    private Component initialFocusComponent = null;
+    private Component initFocusComponent = null;
 
     private int okIndex = -1, cancelIndex = -1;
 
@@ -63,8 +63,8 @@ public class FreeColOptionPaneUI extends BasicOptionPaneUI {
         return new FreeColOptionPaneUI();
     }
 
-    public Component getInitialFocusComponent() {
-        return initialFocusComponent;
+    public Component getInitFocusComponent() {
+        return initFocusComponent;
     }
 
     /**
@@ -168,7 +168,7 @@ public class FreeColOptionPaneUI extends BasicOptionPaneUI {
 
         if (0 <= initialIndex && initialIndex < buttons.length) {
             JButton b = newButtons[initialIndex];
-            this.initialFocusComponent = b;
+            this.initFocusComponent = b;
             b.addHierarchyListener((HierarchyEvent e) -> {
                     if ((e.getChangeFlags() & HierarchyEvent.PARENT_CHANGED) != 0) {
                         JButton button = (JButton)e.getComponent();
@@ -214,13 +214,13 @@ public class FreeColOptionPaneUI extends BasicOptionPaneUI {
      */
     @Override
     public void selectInitialValue(JOptionPane op) {
-        if (initialFocusComponent != null) {
-            initialFocusComponent.requestFocus();
+        if (initFocusComponent != null) {
+            initFocusComponent.requestFocus();
  
-            if (initialFocusComponent instanceof JButton) {
-                JRootPane root = SwingUtilities.getRootPane(initialFocusComponent);
+            if (initFocusComponent instanceof JButton) {
+                JRootPane root = SwingUtilities.getRootPane(initFocusComponent);
                 if (root != null) {
-                    root.setDefaultButton((JButton)initialFocusComponent);
+                    root.setDefaultButton((JButton) initFocusComponent);
                 }
             }
         }
