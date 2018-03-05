@@ -498,7 +498,7 @@ public final class TileType extends FreeColSpecObjectType
     private static final String IS_CONNECTED_TAG = "is-connected";
     private static final String IS_ELEVATION_TAG = "is-elevation";
     private static final String IS_FOREST_TAG = "is-forest";
-    private static final String IS_WATER_TAG = "is-aqua";
+    private static final String IS_WATER_TAG = "is-water";
     private static final String PROBABILITY_TAG = "probability";
     private static final String PRODUCTION_TAG = "production";
     private static final String RESOURCE_TAG = "resource";
