@@ -83,18 +83,19 @@ public class MetaServerUtils {
          */
         public Message handle(Connection connection, Message message)
             throws FreeColException {
-            if (message == null) return null;
-            final String tag = message.getType();
-            switch (tag) {
-            case DisconnectMessage.TAG:
-                break;
-            case ServerListMessage.TAG:
-                ServerListMessage slm = (ServerListMessage)message;
-                this.consumer.accept(slm.getServers());
-                break;
-            default:
-                logger.warning("MetaInputHandler does not handle: " + tag);
-                break;
+            if (message != null) {
+                final String tag = message.getType();
+                switch (tag) {
+                    case DisconnectMessage.TAG:
+                        break;
+                    case ServerListMessage.TAG:
+                        ServerListMessage slm = (ServerListMessage) message;
+                        this.consumer.accept(slm.getServers());
+                        break;
+                    default:
+                        logger.warning("MetaInputHandler does not handle: " + tag);
+                        break;
+                }
             }
             return null;
         }
