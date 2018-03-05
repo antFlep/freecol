@@ -100,7 +100,7 @@ public class ReportPanel extends FreeColPanel {
         reportPanel.doLayout();
     }
 
-    private Border createBorder() {
+    protected Border createBorder() {
         return new EmptyBorder(20, 20, 20, 20);
     }
 
