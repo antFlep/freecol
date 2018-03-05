@@ -44,7 +44,6 @@ import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.client.gui.SwingGUI;
 import net.sf.freecol.client.gui.action.ActionManager;
 import net.sf.freecol.client.networking.UserServerAPI;
-import net.sf.freecol.common.FreeColSeed;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDataFile;
