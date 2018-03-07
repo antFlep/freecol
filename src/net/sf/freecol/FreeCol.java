@@ -283,16 +283,7 @@ public final class FreeCol {
         handleArgs(args);
 
         // Do the potentially fatal system checks as early as possible.
-        if (javaCheck && JAVA_VERSION_MIN.compareTo(JAVA_VERSION) > 0) {
-            fatal(StringTemplate.template("main.javaVersion")
-                .addName("%version%", JAVA_VERSION)
-                .addName("%minVersion%", JAVA_VERSION_MIN));
-        }
-        if (memoryCheck && MEMORY_MAX < MEMORY_MIN * 1000000) {
-            fatal(StringTemplate.template("main.memory")
-                .addAmount("%memory%", MEMORY_MAX)
-                .addAmount("%minMemory%", MEMORY_MIN));
-        }
+        systemCheck();
 
         // Having parsed the command line args, we know where the user
         // directories should be, so we can set up the rest of the
@@ -319,6 +310,19 @@ public final class FreeCol {
             startServer();
         } else {
             startClient(userMsg);
+        }
+    }
+
+    private static void systemCheck() {
+        if (javaCheck && JAVA_VERSION_MIN.compareTo(JAVA_VERSION) > 0) {
+            fatal(StringTemplate.template("main.javaVersion")
+                    .addName("%version%", JAVA_VERSION)
+                    .addName("%minVersion%", JAVA_VERSION_MIN));
+        }
+        if (memoryCheck && MEMORY_MAX < MEMORY_MIN * 1000000) {
+            fatal(StringTemplate.template("main.memory")
+                    .addAmount("%memory%", MEMORY_MAX)
+                    .addAmount("%minMemory%", MEMORY_MIN));
         }
     }
 
@@ -1527,31 +1531,7 @@ public final class FreeCol {
                 freeColServer = null;
             }
             
-            if (checkIntegrity) {
-                String k;
-                int ret, check = (freeColServer == null) ? -1
-                    : freeColServer.getIntegrity();
-                switch (check) {
-                case 1:
-                    k = "cli.check-savegame.success";
-                    ret = 0;
-                    break;
-                case 0:
-                    k = "cli.check-savegame.fixed";
-                    ret = 2;
-                    break;
-                case -1: default:
-                    k = "cli.check-savegame.failed";
-                    ret = 3;
-                    break;
-                }
-                if (freeColServer == null) {
-                    logger.warning("Integrity test blocked");
-                }
-                gripe(StringTemplate.template(k)
-                    .add("%log%", FreeColDirectories.getLogFilePath()));
-                System.exit(ret);
-            }
+            integrityCheck(freeColServer);
 
             if (freeColServer == null) return;
         } else {
@@ -1578,5 +1558,33 @@ public final class FreeCol {
                     controller.shutdown();
                 }
             });
+    }
+
+    public static void integrityCheck(FreeColServer freeColServer) {
+        if (checkIntegrity) {
+            String k;
+            int ret, check = (freeColServer == null) ? -1
+                    : freeColServer.getIntegrity();
+            switch (check) {
+                case 1:
+                    k = "cli.check-savegame.success";
+                    ret = 0;
+                    break;
+                case 0:
+                    k = "cli.check-savegame.fixed";
+                    ret = 2;
+                    break;
+                case -1: default:
+                    k = "cli.check-savegame.failed";
+                    ret = 3;
+                    break;
+            }
+            if (freeColServer == null) {
+                logger.warning("Integrity test blocked");
+            }
+            gripe(StringTemplate.template(k)
+                    .add("%log%", FreeColDirectories.getLogFilePath()));
+            System.exit(ret);
+        }
     }
 }
