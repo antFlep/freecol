@@ -307,6 +307,22 @@ public final class FreeCol {
         String userMsg = null;
 
         // Now we have the log file path, start logging.
+        loggingConfig(localeArg);
+
+
+        // Report on where we are.
+        if (userMsg != null) logger.info(Messages.message(userMsg));
+        logger.info(getConfiguration().toString());
+
+        // Ready to specialize into client or server.
+        if (standAloneServer) {
+            startServer();
+        } else {
+            startClient(userMsg);
+        }
+    }
+
+    private static void loggingConfig (String localeArg) {
         final Logger baseLogger = Logger.getLogger("");
         for (Handler handler : baseLogger.getHandlers()) {
             baseLogger.removeHandler(handler);
@@ -317,12 +333,12 @@ public final class FreeCol {
             for (LogLevel ll : logLevels) ll.buildLogger();
         } catch (FreeColException e) {
             System.err.println("Logging initialization failure: "
-                + e.getMessage());
+                    + e.getMessage());
             e.printStackTrace();
         }
         Thread.setDefaultUncaughtExceptionHandler((Thread thread, Throwable e) -> {
-                baseLogger.log(Level.WARNING, "Uncaught exception from thread: " + thread, e);
-            });
+            baseLogger.log(Level.WARNING, "Uncaught exception from thread: " + thread, e);
+        });
 
         // Now we can find the client options, allow the options
         // setting to override the locale, but only if no command line
@@ -340,9 +356,9 @@ public final class FreeCol {
         }
         String cLang;
         if (localeArg == null
-            && (cLang = specialOptions.get(ClientOptions.LANGUAGE)) != null
-            && !Messages.AUTOMATIC.equalsIgnoreCase(cLang)
-            && setLocale(cLang)) {
+                && (cLang = specialOptions.get(ClientOptions.LANGUAGE)) != null
+                && !Messages.AUTOMATIC.equalsIgnoreCase(cLang)
+                && setLocale(cLang)) {
             Messages.loadMessageBundle(getLocale());
             logger.info("Loaded messages for " + getLocale());
         }
@@ -355,17 +371,6 @@ public final class FreeCol {
 
         // Handle other special options
         processSpecialOptions();
-
-        // Report on where we are.
-        if (userMsg != null) logger.info(Messages.message(userMsg));
-        logger.info(getConfiguration().toString());
-
-        // Ready to specialize into client or server.
-        if (standAloneServer) {
-            startServer();
-        } else {
-            startClient(userMsg);
-        }
     }
 
     /**
@@ -416,6 +421,12 @@ public final class FreeCol {
         }
 
         // XRender is available for most unix (not MacOS?)
+        xRender(lb);
+
+        lb.log(logger, Level.INFO);
+    }
+
+    public static LogBuilder xRender (LogBuilder lb) {
         if (OSUtils.onUnix()) {
             final String xrender = "sun.java2d.xrender";
             final String xrValue = System.getProperty(xrender);
@@ -432,7 +443,7 @@ public final class FreeCol {
             }
         }
 
-        lb.log(logger, Level.INFO);
+        return lb;
     }
 
     /**
