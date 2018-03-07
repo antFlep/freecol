@@ -29,7 +29,6 @@ import java.util.logging.Logger;
 import net.sf.freecol.FreeCol; 
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.client.FreeColClient;
-import net.sf.freecol.client.control.FreeColClientHolder;
 import net.sf.freecol.client.gui.ChoiceItem;
 import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.client.gui.LoadingSavegameInfo;

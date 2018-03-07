@@ -302,7 +302,6 @@ public final class FreeCol {
 
 
         // Report on where we are.
-        if (userMsg != null) logger.info(Messages.message(userMsg));
         logger.info(getConfiguration().toString());
 
         // Ready to specialize into client or server.

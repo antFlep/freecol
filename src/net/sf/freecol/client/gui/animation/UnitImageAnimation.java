@@ -28,7 +28,6 @@ import javax.swing.JLabel;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.control.FreeColClientHolder;
 import net.sf.freecol.client.gui.ImageLibrary;
-import net.sf.freecol.client.gui.label.UnitLabel;
 import net.sf.freecol.client.gui.OutForAnimationCallback;
 import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.common.io.sza.AnimationEvent;

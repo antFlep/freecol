@@ -23,9 +23,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 
 import net.sf.freecol.client.FreeColClient;
-import net.sf.freecol.common.model.Game;
 import net.sf.freecol.common.model.Map;
-import net.sf.freecol.common.model.Tile;
 
 
 /**
