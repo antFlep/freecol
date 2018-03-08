@@ -820,21 +820,33 @@ public final class NegotiationDialog extends FreeColDialog<DiplomaticTrade> {
 
     /** The panels for various negotiable data. */
     private StanceTradeItemPanel stancePanel;
-    private GoldTradeItemPanel goldOfferPanel, goldDemandPanel;
-    private ColonyTradeItemPanel colonyOfferPanel, colonyDemandPanel;
-    private GoodsTradeItemPanel goodsOfferPanel, goodsDemandPanel;
-    private InciteTradeItemPanel inciteOfferPanel, inciteDemandPanel;
-    private UnitTradeItemPanel unitOfferPanel, unitDemandPanel;
+
+    private GoldTradeItemPanel goldOfferPanel;
+    private GoldTradeItemPanel goldDemandPanel;
+
+    private ColonyTradeItemPanel colonyOfferPanel;
+    private ColonyTradeItemPanel colonyDemandPanel;
+
+    private GoodsTradeItemPanel goodsOfferPanel;
+    private GoodsTradeItemPanel goodsDemandPanel;
+
+    private InciteTradeItemPanel inciteOfferPanel;
+    private InciteTradeItemPanel inciteDemandPanel;
+
+    private UnitTradeItemPanel unitOfferPanel;
+    private UnitTradeItemPanel unitDemandPanel;
 
     /** A panel showing a summary of the current agreement. */
     private JPanel summary;
 
     /** Useful internal messages. */
-    private StringTemplate demand, offer;
+    private StringTemplate demand;
+    private StringTemplate offer;
     private String exchangeMessage;
 
     /** Responses. */
-    private ChoiceItem<DiplomaticTrade> send = null, accept = null;
+    private ChoiceItem<DiplomaticTrade> send = null;
+    private ChoiceItem<DiplomaticTrade> accept = null;
 
 
     /**
@@ -865,8 +877,9 @@ public final class NegotiationDialog extends FreeColDialog<DiplomaticTrade> {
         this.agreement = agreement;
         this.comment = comment;
 
-        StringTemplate nation = player.getCountryLabel(),
-                otherNation = otherPlayer.getCountryLabel();
+        StringTemplate nation = player.getCountryLabel();
+        StringTemplate otherNation = otherPlayer.getCountryLabel();
+
         this.demand = StringTemplate.template("negotiationDialog.demand")
                 .addStringTemplate("%nation%", nation)
                 .addStringTemplate("%otherNation%", otherNation);

@@ -69,7 +69,8 @@ import net.sf.freecol.common.resources.ResourceManager;
 public class InformationPanel extends FreeColPanel {
 
     /** Standard dimensions for the inner panel. */
-    private static final int BASE_WIDTH = 470, BASE_HEIGHT = 75;
+    private static final int BASE_WIDTH = 470;
+    private static final int BASE_HEIGHT = 75;
 
 
     /**

@@ -188,7 +188,8 @@ public final class DeclarationPanel extends FreeColPanel {
                 partNames = newPartNames;
             }
 
-            String first = partNames[0], second = partNames[1];
+            String first = partNames[0];
+            String second = partNames[1];
             String s = join(" ", partNames);
             if (!isTooLarge(s)) return s;
             s = first.charAt(0) + ". " + second;

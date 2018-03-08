@@ -131,7 +131,12 @@ public class FreeColDialog<T> extends JDialog implements PropertyChangeListener 
      * @return The option to select initially.
      */
     private int selectDefault(List<ChoiceItem<T>> options) {
-        int def = -1, can = -1, ok = -1, i = 0;
+
+        int def = -1;
+        int can = -1;
+        int ok = -1;
+        int i = 0;
+
         for (ChoiceItem<T> ci : options) {
             if (ci.isDefault()) def = i;
             else if (ci.isCancel()) can = i;

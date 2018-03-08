@@ -579,8 +579,12 @@ public final class EuropePanel extends PortPanel {
 
     private TransactionLog log;
 
-    private JButton exitButton, trainButton, purchaseButton,
-                    recruitButton, unloadButton, sailButton;
+    private JButton exitButton;
+    private JButton trainButton;
+    private JButton purchaseButton;
+    private JButton recruitButton;
+    private JButton unloadButton;
+    private JButton sailButton;
 
     private final Europe europe;
 

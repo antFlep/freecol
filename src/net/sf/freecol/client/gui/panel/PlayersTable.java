@@ -623,11 +623,11 @@ public final class PlayersTable extends JTable {
     }
 
 
-    public static final int NATION_COLUMN = 0,
-        AVAILABILITY_COLUMN = 1,
-        ADVANTAGE_COLUMN = 2,
-        COLOR_COLUMN = 3,
-        PLAYER_COLUMN = 4;
+    public static final int NATION_COLUMN = 0;
+    public static final int AVAILABILITY_COLUMN = 1;
+    public static final int ADVANTAGE_COLUMN = 2;
+    public static final int COLOR_COLUMN = 3;
+    public static final int PLAYER_COLUMN = 4;
 
     private static final String[] columnNames = {
         Messages.message("nation"),

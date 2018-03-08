@@ -56,7 +56,8 @@ public final class StatisticsPanel extends FreeColPanel {
 
     private static class StatisticsModel extends AbstractTableModel {
 
-        private static final int NAME_COLUMN = 0, VALUE_COLUMN = 1;
+        private static final int NAME_COLUMN = 0;
+        private static final int VALUE_COLUMN = 1;
         private final String[] columnNames = { "name", "value" };
 
         private Object[][] data = null;

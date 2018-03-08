@@ -453,7 +453,8 @@ public final class TradeRouteInputPanel extends FreeColPanel
             panel.setFont(list.getFont());
             Location location = value.getLocation();
             ImageLibrary lib = getImageLibrary();
-            JLabel icon, name;
+            JLabel icon;
+            JLabel name;
 
             if (location instanceof TradeLocation) {
                 TradeLocation tl = (TradeLocation) location;
@@ -498,7 +499,8 @@ public final class TradeRouteInputPanel extends FreeColPanel
     private CargoHandler cargoHandler;
 
     /** Mouse listeners to use throughout. */
-    private transient MouseListener dragListener, dropListener;
+    private transient MouseListener dragListener;
+    private transient MouseListener dropListener;
 
     /** Model to contain the current stops. */
     private DefaultListModel<TradeRouteStop> stopListModel;

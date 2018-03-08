@@ -164,7 +164,9 @@ public final class ImageLibrary {
     private final float scaleFactor;
 
     /** Fixed tile dimensions. */
-    final Dimension tileSize, tileOverlaySize, tileForestSize;
+    final Dimension tileSize;
+    final Dimension tileOverlaySize;
+    final Dimension tileForestSize;
 
     /** Cache for the string images. */
     private final HashMap<String,BufferedImage> stringImageCache;
@@ -376,7 +378,10 @@ public final class ImageLibrary {
                                       JComponent c, Insets insets) {
         int width = c.getWidth();
         int height = c.getHeight();
-        int xmin, ymin;
+
+        int xmin;
+        int ymin;
+
         if (insets == null) {
             xmin = 0;
             ymin = 0;
@@ -1388,7 +1393,11 @@ public final class ImageLibrary {
         // draw the border around letters
         int borderWidth = 1;
         int borderColor = makeStringBorderColor(color).getRGB();
-        int srcRGB, dstRGB, srcA;
+
+        int srcRGB;
+        int dstRGB;
+        int srcA;
+
         for (int biY = 0; biY < height; biY++) {
             for (int biX = borderWidth; biX < width - borderWidth; biX++) {
                 int biXI = width - biX - 1;
