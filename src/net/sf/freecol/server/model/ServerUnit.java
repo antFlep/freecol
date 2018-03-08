@@ -366,7 +366,8 @@ public class ServerUnit extends Unit implements TurnTaker {
         final CombatModel combatModel = game.getCombatModel();
         final boolean pirate = hasAbility(Ability.PIRACY);
         Unit attacker = null;
-        double attackPower = 0, totalAttackPower = 0;
+        double attackPower = 0;
+        double totalAttackPower = 0;
 
         if (!isNaval() || getMovesLeft() <= 0) return null;
         for (Tile tile : newTile.getSurroundingTiles(1)) {

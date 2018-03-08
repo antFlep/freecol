@@ -60,7 +60,8 @@ public class UnitSeekAndDestroyMission extends Mission {
      * The object we are trying to destroy. This can be a
      * either {@code Settlement} or a {@code Unit}.
      */
-    private Location target, transportTarget;
+    private Location target;
+    private Location transportTarget;
 
 
     /**

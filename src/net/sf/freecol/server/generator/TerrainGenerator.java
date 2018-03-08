@@ -362,7 +362,8 @@ public class TerrainGenerator {
             if (continentsize[c] > LAND_REGION_MAX_SIZE) {
                 boolean[][] splitcontinent
                     = new boolean[map.getWidth()][map.getHeight()];
-                int splitX = 0, splitY = 0;
+                int splitX = 0;
+                int splitY = 0;
 
                 for (int x = 0; x < map.getWidth(); x++) {
                     for (int y = 0; y < map.getHeight(); y++) {
@@ -889,7 +890,8 @@ public class TerrainGenerator {
             int latitude = map.getLatitude(y);
             for (int x = 0; x < width; x++) {
                 if (landMap.isLand(x, y)) mapHasLand = true;
-                Tile t, importTile = null;
+                Tile t;
+                Tile importTile = null;
                 if (importTerrain
                     && importMap.isValid(x, y)
                     && (importTile = importMap.getTile(x, y)) != null

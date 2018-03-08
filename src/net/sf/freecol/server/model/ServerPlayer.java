@@ -495,8 +495,10 @@ public class ServerPlayer extends Player implements TurnTaker {
 
         // Traverse player units, look for valid carriers, colonists,
         // carriers with units, carriers with goods.
-        boolean hasCarrier = false, hasColonist = false, hasEmbarked = false,
-            hasGoods = false;
+        boolean hasCarrier = false;
+        boolean hasColonist = false;
+        boolean hasEmbarked = false;
+        boolean hasGoods = false;
         for (Unit unit : getUnitList()) {
             if (unit.isCarrier()) {
                 if (unit.hasGoodsCargo()) hasGoods = true;
@@ -1951,7 +1953,8 @@ outer:  for (Effect effect : effects) {
         final Specification spec = game.getSpecification();
         final ServerEurope europe = (ServerEurope)getEurope();
         final Turn turn = game.getTurn();
-        boolean europeDirty = false, visibilityChange = false;
+        boolean europeDirty = false;
+        boolean visibilityChange = false;
 
         addFather(father);
         addHistory(new HistoryEvent(turn,
@@ -4370,10 +4373,10 @@ outer:  for (Effect effect : effects) {
                 cs.addPartial(See.only(demandPlayer), demandPlayer,
                     "gold", String.valueOf(demandPlayer.getGold()));
             } else {
-                GoodsContainer colonyContainer = colony.getGoodsContainer(),
-                    unitContainer = unit.getGoodsContainer();
-                GoodsContainer.moveGoods(colonyContainer, type, amount,
-                                         unitContainer);
+                GoodsContainer colonyContainer = colony.getGoodsContainer();
+                GoodsContainer unitContainer = unit.getGoodsContainer();
+
+                GoodsContainer.moveGoods(colonyContainer, type, amount, unitContainer);
                 cs.add(See.only(this), colonyContainer);
                 cs.add(See.only(demandPlayer), unitContainer);
             }
@@ -4433,8 +4436,11 @@ outer:  for (Effect effect : effects) {
         lb.add("PLAYER ", getName(), ": ");
         final Game game = getGame();
         final Specification spec = getSpecification();
-        int oldImmigration = getImmigration(), oldLiberty = getLiberty(),
-            newSoL = 0, newImmigration = 0, newLiberty = 0;
+        int oldImmigration = getImmigration();
+        int oldLiberty = getLiberty();
+        int newSoL = 0;
+        int newImmigration = 0;
+        int newLiberty = 0;
 
         // Settlements
         List<Settlement> settlements = getSettlementList();

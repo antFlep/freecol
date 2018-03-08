@@ -287,7 +287,8 @@ public class TransportMission extends Mission {
      * @return True if the remove succeeded.
      */
     private boolean tRemove(Cargo cargo) {
-        boolean result = false, change = false;
+        boolean result = false;
+        boolean change = false;
         final TransportableAIObject t = cargo.getTransportable();
         synchronized (cargoes) {
             for (int i = 0; i < cargoes.size(); i++) {
@@ -1148,8 +1149,10 @@ public class TransportMission extends Mission {
      */
     private Cargo getBestCargo(Unit carrier) {
         final EuropeanAIPlayer euaip = getEuropeanAIPlayer();
-        Cargo bestDirect = null, bestFallback = null;
-        float bestDirectValue = 0.0f, bestFallbackValue = 0.0f;
+        Cargo bestDirect = null;
+        Cargo bestFallback = null;
+        float bestDirectValue = 0.0f;
+        float bestFallbackValue = 0.0f;
         for (TransportableAIObject t : euaip.getUrgentTransportables()) {
             if (t.isDisposed() || !t.carriableBy(carrier)) continue;
             Location loc = t.getTransportSource();

@@ -353,8 +353,10 @@ public class ServerGame extends Game implements TurnTaker {
             = event.getLimit("model.limit.spanishSuccession.weakestPlayer");
         final Limit strongLimit
             = event.getLimit("model.limit.spanishSuccession.strongestPlayer");
-        Player weakAI = null, strongAI = null;
-        int weakScore = Integer.MAX_VALUE, strongScore = Integer.MIN_VALUE;
+        Player weakAI = null;
+        Player strongAI = null;
+        int weakScore = Integer.MAX_VALUE;
+        int strongScore = Integer.MIN_VALUE;
         boolean ready = false;
         lb.add("Spanish succession scores[");
         final String sep = ", ";

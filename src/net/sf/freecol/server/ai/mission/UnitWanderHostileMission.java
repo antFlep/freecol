@@ -172,8 +172,8 @@ public class UnitWanderHostileMission extends Mission {
         // checking for a target along the way.
         final Unit unit = getUnit();
         final AIUnit aiUnit = getAIUnit();
-        int check = 0, checkTurns = randomInt(logger, "Hostile",
-                                              getAIRandom(), 4);
+        int check = 0;
+        int checkTurns = randomInt(logger, "Hostile", getAIRandom(), 4);
         Direction d = Direction.getRandomDirection(tag, logger, getAIRandom());
         while (unit.getMovesLeft() > 0) {
             // Every checkTurns, look for a target of opportunity.
