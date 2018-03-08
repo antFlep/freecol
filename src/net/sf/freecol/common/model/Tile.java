@@ -150,7 +150,8 @@ public final class Tile extends UnitLocation implements Named, Ownable {
     private TileType type;
 
     /** The tile coordinates in the enclosing map. */
-    private int x, y;
+    private int x;
+    private int y;
 
     /** The player that consider this tile to be their land. */
     private Player owner;
@@ -550,7 +551,8 @@ public final class Tile extends UnitLocation implements Named, Ownable {
      */
     private int getEdgeDistance() {
         final Map map = getMap();
-        final int x = getX(), y = getY();
+        final int x = getX();
+        final int y = getY();
         return Math.min(Math.min(x, map.getWidth() - x),
                         Math.min(y, map.getHeight() - y));
     }
@@ -2058,7 +2060,8 @@ public final class Tile extends UnitLocation implements Named, Ownable {
     public Unit getDefendingUnit(Unit attacker) {
         CombatModel cm = getGame().getCombatModel();
         Unit defender = null;
-        double defenderPower = -1.0, power;
+        double defenderPower = -1.0;
+        double power;
 
         // Check the units on the tile...
         for (Unit u : transform(getUnits(), u -> isLand() != u.isNaval())) {

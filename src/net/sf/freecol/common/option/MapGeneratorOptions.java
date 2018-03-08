@@ -77,10 +77,10 @@ public class MapGeneratorOptions {
     /** Option for setting the type of land generator to be used. */
     public static final String LAND_GENERATOR_TYPE 
         = "model.option.landGeneratorType";
-    public static final int LAND_GENERATOR_CLASSIC     = 0,
-                            LAND_GENERATOR_CONTINENT   = 1,
-                            LAND_GENERATOR_ARCHIPELAGO = 2,
-                            LAND_GENERATOR_ISLANDS     = 3;
+    public static final int LAND_GENERATOR_CLASSIC     = 0;
+    public static final int LAND_GENERATOR_CONTINENT   = 1;
+    public static final int LAND_GENERATOR_ARCHIPELAGO = 2;
+    public static final int LAND_GENERATOR_ISLANDS     = 3;
 
     /** Option for setting the preferred distance to the map edge. */
     public static final String PREFERRED_DISTANCE_TO_EDGE
@@ -136,11 +136,11 @@ public class MapGeneratorOptions {
         = "model.option.temperature";
 
     /** One of the settings used by {@link #TEMPERATURE}. */
-    public static final int TEMPERATURE_COLD      = 0,
-                            TEMPERATURE_CHILLY    = 1,
-                            TEMPERATURE_TEMPERATE = 2,
-                            TEMPERATURE_WARM      = 3,
-                            TEMPERATURE_HOT       = 4;
+    public static final int TEMPERATURE_COLD      = 0;
+    public static final int TEMPERATURE_CHILLY    = 1;
+    public static final int TEMPERATURE_TEMPERATE = 2;
+    public static final int TEMPERATURE_WARM      = 3;
+    public static final int TEMPERATURE_HOT       = 4;
 
 
     // Serialization

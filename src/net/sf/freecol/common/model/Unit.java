@@ -2481,8 +2481,8 @@ public class Unit extends GoodsLocation
      * @return True if the locations are the same, or on the same tile.
      */
     public boolean isAtLocation(Location loc) {
-        Location ourLoc = getLocation(),
-            otherLoc = (loc instanceof Unit) ? ((Unit)loc).getLocation() : loc;
+        Location ourLoc = getLocation();
+        Location otherLoc = (loc instanceof Unit) ? ((Unit)loc).getLocation() : loc;
         if (ourLoc instanceof Unit) ourLoc = ((Unit)ourLoc).getLocation();
         return Map.isSameLocation(ourLoc, otherLoc);
     }

@@ -36,7 +36,8 @@ public final class ResourceType extends FreeColSpecObjectType {
     public static final String TAG = "resource-type";
 
     /** Maximum and minimum values for this resource type. */
-    private int maxValue, minValue;
+    private int maxValue;
+    private int minValue;
 
 
     /**

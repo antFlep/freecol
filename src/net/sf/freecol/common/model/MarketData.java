@@ -371,7 +371,9 @@ public class MarketData extends FreeColGameObject {
             newPrice = newSalePrice + diff;
         }
 
-        int oldCostToBuy = costToBuy, oldPaidForSale = paidForSale;
+        int oldCostToBuy = costToBuy;
+        int oldPaidForSale = paidForSale;
+
         costToBuy = newPrice;
         paidForSale = newSalePrice;
         if (costToBuy != oldCostToBuy) {

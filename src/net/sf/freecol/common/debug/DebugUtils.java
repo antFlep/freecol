@@ -836,7 +836,8 @@ public class DebugUtils {
         LogBuilder lb = new LogBuilder(256);
         lb.add("\nActive units:\n");
 
-        Unit u, first = player.getNextActiveUnit();
+        Unit u;
+        Unit first = player.getNextActiveUnit();
         if (first != null) {
             lb.add(first.toString(), "\nat ", first.getLocation(), "\n");
             all.remove(first);

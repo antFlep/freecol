@@ -246,10 +246,12 @@ public class Force extends FreeColSpecObject {
         if (this.navalUnits.isEmpty()) return false;
         updateSpaceAndCapacity();
         AbstractUnit ship0 = this.navalUnits.get(0);
-        int n = ship0.getNumber(),
-            sp = ship0.getType(getSpecification()).getSpace(),
-            space = getSpaceRequired(),
-            capacity = getCapacity();
+
+        int n = ship0.getNumber();
+        int sp = ship0.getType(getSpecification()).getSpace();
+        int space = getSpaceRequired();
+        int capacity = getCapacity();
+
         while (space > capacity) {
             n++;
             ship0.setNumber(n);

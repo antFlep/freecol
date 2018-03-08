@@ -207,7 +207,8 @@ public enum Direction implements Named {
         Direction[] ret = new Direction[NUMBER_OF_DIRECTIONS];
         ret[0] = this;
 
-        int step = 1, mask = 1;
+        int step = 1;
+        int mask = 1;
         for (int i = 1; i < NUMBER_OF_DIRECTIONS - 1; i += 2) {
             Direction dr = this.rotate(step);
             Direction dl = this.rotate(NUMBER_OF_DIRECTIONS - step);

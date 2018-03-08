@@ -91,7 +91,8 @@ public class Map extends FreeColGameObject implements Location {
     public static final class Position {
         
         /** The coordinates of the position. */
-        public final int x, y;
+        public final int x;
+        public final int y;
 
 
         /**
@@ -247,7 +248,8 @@ public class Map extends FreeColGameObject implements Location {
     private Tile[][] tiles;
 
     /** The width and height of the map. */
-    private int width, height;
+    private int width;
+    private int height;
 
     /** The highest map layer included. */
     private Layer layer;
@@ -729,7 +731,12 @@ public class Map extends FreeColGameObject implements Location {
      */
     public Tile getRandomLandTile(Random random) {
         final int SLOSH = 10;
-        int x = 0, y = 0, width = getWidth(), height = getHeight();
+
+        int x = 0;
+        int y = 0;
+        int width = getWidth();
+        int height = getHeight();
+
         if (width >= SLOSH) {
             width -= SLOSH;
             x += SLOSH/2;
@@ -1034,7 +1041,8 @@ public class Map extends FreeColGameObject implements Location {
         // Get the unit that will be used for off-map travel.
         final Unit offMapUnit = (carrier != null) ? carrier : unit;
 
-        PathNode p, path;
+        PathNode p;
+        PathNode path;
         Tile tile;
         if (realEnd instanceof Tile && !((Tile)realEnd).isExplored()) {
             // Do not allow finding a path into unexplored territory,
@@ -1188,7 +1196,8 @@ public class Map extends FreeColGameObject implements Location {
         final Location realStart = findRealStart(unit, start, carrier);
         final Unit offMapUnit = (carrier != null) ? carrier : unit;
         
-        PathNode p, path;
+        PathNode p;
+        PathNode path;
         if (realStart instanceof Europe) {
             // Fail fast if Europe is unattainable.
             if (offMapUnit == null
@@ -1790,7 +1799,8 @@ ok:     while (!openMap.isEmpty()) {
         /** The current index in the circle with the current radius: */
         private int n;
         /** The current position in the circle. */
-        private int x, y;
+        private int x;
+        private int y;
 
 
         /**
@@ -1958,7 +1968,8 @@ ok:     while (!openMap.isEmpty()) {
     private class WholeMapIterator implements Iterator<Tile> {
        
         /** The current coordinate position in the iteration. */
-        private int x, y;
+        private int x;
+        private int y;
 
 
         /**
@@ -2038,7 +2049,9 @@ ok:     while (!openMap.isEmpty()) {
      */
     public void forEachTile(Predicate<Tile> predicate,
                             Consumer<Tile> consumer) {
-        final int hgt = getHeight(), wid = getWidth();
+        final int hgt = getHeight();
+        final int wid = getWidth();
+
         for (int y = 0; y < hgt; y++) {
             for (int x = 0; x < wid; x++) {
                 Tile t = getTile(x, y);
@@ -2246,8 +2259,15 @@ ok:     while (!openMap.isEmpty()) {
             t -> t.setType(ocean));
 
         final int width = getWidth(), height = getHeight();
-        Tile t, seaL = null, seaR = null;
-        int totalL = 0, totalR = 0, distanceL = -1, distanceR = -1;
+        Tile t;
+        Tile seaL = null;
+        Tile seaR = null;
+
+        int totalL = 0;
+        int totalR = 0;
+        int distanceL = -1;
+        int distanceR = -1;
+
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < maxDistanceToEdge && x < width
                      && isValid(x, y)
@@ -2363,12 +2383,15 @@ ok:     while (!openMap.isEmpty()) {
      * Reset layer to reflect what is actually there.
      */
     public void resetLayers() {
-        boolean regions = false,
-            rivers = false,
-            lostCityRumours = false,
-            resources = false,
-            nativeSettlements = false;
-        final int hgt = getHeight(), wid = getWidth();
+        boolean regions = false;
+        boolean rivers = false;
+        boolean lostCityRumours = false;
+        boolean resources = false;
+        boolean nativeSettlements = false;
+
+        final int hgt = getHeight();
+        final int wid = getWidth();
+
         for (int y = 0; y < hgt; y++) {
             for (int x = 0; x < wid; x++) {
                 Tile t = getTile(x, y);
@@ -2628,7 +2651,9 @@ ok:     while (!openMap.isEmpty()) {
     @Override
     public int checkIntegrity(boolean fix, LogBuilder lb) {
         int result = super.checkIntegrity(fix, lb);
-        final int hgt = getHeight(), wid = getWidth();
+        final int hgt = getHeight();
+        final int wid = getWidth();
+
         for (int y = 0; y < hgt; y++) {
             for (int x = 0; x < wid; x++) {
                 Tile t = getTile(x, y);
@@ -2700,7 +2725,9 @@ ok:     while (!openMap.isEmpty()) {
 
         for (Region region : sort(getRegions())) region.toXML(xw);
 
-        final int hgt = getHeight(), wid = getWidth();
+        final int hgt = getHeight();
+        final int wid = getWidth();
+
         for (int y = 0; y < hgt; y++) {
             for (int x = 0; x < wid; x++) {
                 getTile(x, y).toXML(xw);

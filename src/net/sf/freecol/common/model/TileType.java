@@ -376,8 +376,9 @@ public final class TileType extends FreeColSpecObjectType
      */
     public List<ProductionType> getAvailableProductionTypes(boolean unattended,
                                                             String level) {
-        List<ProductionType> good = new ArrayList<>(),
-            better = new ArrayList<>();
+        List<ProductionType> good = new ArrayList<>();
+        List<ProductionType> better = new ArrayList<>();
+
         for (ProductionType productionType : transform(productionTypes,
                 matchKey(unattended, ProductionType::getUnattended))) {
             if (productionType.appliesExactly(level)) {

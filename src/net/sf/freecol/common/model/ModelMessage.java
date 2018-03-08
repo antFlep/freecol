@@ -370,7 +370,8 @@ public class ModelMessage extends StringTemplate {
             for (Object o : result) {
                 if (o instanceof String) {
                     String str = (String)o;
-                    int index, start = 0;
+                    int index;
+                    int start = 0;
                     while ((index = str.indexOf(val, start)) >= 0) {
                         if (index > start) {
                             next.add(str.substring(start, index));

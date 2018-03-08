@@ -302,7 +302,10 @@ public class Messages {
      * @return The {@code Locale} for the specified language.
      */
     public static Locale getLocale(String languageID) {
-        String language, country = "", variant = "";
+        String language;
+        String country = "";
+        String variant = "";
+
         StringTokenizer st = new StringTokenizer(languageID, "_", true);
         language = st.nextToken();
         if (st.hasMoreTokens()) {

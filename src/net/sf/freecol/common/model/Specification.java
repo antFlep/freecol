@@ -604,7 +604,8 @@ public final class Specification implements OptionContainer {
         unitTypesTrainedInEurope.clear();
         unitTypesPurchasedInEurope.clear();
         defaultUnitTypes.clear();
-        int bestLandValue = -1, bestNavalValue = -1;
+        int bestLandValue = -1;
+        int bestNavalValue = -1;
         for (UnitType unitType : unitTypeList) {
             if (unitType.isDefaultUnitType()) defaultUnitTypes.add(unitType);
             if (unitType.needsGoodsToBuild()

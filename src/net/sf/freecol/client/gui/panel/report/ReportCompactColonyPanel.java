@@ -476,7 +476,8 @@ public final class ReportCompactColonyPanel extends ReportPanel
             : (s.bonus == 0) ? cPlain
             : (s.bonus == 1) ? cExport
             : cGood;
-        String annotations = "", key;
+        String annotations = "";
+        String key;
         t = StringTemplate.label(",");
         if ((building = s.colony.getStockade()) == null) {
             key = "annotation.unfortified";
@@ -874,8 +875,13 @@ public final class ReportCompactColonyPanel extends ReportPanel
         // Accumulate all the summaries
         Map<Region, Integer> rRegionMap = new HashMap<>();
         List<TileImprovementSuggestion> rTileSuggestions = new ArrayList<>();
-        int rFamine = 0, rBonus = 0, rSizeChange = 0,
-            teacherLen = 0, improveLen = 0;
+
+        int rFamine = 0;
+        int rBonus = 0;
+        int rSizeChange = 0;
+        int teacherLen = 0;
+        int improveLen = 0;
+
         double rNewColonist = 0.0;
         Map<GoodsType, ColonySummary.GoodsProduction> rProduction
             = new HashMap<>();

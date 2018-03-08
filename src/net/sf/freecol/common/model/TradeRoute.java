@@ -149,7 +149,9 @@ public class TradeRoute extends FreeColGameObject
      */
     public List<TradeRouteStop> getStopSublist(TradeRouteStop start,
                                                TradeRouteStop end) {
-        int i0 = getIndex(start), in = getIndex(end);
+        int i0 = getIndex(start);
+        int in = getIndex(end);
+
         if (i0 < 0 || in < 0) return null;
         List<TradeRouteStop> result = new ArrayList<>();
         synchronized (this.stops) {

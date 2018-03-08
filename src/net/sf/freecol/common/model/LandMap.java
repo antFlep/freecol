@@ -251,7 +251,9 @@ public class LandMap {
         final int edg = distanceToEdge * 2;
         final int wid = getWidth() - edg * 2;
         final int hgt = getHeight() - edg * 2;
-        int x, y;
+        int x;
+        int y;
+
         while (this.numberOfLandTiles < minNumberOfTiles) {
             int failCounter = 0;
             do {

@@ -256,7 +256,8 @@ public class Building extends WorkLocation
         // goods and the amount actually consumed and produced, and
         // the maximum possible ratio that would apply but for
         // circumstances such as limited input availability.
-        double maximumRatio = 0.0, minimumRatio = Double.MAX_VALUE;
+        double maximumRatio = 0.0;
+        double minimumRatio = Double.MAX_VALUE;
 
         // First, calculate the nominal production ratios.
         if (canAutoProduce()) {

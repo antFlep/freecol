@@ -113,7 +113,8 @@ public class Turn {
      * @return The integer value of the corresponding turn.
      */
     public static int yearToTurn(int year, int season) {
-        int ret = 1, startingYear = getStartingYear();
+        int ret = 1;
+        int startingYear = getStartingYear();
         if (year >= startingYear) {
             ret += year - startingYear;
             int seasonYear = getSeasonYear();
@@ -158,7 +159,9 @@ public class Turn {
      * @return The calculated year based on the turn number.
      */
     public static int getYear(int turn) {
-        int year = turn - 1 + getStartingYear(), seasonYear = getSeasonYear();
+        int year = turn - 1 + getStartingYear();
+        int seasonYear = getSeasonYear();
+
         return (year < seasonYear) ? year
             : seasonYear + (year - seasonYear) / getSeasonNumber();
     }

@@ -136,8 +136,10 @@ public final class Monarch extends FreeColGameObject implements Named {
     /** The land unit types suitable for support actions. */
     private List<UnitType> landTypes = null;
     /** The roles identifiers suitable for land units with support actions. */
-    private Role mountedRole = null, armedRole = null,
-        refMountedRole, refArmedRole;
+    private Role mountedRole = null;
+    private Role armedRole = null;
+    private Role refMountedRole;
+    private Role refArmedRole;
     /** The land unit types suitable for mercenary support. */
     private List<UnitType> mercenaryTypes = null;
     /** The naval unit types suitable for the REF. */
@@ -680,7 +682,12 @@ public final class Monarch extends FreeColGameObject implements Named {
             || (p > 0.0 && p > randomDouble(logger, "War support?", random))) {
             Force wsf = getWarSupportForce();
             result.addAll(wsf.getUnitList());
-            double supportStrength, fullRatio, strength, ratio;
+
+            double supportStrength;
+            double fullRatio;
+            double strength;
+            double ratio;
+
             supportStrength = wsf.calculateStrength(false);
             fullRatio = Player.strengthRatio(baseStrength + supportStrength,
                                              enemyStrength);
@@ -784,7 +791,8 @@ public final class Monarch extends FreeColGameObject implements Named {
             int price = player.getMercenaryHirePrice(au) / au.getNumber();
             prices.add(price);
         }
-        int i = 0, mercPrice = 0;
+        int i = 0;
+        int mercPrice = 0;
         while (i < mercs.size()) {
             int price = prices.get(i);
             if (price <= 0 || price == INFINITY) {

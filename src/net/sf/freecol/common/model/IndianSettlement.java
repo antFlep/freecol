@@ -448,7 +448,9 @@ public class IndianSettlement extends Settlement implements TradeLocation {
      *     optionally one for a tool tip.
      */
     public List<StringTemplate> getWantedGoodsLabel(int index, Player player) {
-        StringTemplate lab = null, tip = null;
+        StringTemplate lab = null;
+        StringTemplate tip = null;
+
         GoodsType gt;
         if (hasVisited(player)) {
             if ((gt = getWantedGoods(index)) != null) {
