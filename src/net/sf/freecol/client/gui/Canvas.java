@@ -720,7 +720,8 @@ public final class Canvas extends JDesktopPane {
                 p = null;
             }
         }
-        int x = 0, y = 0;
+        int x = 0;
+        int y = 0;
         if (p != null) {
             x = (int)p.getX();
             y = (int)p.getY();
@@ -824,21 +825,23 @@ public final class Canvas extends JDesktopPane {
             // Guarantee eventual completion
             if (--tries <= 0) break;
 
-            int n = todo.size(),
+            int n = todo.size();
                 // Some alternative new positions
                 //   0: move right/down to avoid the collision
                 //   1: move as far as possible right/down
                 //   2: wrap back to the far left
-                x0 = found.getX() + found.getWidth() + 1,
-                y0 = found.getY() + found.getHeight() + 1,
-                x1 = bounds.x + bounds.width - w - 1,
-                y1 = bounds.y + bounds.height - h - 1,
-                x2 = bounds.x,
-                y2 = bounds.y;
-            boolean x0ok = bounds.contains(x0 + w, y),
-                y0ok = bounds.contains(x, y0 + h),
-                x1ok = bounds.contains(x1, y),
-                y1ok = bounds.contains(x, y1);
+            int x0 = found.getX() + found.getWidth() + 1;
+            int y0 = found.getY() + found.getHeight() + 1;
+            int x1 = bounds.x + bounds.width - w - 1;
+            int y1 = bounds.y + bounds.height - h - 1;
+            int x2 = bounds.x;
+            int y2 = bounds.y;
+
+            boolean x0ok = bounds.contains(x0 + w, y);
+            boolean y0ok = bounds.contains(x, y0 + h);
+            boolean x1ok = bounds.contains(x1, y);
+            boolean y1ok = bounds.contains(x, y1);
+
             todo.add(n, new Point((x0ok) ? x0 : (x1ok) ? x1 : x2,
                                   (y0ok) ? y0 : (y1ok) ? y1 : y2));
             todo.add(n, new Point(x, (y0ok) ? y0 : (y1ok) ? y1 : y2));

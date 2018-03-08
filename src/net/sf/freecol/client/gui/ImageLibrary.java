@@ -89,32 +89,32 @@ public final class ImageLibrary {
      * Most other images are currently still shown in a size of image size
      * times scaling factor times requested size.
      */
-    public static final Dimension ICON_SIZE = new Dimension(32, 32),
-                                  BUILDING_SIZE = new Dimension(128, 96),
-                                  TILE_SIZE = new Dimension(128, 64),
-                                  TILE_OVERLAY_SIZE = new Dimension(128, 96),
-                                  TILE_FOREST_SIZE = new Dimension(128, 84);
+    public static final Dimension ICON_SIZE = new Dimension(32, 32);
+    public static final Dimension BUILDING_SIZE = new Dimension(128, 96);
+    public static final Dimension TILE_SIZE = new Dimension(128, 64);
+    public static final Dimension TILE_OVERLAY_SIZE = new Dimension(128, 96);
+    public static final Dimension TILE_FOREST_SIZE = new Dimension(128, 84);
 
     /**
      * Constants for the current "named" scales (tiny, smaller, small) plus
      * a trivial value unscaled.
      */
-    private static final float TINY_SCALE = 0.25f,
-                               SMALLER_SCALE = 0.5f,
-                               SMALL_SCALE = 0.75f,
-                               NORMAL_SCALE = 1f;
+    private static final float TINY_SCALE = 0.25f;
+    private static final float SMALLER_SCALE = 0.5f;
+    private static final float SMALL_SCALE = 0.75f;
+    private static final float NORMAL_SCALE = 1f;
 
     // TODO: should these be hidden?
-    public static final String DELETE = "image.miscicon.delete",
-                               PLOWED = "image.tile.model.improvement.plow",
-                               UNIT_SELECT = "image.tile.unitSelect",
-                               TILE_TAKEN = "image.tile.tileTaken",
-                               TILE_OWNED_BY_INDIANS = "image.tileitem.nativeLand",
-                               LOST_CITY_RUMOUR = "image.tileitem.lostCityRumour",
-                               DARKNESS = "image.halo.dark",
-                               ICON_LOCK = "image.icon.lock",
-                               ICON_COIN = "image.icon.coin",
-                               BELLS = "image.icon.model.goods.bells";
+    public static final String DELETE = "image.miscicon.delete";
+    public static final String PLOWED = "image.tile.model.improvement.plow";
+    public static final String UNIT_SELECT = "image.tile.unitSelect";
+    public static final String TILE_TAKEN = "image.tile.tileTaken";
+    public static final String TILE_OWNED_BY_INDIANS = "image.tileitem.nativeLand";
+    public static final String LOST_CITY_RUMOUR = "image.tileitem.lostCityRumour";
+    public static final String DARKNESS = "image.halo.dark";
+    public static final String ICON_LOCK = "image.icon.lock";
+    public static final String ICON_COIN = "image.icon.coin";
+    public static final String BELLS = "image.icon.model.goods.bells";
 
     /** Helper to distinguish different types of paths. */
     public enum PathType {

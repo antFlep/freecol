@@ -164,7 +164,8 @@ final class UnitAttackAnimation extends FreeColClientHolder {
         }
 
         final FreeColClient fcc = getFreeColClient();
-        boolean att = true, def = true;
+        boolean att = true;
+        boolean def = true;
 
         if (fcc.getAnimationSpeed(this.attacker.getOwner()) > 0) {
             att = loadAnimation(this.attacker, dirn);

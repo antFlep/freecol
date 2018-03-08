@@ -2082,8 +2082,8 @@ public final class InGameController extends FreeColClientHolder {
                 int turns = 0;
                 for (TradeRouteStop trs : stops) {
                     turns += unit.getTurnsToReach(start, trs.getLocation());
-                    int amountIn = trs.getImportAmount(type, turns),
-                        amountOut = trs.getExportAmount(type, turns);
+                    int amountIn = trs.getImportAmount(type, turns);
+                    int amountOut = trs.getExportAmount(type, turns);
                     if (none(trs.getCompactCargo(), AbstractGoods.matches(type))
                         || amountIn > amountOut) {
                         importAmount = amountIn;
@@ -3048,7 +3048,8 @@ public final class InGameController extends FreeColClientHolder {
                                  DiplomaticTrade agreement) {
         final Player player = getMyPlayer();
         final Player otherPlayer = agreement.getOtherPlayer(player);
-        StringTemplate t, nation = otherPlayer.getNationLabel();
+        StringTemplate t;
+        StringTemplate nation = otherPlayer.getNationLabel();
 
         switch (agreement.getStatus()) {
         case ACCEPT_TRADE:

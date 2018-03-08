@@ -119,11 +119,14 @@ public final class TileViewer extends FreeColClientHolder {
     private RoadPainter rp;
 
     // Helper variables for displaying.
-    private int tileHeight, tileWidth, halfHeight, halfWidth;
+    private int tileHeight;
+    private int tileWidth;
+    private int halfHeight;
+    private int halfWidth;
 
     // The height offset to paint at (in pixels).
-    static final int STATE_OFFSET_X = 25,
-                     STATE_OFFSET_Y = 10;
+    static final int STATE_OFFSET_X = 25;
+    static final int STATE_OFFSET_Y = 10;
 
     private final GeneralPath fog = new GeneralPath();
 

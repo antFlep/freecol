@@ -45,7 +45,10 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
 public final class RoadPainter {
 
     /** Helper variables for displaying the map. */
-    private int tileHeight, tileWidth, halfHeight, halfWidth;
+    private int tileHeight;
+    private int tileWidth;
+    private int halfHeight;
+    private int halfWidth;
 
     private final EnumMap<Direction, Point2D.Float> corners
         = new EnumMap<>(Direction.class);

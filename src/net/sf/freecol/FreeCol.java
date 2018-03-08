@@ -144,17 +144,17 @@ public final class FreeCol {
 
     // Cli values.  Often set to null so the default can be applied in
     // the accessor function.
-    private static boolean checkIntegrity = false,
-                           consoleLogging = false,
-                           debugStart = false,
-                           fastStart = false,
-                           headless = false,
-                           introVideo = true,
-                           javaCheck = true,
-                           memoryCheck = true,
-                           publicServer = true,
-                           sound = true,
-                           standAloneServer = false;
+    private static boolean checkIntegrity = false;
+    private static boolean consoleLogging = false;
+    private static boolean debugStart = false;
+    private static boolean fastStart = false;
+    private static boolean headless = false;
+    private static boolean introVideo = true;
+    private static boolean javaCheck = true;
+    private static boolean memoryCheck = true;
+    private static boolean publicServer = true;
+    private static boolean sound = true;
+    private static boolean standAloneServer = false;
 
     /** The type of advantages. */
     private static Advantages advantages = null;
@@ -644,13 +644,6 @@ public final class FreeCol {
             CommandLine line = parser.parse(options, args);
             if (line.hasOption("help") || line.hasOption("usage")) {
                 printUsage(options, 0);
-            }
-
-            if (line.hasOption("default-locale")) {
-                ; // Do nothing, already handled in main().
-            }
-            if (line.hasOption("freecol-data")) {
-                ; // Do nothing, already handled in main().
             }
 
             if (line.hasOption("advantages")) {
@@ -1562,8 +1555,11 @@ public final class FreeCol {
     public static void integrityCheck(FreeColServer freeColServer) {
         if (checkIntegrity) {
             String k;
-            int ret, check = (freeColServer == null) ? -1
-                    : freeColServer.getIntegrity();
+            int ret;
+            int check;
+
+            check = (freeColServer == null) ? -1 : freeColServer.getIntegrity();
+
             switch (check) {
                 case 1:
                     k = "cli.check-savegame.success";

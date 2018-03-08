@@ -125,8 +125,17 @@ public final class MapViewer extends FreeColClientHolder {
     private boolean gotoStarted = false;
 
     // Helper variables for displaying the map.
-    private int tileHeight, tileWidth, halfHeight, halfWidth,
-        topSpace, topRows, /*bottomSpace,*/ bottomRows, leftSpace, rightSpace;
+    private int tileHeight;
+    private int tileWidth;
+    private int halfHeight;
+    private int halfWidth;
+
+    private int topSpace;
+    private int topRows;
+    private int bottomSpace;
+    private int bottomRows;
+    private int leftSpace;
+    private int rightSpace;
 
     // The y-coordinate of the Tiles that will be drawn at the bottom
     private int bottomRow = -1;
@@ -153,8 +162,10 @@ public final class MapViewer extends FreeColClientHolder {
     private int leftColumnX;
 
     // Whether the map is currently aligned with the edge.
-    private boolean alignedTop = false, alignedBottom = false,
-        alignedLeft = false, alignedRight = false;
+    private boolean alignedTop = false;
+    private boolean alignedBottom = false;
+    private boolean alignedLeft = false;
+    private boolean alignedRight = false;
 
     // How the map can be scaled
     private static final float MAP_SCALE_MIN = 0.25f;
@@ -162,11 +173,11 @@ public final class MapViewer extends FreeColClientHolder {
     private static final float MAP_SCALE_STEP = 0.25f;
 
     // The height offset to paint a Unit at (in pixels).
-    private static final int UNIT_OFFSET = 20,
-        OTHER_UNITS_OFFSET_X = -5, // Relative to the state indicator.
-        OTHER_UNITS_OFFSET_Y = 1,
-        OTHER_UNITS_WIDTH = 3,
-        MAX_OTHER_UNITS = 10;
+    private static final int UNIT_OFFSET = 20;
+    private static final int OTHER_UNITS_OFFSET_X = -5; // Relative to the state indicator.
+    private static final int OTHER_UNITS_OFFSET_Y = 1;
+    private static final int OTHER_UNITS_WIDTH = 3;
+    private static final int MAX_OTHER_UNITS = 10;
 
     private final java.util.Map<Unit, Integer> unitsOutForAnimation;
     private final java.util.Map<Unit, JLabel> unitsOutForAnimationLabels;
@@ -614,8 +625,11 @@ public final class MapViewer extends FreeColClientHolder {
         if (tile == null) return 0;
         int where;
         final Map map = getGame().getMap();
-        final int tx = tile.getX(), ty = tile.getY(),
-            width = rightColumn - leftColumn;
+
+        final int tx = tile.getX();
+        final int ty = tile.getY();
+        final int width = rightColumn - leftColumn;
+
         int moveX = -1;
         gui.setFocus(tile);
         positionMap(tile);
@@ -667,8 +681,12 @@ public final class MapViewer extends FreeColClientHolder {
      */
     private void positionMap(Tile pos) {
         final Game game = getGame();
-        int x = pos.getX(), y = pos.getY();
-        int leftColumns = getLeftColumns(), rightColumns = getRightColumns();
+
+        int x = pos.getX();
+        int y = pos.getY();
+
+        int leftColumns = getLeftColumns();
+        int rightColumns = getRightColumns();
 
         /*
           PART 1
@@ -767,10 +785,17 @@ public final class MapViewer extends FreeColClientHolder {
     boolean scrollMap(Direction direction) {
         Tile t = focus;
         if (t == null) return false;
-        int fx = t.getX(), fy = t.getY();
+
+        int fx = t.getX();
+        int fy = t.getY();
+
         if ((t = t.getNeighbourOrNull(direction)) == null) return false;
-        int tx = t.getX(), ty = t.getY();
-        int x, y;
+
+        int tx = t.getX();
+        int ty = t.getY();
+
+        int x;
+        int y;
 
         // When already close to an edge, resist moving the focus closer,
         // but if moving away immediately jump out of the `nearTo' area.
@@ -2025,7 +2050,9 @@ public final class MapViewer extends FreeColClientHolder {
                                     borderPoints.get(next2).x,
                                     borderPoints.get(next2).y);
                     } else {
-                        int dx = 0, dy = 0;
+                        int dx = 0;
+                        int dy = 0;
+
                         switch(d) {
                         case NW: dx = halfWidth; dy = -halfHeight; break;
                         case NE: dx = halfWidth; dy = halfHeight; break;
@@ -2042,7 +2069,10 @@ public final class MapViewer extends FreeColClientHolder {
                             // big corner
                             Direction previous = d.getPreviousDirection();
                             Direction previous2 = previous.getPreviousDirection();
-                            int ddx = 0, ddy = 0;
+
+                            int ddx = 0;
+                            int ddy = 0;
+
                             switch(d) {
                             case NW: ddy = -tileHeight; break;
                             case NE: ddx = tileWidth; break;

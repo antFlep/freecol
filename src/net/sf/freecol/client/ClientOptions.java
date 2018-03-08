@@ -240,10 +240,10 @@ public class ClientOptions extends OptionGroup {
     /** What text to display in the tiles. */
     public static final String DISPLAY_TILE_TEXT
         = "model.option.displayTileText";
-    public static final int DISPLAY_TILE_TEXT_EMPTY = 0,
-        DISPLAY_TILE_TEXT_NAMES = 1,
-        DISPLAY_TILE_TEXT_OWNERS = 2,
-        DISPLAY_TILE_TEXT_REGIONS = 3;
+    public static final int DISPLAY_TILE_TEXT_EMPTY = 0;
+    public static final int DISPLAY_TILE_TEXT_NAMES = 1;
+    public static final int DISPLAY_TILE_TEXT_OWNERS = 2;
+    public static final int DISPLAY_TILE_TEXT_REGIONS = 3;
 
     /** Style of colony labels. */
     public static final String COLONY_LABELS
@@ -255,11 +255,11 @@ public class ClientOptions extends OptionGroup {
     /** Used by GUI to sort colonies. */
     public static final String COLONY_COMPARATOR
         = "model.option.colonyComparator";
-    public static final int COLONY_COMPARATOR_NAME = 0,
-        COLONY_COMPARATOR_AGE = 1,
-        COLONY_COMPARATOR_POSITION = 2,
-        COLONY_COMPARATOR_SIZE = 3,
-        COLONY_COMPARATOR_SOL = 4;
+    public static final int COLONY_COMPARATOR_NAME = 0;
+    public static final int COLONY_COMPARATOR_AGE = 1;
+    public static final int COLONY_COMPARATOR_POSITION = 2;
+    public static final int COLONY_COMPARATOR_SIZE = 3;
+    public static final int COLONY_COMPARATOR_SOL = 4;
 
     /** Default zoom level of the minimap. */
     public static final String DEFAULT_MINIMAP_ZOOM
@@ -288,9 +288,9 @@ public class ClientOptions extends OptionGroup {
      */
     public static final String MESSAGES_GROUP_BY
         = "model.option.guiMessagesGroupBy";
-    public static final int MESSAGES_GROUP_BY_NOTHING = 0,
-        MESSAGES_GROUP_BY_TYPE = 1,
-        MESSAGES_GROUP_BY_SOURCE = 2;
+    public static final int MESSAGES_GROUP_BY_NOTHING = 0;
+    public static final int MESSAGES_GROUP_BY_TYPE = 1;
+    public static final int MESSAGES_GROUP_BY_SOURCE = 2;
 
     /** Show goods movement messages. */
     public static final String SHOW_GOODS_MOVEMENT
@@ -331,9 +331,9 @@ public class ClientOptions extends OptionGroup {
     /** Use default values for savegames instead of displaying a dialog. */
     public static final String SHOW_SAVEGAME_SETTINGS
         = "model.option.showSavegameSettings";
-    public static final int SHOW_SAVEGAME_SETTINGS_NEVER = 0,
-        SHOW_SAVEGAME_SETTINGS_MULTIPLAYER = 1,
-        SHOW_SAVEGAME_SETTINGS_ALWAYS = 2;
+    public static final int SHOW_SAVEGAME_SETTINGS_NEVER = 0;
+    public static final int SHOW_SAVEGAME_SETTINGS_MULTIPLAYER = 1;
+    public static final int SHOW_SAVEGAME_SETTINGS_ALWAYS = 2;
 
     /**
      * Option for setting the period of autosaves. The value 0 signals that

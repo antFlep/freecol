@@ -183,7 +183,11 @@ public final class CanvasMapEditorMouseListener extends AbstractCanvasListener
         }
 
         // find the area to transform
-        int min_x, max_x, min_y, max_y;
+        int min_x;
+        int max_x;
+        int min_y;
+        int max_y;
+
         if (start.getX() < end.getX()) {
             min_x = start.getX();
             max_x = end.getX();
