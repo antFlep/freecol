@@ -145,7 +145,8 @@ public class ImageResource extends Resource
         if (wNew == w && hNew == h) return im; // Matching dimension
 
         if (this.loadedImages != null) {
-            final int fwNew = wNew, fhNew = hNew;
+            final int fwNew = wNew;
+            final int fhNew = hNew;
             final Predicate<BufferedImage> sizePred = img ->
                 img.getWidth() >= fwNew && img.getHeight() >= fhNew;
             BufferedImage oim = find(this.loadedImages, sizePred);

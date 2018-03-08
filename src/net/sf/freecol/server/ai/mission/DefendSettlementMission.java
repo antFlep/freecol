@@ -353,7 +353,8 @@ public class DefendSettlementMission extends Mission {
 
         // Check if the settlement is badly defended.  If so, try to fortify.
         Settlement settlement = (Settlement)getTarget();
-        int defenderCount = 0, fortifyCount = 0;
+        int defenderCount = 0;
+        int fortifyCount = 0;
         for (Unit u : settlement.getAllUnitsList()) {
             AIUnit aiu = getAIMain().getAIUnit(u);
             if (invalidMissionReason(aiu) == null) {

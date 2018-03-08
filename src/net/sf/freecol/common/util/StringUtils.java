@@ -104,7 +104,8 @@ public class StringUtils {
         final String base = downCase(value.toString());
         final int len = base.length();
         StringBuilder sb = new StringBuilder(len);
-        int idx, from = 0;
+        int idx;
+        int from = 0;
         for (;;) {
             if ((idx = base.indexOf('_', from)) < 0) {
                 sb.append(base.substring(from));
@@ -168,7 +169,8 @@ public class StringUtils {
                                          FontMetrics fontMetrics, int width) {
         List<String> result = new ArrayList<>();
         final int len = text.length();
-        int i = 0, start;
+        int i = 0;
+        int start;
         String top = "";
         Character d = null;
         for (;;) {

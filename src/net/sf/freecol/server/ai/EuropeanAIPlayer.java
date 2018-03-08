@@ -1234,7 +1234,8 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
         final Unit carrier = aiUnit.getUnit();
         WorkerWish carried = null;
         WorkerWish other = null;
-        double bestCarriedValue = -1.0, bestOtherValue = -1.0;
+        double bestCarriedValue = -1.0;
+        double bestOtherValue = -1.0;
         for (WorkerWish w : wishes) {
             int turns = carrier.getTurnsToReach(w.getDestination());
             if (turns < Unit.MANY_TURNS) {
@@ -1408,7 +1409,11 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
         Player player = getPlayer();
         if (!player.canBuildColonies()) return 0;
 
-        int nColonies = 0, nPorts = 0, nWorkers = 0, nEuropean = 0;
+        int nColonies = 0;
+        int nPorts = 0;
+        int nWorkers = 0;
+        int nEuropean = 0;
+
         for (Settlement settlement : player.getSettlementList()) {
             nColonies++;
             if (settlement.isConnectedPort()) nPorts++;
@@ -1966,7 +1971,9 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
      */
     public Mission getSimpleMission(AIUnit aiUnit) {
         final Unit unit = aiUnit.getUnit();
-        Mission m, ret;
+        Mission m;
+        Mission ret;
+
         final Mission old = ((m = aiUnit.getMission()) != null && m.isValid())
             ? m : null;
 
@@ -2467,7 +2474,8 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
             // Synthetic event
             result = TradeStatus.PROPOSE_TRADE;
         } else {
-            int unacceptable = 0, value = 0;
+            int unacceptable = 0;
+            int value = 0;
             for (TradeItem item : agreement.getItems()) {
                 if (item instanceof StanceTradeItem) {
                     getNationSummary(other); // Freshen the name summary cache

@@ -141,7 +141,8 @@ public class OggVorbisDecoderFactory {
          * @throws IOException if JOrbis loses.
          */
         public int read(byte[] buf, int n) throws IOException {
-            int wr = 0, wrOffset = 0;
+            int wr = 0;
+            int wrOffset = 0;
             while (n > 0) {
                 if (bufCount <= 0) {
                     int ret = getBody(inputStream);

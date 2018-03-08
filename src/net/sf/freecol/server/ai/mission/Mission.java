@@ -74,8 +74,8 @@ public abstract class Mission extends AIObject {
     /** Transport is required. */
     protected static final int NORMAL_TRANSPORT_PRIORITY = 100;
 
-    protected static final int NO_PATH_TO_TARGET = -2,
-                               NO_MORE_MOVES_LEFT = -1;
+    protected static final int NO_PATH_TO_TARGET = -2;
+    protected static final int NO_MORE_MOVES_LEFT = -1;
 
     // Common mission invalidity reasons.
     protected static final String AIUNITNULL = "aiUnit-null";
@@ -746,7 +746,8 @@ public abstract class Mission extends AIObject {
                 TransportMission tm;
                 boolean waiting = false;
                 PathNode ownPath;
-                int pathTurns, ownTurns;
+                int pathTurns;
+                int ownTurns;
 
                 if ((tm = aiCarrier.getMission(TransportMission.class)) == null) {
                     // Carrier has no transport mission?!?  Bogus.

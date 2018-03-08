@@ -333,7 +333,8 @@ public class ColonyPlan {
             } else if (g.isRefined()
                 && (rawBuildingGoodsTypes.contains(g.getInputType())
                     || buildingGoodsTypes.contains(g.getInputType()))) {
-                int n = 0, idx = produce.indexOf(g);
+                int n = 0;
+                int idx = produce.indexOf(g);
                 for (GoodsType type = g.getInputType(); type != null;
                      type = type.getInputType()) {
                     if ((wls = suppressed.get(type)) == null) break;
@@ -702,7 +703,8 @@ public class ColonyPlan {
                 double factor = 0.0;
                 if (!colony.hasAbility(Ability.PRODUCE_IN_WATER)
                     && colony.getTile().isShore()) {
-                    int landFood = 0, seaFood = 0;
+                    int landFood = 0;
+                    int seaFood = 0;
                     for (Tile t : transform(colony.getTile().getSurroundingTiles(1,1),
                             t2 -> (t2.getOwningSettlement() == colony
                                 || player.canClaimForSettlement(t2)))) {

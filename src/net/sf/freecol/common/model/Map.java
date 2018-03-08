@@ -2140,7 +2140,8 @@ ok:     while (!openMap.isEmpty()) {
      */
     public static boolean[][] floodFill(boolean[][] boolmap, int x, int y,
         int limit) {
-        final int xmax = boolmap.length, ymax = boolmap[0].length;
+        final int xmax = boolmap.length;
+        final int ymax = boolmap[0].length;
         boolean[][] visited = new boolean[xmax][ymax];
         Queue<Position> q = new LinkedList<>();
 
@@ -2166,7 +2167,8 @@ ok:     while (!openMap.isEmpty()) {
     public void resetContiguity() {
         // Create the water map.  It is an error for any tile not to
         // have a region at this point.
-        final int xmax = getWidth(), ymax = getHeight();
+        final int xmax = getWidth();
+        final int ymax = getHeight();
         boolean[][] waterMap = new boolean[xmax][ymax];
         for (int y = 0; y < ymax; y++) {
             for (int x = 0; x < xmax; x++) {
@@ -2258,7 +2260,8 @@ ok:     while (!openMap.isEmpty()) {
         forEachTile(matchKeyEquals(highSeas, Tile::getType),
             t -> t.setType(ocean));
 
-        final int width = getWidth(), height = getHeight();
+        final int width = getWidth();
+        final int height = getHeight();
         Tile t;
         Tile seaL = null;
         Tile seaR = null;

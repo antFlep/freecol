@@ -290,7 +290,9 @@ public class NativeAIPlayer extends MissionAIPlayer {
                 ; // Not regarded as a threat
             } else {
                 // Evaluate the threat
-                double threshold, bonus, value = 0.0;
+                double threshold;
+                double bonus;
+                double value = 0.0;
                 if (tension.getLevel().compareTo(Tension.Level.DISPLEASED) <= 0) {
                     threshold = 1.0;
                     bonus = 0.0f;
@@ -862,7 +864,8 @@ public class NativeAIPlayer extends MissionAIPlayer {
         final Player other = unit.getOwner();
         final Turn turn = getGame().getTurn();
         NativeTradeItem ours;
-        int anger, haggle;
+        int anger;
+        int haggle;
         Tension tension = is.getAlarm(other);
         if (tension == null) return NativeTradeAction.NAK_INVALID;
 

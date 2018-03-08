@@ -288,9 +288,11 @@ public class AIGoods extends TransportableAIObject {
 
         final GoodsType type = goods.getType();
         boolean failed = false;
-        int oldAmount = carrier.getGoodsCount(type),
-            goodsAmount = goods.getAmount(),
-            amount = Math.min(goodsAmount, carrier.getLoadableAmount(type));
+
+        int oldAmount = carrier.getGoodsCount(type);
+        int goodsAmount = goods.getAmount();
+        int amount = Math.min(goodsAmount, carrier.getLoadableAmount(type));
+
         if (AIMessage.askLoadGoods(goods.getLocation(), type, amount,
                                    aiCarrier)) {
             setGoods(new Goods(getGame(), carrier, type, amount));
