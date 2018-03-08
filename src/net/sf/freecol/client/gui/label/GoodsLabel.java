@@ -19,7 +19,6 @@
 
 package net.sf.freecol.client.gui.label;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 

@@ -33,7 +33,6 @@ import net.miginfocom.swing.MigLayout;
 
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.ImageLibrary;
-import net.sf.freecol.client.gui.label.GoodsLabel;
 import net.sf.freecol.client.gui.label.MarketLabel;
 import net.sf.freecol.client.gui.panel.*;
 import net.sf.freecol.common.i18n.Messages;

@@ -45,16 +45,13 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 import net.sf.freecol.common.model.Ability;
-import net.sf.freecol.common.model.AbstractUnit;
 import net.sf.freecol.common.model.BuildableType;
 import net.sf.freecol.common.model.Building;
 import net.sf.freecol.common.model.BuildingType;
 import net.sf.freecol.common.model.Colony;
 import net.sf.freecol.common.model.Direction;
 import net.sf.freecol.common.model.FoundingFather;
-import net.sf.freecol.common.model.FreeColSpecObjectType;
 import net.sf.freecol.common.model.FreeColObject;
-import net.sf.freecol.common.model.Goods;
 import net.sf.freecol.common.model.GoodsType;
 import net.sf.freecol.common.model.IndianSettlement;
 import net.sf.freecol.common.model.Location;

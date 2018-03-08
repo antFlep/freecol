@@ -46,7 +46,6 @@ import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.debug.DebugUtils;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
-import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.model.Ability;
 import net.sf.freecol.common.model.Building;
 import net.sf.freecol.common.model.Colony;

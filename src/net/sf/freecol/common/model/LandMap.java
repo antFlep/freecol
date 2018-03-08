@@ -29,7 +29,7 @@ import net.sf.freecol.common.model.Direction;
 import net.sf.freecol.common.model.Map.Position;
 import net.sf.freecol.common.option.MapGeneratorOptions;
 import net.sf.freecol.common.option.OptionGroup;
-import net.sf.freecol.common.option.SelectOption;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.RandomUtils.*;
 

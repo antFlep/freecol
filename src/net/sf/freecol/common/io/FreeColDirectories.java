@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermission;
 
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.filechooser.FileSystemView;
 
@@ -41,7 +39,7 @@ import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.model.StringTemplate;
-import net.sf.freecol.common.util.OSUtils;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.OSUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;

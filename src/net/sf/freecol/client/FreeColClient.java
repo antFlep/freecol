@@ -62,7 +62,6 @@ import net.sf.freecol.common.networking.MessageHandler;
 import net.sf.freecol.common.networking.ServerAPI;
 import net.sf.freecol.common.resources.ResourceManager;
 import net.sf.freecol.common.resources.ResourceMapping;
-import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.FreeColServer.ServerState;
 

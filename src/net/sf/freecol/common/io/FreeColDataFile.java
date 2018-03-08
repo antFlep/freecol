@@ -45,7 +45,6 @@ import net.sf.freecol.common.resources.ResourceMapper;
 import net.sf.freecol.common.resources.ResourceMapping;
 import net.sf.freecol.common.util.LogBuilder;
 
-import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 
 

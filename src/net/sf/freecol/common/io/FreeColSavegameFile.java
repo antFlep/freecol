@@ -24,11 +24,9 @@ import java.io.IOException;
 import java.io.BufferedInputStream;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamException;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.gui.dialog.*;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;

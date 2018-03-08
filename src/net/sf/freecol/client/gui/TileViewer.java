@@ -50,7 +50,6 @@ import net.sf.freecol.common.model.Resource;
 import net.sf.freecol.common.model.Settlement;
 import net.sf.freecol.common.model.Tile;
 import net.sf.freecol.common.model.TileImprovement;
-import net.sf.freecol.common.model.TileImprovementStyle;
 import net.sf.freecol.common.model.TileItem;
 import net.sf.freecol.common.model.TileType;
 import net.sf.freecol.common.model.Unit;

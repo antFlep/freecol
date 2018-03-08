@@ -37,7 +37,6 @@ import javax.xml.stream.XMLStreamException;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.model.Colony;
 import net.sf.freecol.common.model.CombatModel;
-import net.sf.freecol.common.model.Constants;
 import net.sf.freecol.common.model.FeatureContainer;
 import net.sf.freecol.common.model.Goods;
 import net.sf.freecol.common.model.GoodsType;

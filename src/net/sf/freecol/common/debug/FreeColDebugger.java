@@ -19,7 +19,6 @@
 
 package net.sf.freecol.common.debug;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;

@@ -30,11 +30,9 @@ import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamException;
 
-import net.sf.freecol.client.gui.Canvas;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;

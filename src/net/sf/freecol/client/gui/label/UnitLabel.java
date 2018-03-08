@@ -56,7 +56,6 @@ import net.sf.freecol.common.model.GoodsType;
 import net.sf.freecol.common.model.Player;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.Unit;
-import net.sf.freecol.common.model.WorkLocation;
 import static net.sf.freecol.common.model.Unit.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 

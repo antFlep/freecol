@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import javax.swing.InputVerifier;
@@ -36,7 +35,6 @@ import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.panel.*;
 import net.sf.freecol.common.model.GoodsType;
 import net.sf.freecol.common.model.Player;
-import static net.sf.freecol.common.util.CollectionUtils.*;
 
 
 /**

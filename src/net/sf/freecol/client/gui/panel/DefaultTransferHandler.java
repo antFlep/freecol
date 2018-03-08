@@ -49,7 +49,6 @@ import javax.swing.TransferHandler;
 
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.ImageLibrary;
-import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.client.gui.label.AbstractGoodsLabel;
 import net.sf.freecol.client.gui.label.Draggable;
 import net.sf.freecol.client.gui.label.GoodsLabel;

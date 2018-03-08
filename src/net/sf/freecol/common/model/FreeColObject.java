@@ -38,7 +38,6 @@ import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamException;
 
-import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.ObjectWithId;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
