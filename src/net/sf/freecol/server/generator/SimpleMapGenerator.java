@@ -401,6 +401,8 @@ public class SimpleMapGenerator implements MapGenerator {
 
         // Check number of settlements.
         int settlementsToPlace = settlementTiles.size();
+        if (shares == 0)
+            shares = 0.001f;
         float share = settlementsToPlace / shares;
         if (settlementTiles.size() < indians.size()) {
             // FIXME: something drastic to boost the settlement number
@@ -575,8 +577,7 @@ public class SimpleMapGenerator implements MapGenerator {
      */
     private boolean suitableForNativeSettlement(Tile tile) {
         if (!tile.getType().canSettle()) return false;
-        int good = 0;
-        int n = 0;
+        int good = 0, n = 0;
         for (Tile t : tile.getSurroundingTiles(1)) {
             if (t.getType().canSettle()) good++;
             n++;

@@ -3,12 +3,17 @@
 <!-- This file includes targets for building FreeCol,
      the metaserver, distribution packages, running tests
      and creating documentation. -->
-<project name="FreeCol" default="package">
+<project name="FreeCol"  default="package" xmlns:jacoco="antlib:org.jacoco.ant">
     <description>
         This file includes targets for building FreeCol,
         the metaserver, distribution packages, running tests
         and creating documentation.
     </description>
+
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+        <classpath path="${basedir}/jars/jacocoant.jar"/>
+    </taskdef>
+
     <property name="java.target.version" value="1.8"/>
     <property name="freecol.name" value="freecol"/>
     <property environment="env"/>
@@ -719,18 +724,51 @@
     <!-- Run full unit test suite and fail on errors, use brief format for CI -->
     <target name="testci" depends="build-unit-tests" unless="skip.dist.test"
             description="Runs all unit tests for CI">
+
+        <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+            <classpath>
+                <path refid="junit.classpath"/>
+            </classpath>
+        </taskdef>
+
+        <!-- Import the JaCoCo Ant Task -->
+        <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+            <classpath path="${basedir}/jars/jacocoant.jar"/>
+        </taskdef>
+
         <delete dir="${freecol.build.dir}/report" />
         <mkdir dir="${freecol.build.dir}/report"/>
 
-        <junit printsummary="on" errorProperty="error.junit"
-               failureProperty="error.junit" fork="yes" maxmemory="128M">
-            <classpath refid="test.run.classpath"/>
-            <formatter type="brief" usefile="false" />
-            <formatter type="plain" />
-            <sysproperty key="java.awt.headless" value="true" />
-            <test todir="${freecol.build.dir}/report"
-                  name="net.sf.freecol.AllTests" fork="yes"/>
-        </junit>
+        <jacoco:coverage destfile="${basedir}/jacoco.exec">
+            <junit printsummary="on" errorProperty="error.junit"
+                   failureProperty="error.junit" fork="yes" maxmemory="128M">
+                <classpath refid="test.run.classpath"/>
+                <formatter type="brief" usefile="false" />
+                <formatter type="plain" />
+                <sysproperty key="java.awt.headless" value="true" />
+                <test todir="${freecol.build.dir}/report"
+                      name="net.sf.freecol.AllTests" fork="yes"/>
+            </junit>
+        </jacoco:coverage>
+
+        <jacoco:report>
+
+            <executiondata>
+                <file file="jacoco.exec"/>
+            </executiondata>
+
+            <structure name="Example">
+                <classfiles>
+                    <fileset dir="${freecol.build.dir}/net/sf/freecol"/>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${freecol.src.dir}"/>
+                </sourcefiles>
+            </structure>
+
+            <html destdir="${freecol.build.dir}/report"/>
+
+        </jacoco:report>
 
         <echo message="For more detailed information about this test run see:"/>
         <echo message="${freecol.build.dir}/report/TEST-net.sf.freecol.AllTests.txt"/>

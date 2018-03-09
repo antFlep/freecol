@@ -1420,7 +1420,7 @@ public class IndianSettlement extends Settlement implements TradeLocation {
         // When a native settlement has more tiles than units, pretend
         // that they produce from their entire area at reduced
         // efficiency.
-        if (tiles > getUnitCount()) {
+        if (tiles > getUnitCount() && tiles != 0) {
             potential *= (float) getUnitCount() / tiles;
         }
 
