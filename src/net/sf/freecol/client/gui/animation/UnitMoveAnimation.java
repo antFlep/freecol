@@ -102,7 +102,7 @@ final class UnitMoveAnimation extends FreeColClientHolder
     public void executeWithUnitOutForAnimation(JLabel unitLabel) {
         final SwingGUI gui = (SwingGUI)getGUI();
         final float scale = gui.getMapScale();
-        final int movementRatio = (int)(Math.pow(2, this.speed + 1) * scale);
+        final int movementRatio = (int)(Math.pow(2, this.speed + 1.0) * scale);
         final Rectangle r1 = gui.getTileBounds(this.sourceTile);
         final Rectangle r2 = gui.getTileBounds(this.destinationTile);
         final Rectangle bounds = r1.union(r2);

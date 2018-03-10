@@ -1177,7 +1177,7 @@ public class Player extends FreeColGameObject implements Nameable {
         // sum of the *unreduced* immigration target and the increment.
         int unreduced = Math.round(current
             / applyModifiers(1f, turn, Modifier.RELIGIOUS_UNREST_BONUS));
-        immigrationRequired = (int)applyModifiers(unreduced + base, turn,
+        immigrationRequired = (int)applyModifiers(unreduced + (float) base, turn,
             Modifier.RELIGIOUS_UNREST_BONUS);;
         logger.finest("Immigration for " + getId() + " updated " + current
             + " -> " + immigrationRequired);

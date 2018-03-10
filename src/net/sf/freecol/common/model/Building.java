@@ -314,7 +314,7 @@ public class Building extends WorkLocation
                 && hasAbility(Ability.EXPERTS_USE_CONNECTIONS)
                 && spec.getBoolean(GameOptions.EXPERTS_HAVE_CONNECTIONS)
                 && ((minimumGoodsInput = getType().getExpertConnectionProduction()
-                        * count(getUnits(),
+                        * (long) count(getUnits(),
                             matchKey(getExpertUnitType(), Unit::getType)))
                     > available)) {
                 available = minimumGoodsInput;

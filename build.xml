@@ -739,7 +739,7 @@
         <delete dir="${freecol.build.dir}/report" />
         <mkdir dir="${freecol.build.dir}/report"/>
 
-        <jacoco:coverage destfile="${basedir}/jacoco.exec">
+        <jacoco:coverage destfile="${freecol.build.dir}/report/jacoco.exec">
             <junit printsummary="on" errorProperty="error.junit"
                    failureProperty="error.junit" fork="yes" maxmemory="128M">
                 <classpath refid="test.run.classpath"/>
@@ -751,10 +751,10 @@
             </junit>
         </jacoco:coverage>
 
+        <!--
         <jacoco:report>
-
             <executiondata>
-                <file file="jacoco.exec"/>
+                <file file="${freecol.build.dir}/report/jacoco.exec"/>
             </executiondata>
 
             <structure name="Example">
@@ -767,8 +767,8 @@
             </structure>
 
             <html destdir="${freecol.build.dir}/report"/>
-
         </jacoco:report>
+        -->
 
         <echo message="For more detailed information about this test run see:"/>
         <echo message="${freecol.build.dir}/report/TEST-net.sf.freecol.AllTests.txt"/>

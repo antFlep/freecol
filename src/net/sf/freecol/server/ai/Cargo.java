@@ -79,10 +79,10 @@ public class Cargo {
     public static class CargoPlan {
 
         /** The key locations along the path taken by cargo and carrier. */
-        public Location twait;
-        public Location cwait;
-        public Location cdst;
-        public Location tdst;
+        private Location twait;
+        private Location cwait;
+        private Location cdst;
+        private Location tdst;
 
         /** Expected total duration of this plan when it is initialized. */
         public int turns;

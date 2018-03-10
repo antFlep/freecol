@@ -1819,7 +1819,7 @@ public final class MapViewer extends FreeColClientHolder {
             int padding, Color backgroundColor, boolean expertMissionary) {
         // create path
         double offset = extent * 0.5;
-        double size1 = extent - padding - padding;
+        double size1 = (double) extent - padding - padding;
         double bar = size1 / 3.0;
         double inset = 0.0;
         double kludge = 0.0;
