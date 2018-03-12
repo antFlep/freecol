@@ -1,3 +1,22 @@
+/**
+ *  Copyright (C) 2002-2017   The FreeCol Team
+ *
+ *  This file is part of FreeCol.
+ *
+ *  FreeCol is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  FreeCol is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with FreeCol.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package net.sf.freecol.start;
 
 import java.awt.Dimension;
@@ -23,7 +42,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.common.FreeColException;
@@ -61,9 +79,9 @@ import org.apache.commons.cli.DefaultParser;
  * @see net.sf.freecol.client.FreeColClient FreeColClient
  * @see net.sf.freecol.server.FreeColServer FreeColServer
  */
-public final class Config {
+public final class ConfigPara {
 
-    static final Logger logger = Logger.getLogger(FreeCol.class.getName());
+    private static final Logger logger = Logger.getLogger(ConfigPara.class.getName());
 
     /** The FreeCol release version number. */
     private static final String FREECOL_VERSION = "0.11.6";
@@ -83,11 +101,10 @@ public final class Config {
     public static final String  FREECOL_MAP_EXTENSION = "fsm";
 
     /** The Java version. */
-    private static final String JAVA_VERSION
-            = System.getProperty("java.version");
+    static final String JAVA_VERSION = System.getProperty("java.version");
 
     /** The maximum available memory. */
-    private static final long MEMORY_MAX = Runtime.getRuntime().maxMemory();
+    static final long MEMORY_MAX = Runtime.getRuntime().maxMemory();
 
     public static final String  CLIENT_THREAD = "FreeColClient:";
     public static final String  SERVER_THREAD = "FreeColServer:";
@@ -103,7 +120,7 @@ public final class Config {
     private static final Advantages ADVANTAGES_DEFAULT = Advantages.SELECTABLE;
     private static final String DIFFICULTY_DEFAULT = "model.difficulty.medium";
     private static final int    EUROPEANS_DEFAULT = 4;
-    private static final int    EUROPEANS_MIN = 1;
+    static final int    EUROPEANS_MIN = 1;
     public static final float   GUI_SCALE_DEFAULT = 1.0f;
     private static final int    GUI_SCALE_MIN_PCT = 100;
     private static final int    GUI_SCALE_MAX_PCT = 200;
@@ -112,12 +129,12 @@ public final class Config {
     private static final int    GUI_SCALE_STEP_PCT = 25;
     public static final float   GUI_SCALE_STEP = GUI_SCALE_STEP_PCT / 100.0f;
     private static final Level  LOGLEVEL_DEFAULT = Level.INFO;
-    private static final String JAVA_VERSION_MIN = "1.8";
-    private static final int    MEMORY_MIN = 128; // Mbytes
+    static final String JAVA_VERSION_MIN = "1.8";
+    static final int    MEMORY_MIN = 128; // Mbytes
     private static final String META_SERVER_ADDRESS = "meta.freecol.org";
     private static final int    META_SERVER_PORT = 3540;
     private static final int    PORT_DEFAULT = 3541;
-    private static final String SPLASH_DEFAULT = "splash.jpg";
+    static final String SPLASH_DEFAULT = "splash.jpg";
     private static final String TC_DEFAULT = "freecol";
     public static final long    TIMEOUT_DEFAULT = 60L; // 1 minute
     public static final long    TIMEOUT_MIN = 10L; // 10s
@@ -127,16 +144,16 @@ public final class Config {
     // Cli values.  Often set to null so the default can be applied in
     // the accessor function.
     static boolean checkIntegrity = false;
-    private static boolean consoleLogging = false;
+    static boolean consoleLogging = false;
     static boolean debugStart = false;
     static boolean fastStart = false;
     static boolean headless = false;
     static boolean introVideo = true;
-    private static boolean javaCheck = true;
-    private static boolean memoryCheck = true;
+    static boolean javaCheck = true;
+    static boolean memoryCheck = true;
     static boolean publicServer = true;
     static boolean sound = true;
-    private static boolean standAloneServer = false;
+    static boolean standAloneServer = false;
 
     /** The type of advantages. */
     private static Advantages advantages = null;
@@ -151,7 +168,7 @@ public final class Config {
     static String fontName = null;
 
     /** The levels of logging in this game. */
-    private static class LogLevel {
+    static class LogLevel {
 
         public final String name;
         public final Level level;
@@ -171,7 +188,7 @@ public final class Config {
             this.logger.setLevel(this.level);
         }
     }
-    private static final List<LogLevel> logLevels = new ArrayList<>();
+    static final List<LogLevel> logLevels = new ArrayList<>();
     static {
         logLevels.add(new LogLevel("", LOGLEVEL_DEFAULT));
     }
@@ -208,291 +225,6 @@ public final class Config {
     /** The special client options that must be processed early. */
     private static Map<String,String> specialOptions = null;
 
-
-    private Config() {} // Hide constructor
-
-    private static void systemCheck() {
-        if (javaCheck && JAVA_VERSION_MIN.compareTo(JAVA_VERSION) > 0) {
-            fatal(StringTemplate.template("main.javaVersion")
-                    .addName("%version%", JAVA_VERSION)
-                    .addName("%minVersion%", JAVA_VERSION_MIN));
-        }
-        if (memoryCheck && MEMORY_MAX < MEMORY_MIN * 1000000) {
-            fatal(StringTemplate.template("main.memory")
-                    .addAmount("%memory%", MEMORY_MAX)
-                    .addAmount("%minMemory%", MEMORY_MIN));
-        }
-    }
-
-    private static void loggingConfig (String localeArg) {
-        final Logger baseLogger = Logger.getLogger("");
-        for (Handler handler : baseLogger.getHandlers()) {
-            baseLogger.removeHandler(handler);
-        }
-        try {
-            Writer writer = FreeColDirectories.getLogWriter();
-            baseLogger.addHandler(new DefaultHandler(consoleLogging, writer));
-            for (LogLevel ll : logLevels) ll.buildLogger();
-        } catch (FreeColException e) {
-            System.err.println("Logging initialization failure: "
-                    + e.getMessage());
-            e.printStackTrace();
-        }
-        Thread.setDefaultUncaughtExceptionHandler((Thread thread, Throwable e) -> {
-            baseLogger.log(Level.WARNING, "Uncaught exception from thread: " + thread, e);
-        });
-
-        // Now we can find the client options, allow the options
-        // setting to override the locale, but only if no command line
-        // option had been specified.  This works for our users who,
-        // say, have machines that default to Finnish but play FreeCol in
-        // English.
-        //
-        // If the user has selected automatic language selection, do
-        // nothing, since we have already set up the default locale.
-        try {
-            specialOptions = ClientOptions.getSpecialOptions();
-        } catch (FreeColException fce) {
-            specialOptions = new HashMap<>();
-            logger.log(Level.WARNING, "Special options unavailable", fce);
-        }
-        String cLang;
-        if (localeArg == null
-                && (cLang = specialOptions.get(ClientOptions.LANGUAGE)) != null
-                && !Messages.AUTOMATIC.equalsIgnoreCase(cLang)
-                && setLocale(cLang)) {
-            Messages.loadMessageBundle(getLocale());
-            logger.info("Loaded messages for " + getLocale());
-        }
-
-        // Now we have the user mods directory and the locale is now
-        // stable, load the TCs, the mods and their messages.
-        FreeColTcFile.loadTCs();
-        FreeColModFile.loadMods();
-        Messages.loadModMessageBundle(getLocale());
-
-        // Handle other special options
-        processSpecialOptions();
-    }
-
-    /**
-     * Handle the special options that need to be processed early.
-     */
-    private static void processSpecialOptions() {
-        LogBuilder lb = new LogBuilder(64);
-        // Work around a Java 2D bug that seems to be X11 specific.
-        // According to:
-        //   http://www.oracle.com/technetwork/java/javase/index-142560.html
-        //
-        //   ``The use of pixmaps typically results in better
-        //     performance. However, in certain cases, the opposite is true.''
-        //
-        // The standard workaround is to use -Dsun.java2d.pmoffscreen=false,
-        // but this is too hard for some users, so provide an option to
-        // do it easily.  However respect the initial value if present.
-        //
-        // Remove this if Java 2D is ever fixed.  DHYB.
-        //
-        final String pmoffscreen = "sun.java2d.pmoffscreen";
-        final String pmoValue = System.getProperty(pmoffscreen);
-        if (pmoValue == null) {
-            String usePixmaps = specialOptions.get(ClientOptions.USE_PIXMAPS);
-            if (usePixmaps != null) {
-                System.setProperty(pmoffscreen, usePixmaps);
-                lb.add(pmoffscreen, " using client option: ", usePixmaps);
-            } else {
-                lb.add(pmoffscreen, " unset/ignored: ");
-            }
-        } else {
-            lb.add(pmoffscreen, " overrides client option: ", pmoValue);
-        }
-
-        // There is also this option, BR#3102.
-        final String openGL = "sun.java2d.opengl";
-        final String openGLValue = System.getProperty(openGL);
-        if (openGLValue == null) {
-            String useOpenGL = specialOptions.get(ClientOptions.USE_OPENGL);
-            if (useOpenGL != null) {
-                System.setProperty(openGL, useOpenGL);
-                lb.add(", ", openGL, " using client option: ", useOpenGL);
-            } else {
-                lb.add(", ", openGL, " unset/ignored");
-            }
-        } else {
-            lb.add(", ", openGL, " overrides client option: ", openGLValue);
-        }
-
-        // XRender is available for most unix (not MacOS?)
-        xRender(lb);
-
-        lb.log(logger, Level.INFO);
-    }
-
-    public static LogBuilder xRender (LogBuilder lb) {
-        if (OSUtils.onUnix()) {
-            final String xrender = "sun.java2d.xrender";
-            final String xrValue = System.getProperty(xrender);
-            if (xrValue == null) {
-                String useXR = specialOptions.get(ClientOptions.USE_XRENDER);
-                if (useXR != null) {
-                    System.setProperty(xrender, useXR);
-                    lb.add(", ", xrender, " using client option: ", useXR);
-                } else {
-                    lb.add(", ", xrender, " unset/ignored");
-                }
-            } else {
-                lb.add(", ", xrender, " overrides client option: ", xrValue);
-            }
-        }
-
-        return lb;
-    }
-
-    /**
-     * Get the JarURLConnection from a class.
-     *
-     * @param c The {@code Class} to get the connection for.
-     * @return The {@code JarURLConnection}.
-     * @exception IOException if the connection fails to open.
-     */
-    private static JarURLConnection getJarURLConnection(Class c)
-            throws IOException, ClassCastException {
-        String resourceName = "/" + c.getName().replace('.', '/') + ".class";
-        URL url = c.getResource(resourceName);
-        return (JarURLConnection)url.openConnection();
-    }
-
-    /**
-     * Extract the package version from the class.
-     *
-     * @param juc The {@code JarURLConnection} to extract from.
-     * @return A value of the package version attribute.
-     * @exception IOException if the manifest is not available.
-     */
-    private static String readVersion(JarURLConnection juc) throws IOException {
-        Manifest mf = juc.getManifest();
-        return (mf == null) ? null
-                : mf.getMainAttributes().getValue("Package-Version");
-    }
-
-    /**
-     * Get a stream for the default splash file.
-     *
-     * Note: Not bothering to check for nulls as this is called in try
-     * block that ignores all exceptions.
-     *
-     * @param juc The {@code JarURLConnection} to extract from.
-     * @return A suitable {@code InputStream}, or null on error.
-     * @exception IOException if the connection fails to open.
-     */
-    private static InputStream getDefaultSplashStream(JarURLConnection juc)
-            throws IOException {
-        JarFile jf = juc.getJarFile();
-        ZipEntry ze = jf.getEntry(SPLASH_DEFAULT);
-        return jf.getInputStream(ze);
-    }
-
-    /**
-     * Exit printing fatal error message.
-     *
-     * @param template A {@code StringTemplate} to print.
-     */
-    public static void fatal(StringTemplate template) {
-        fatal(Messages.message(template));
-    }
-
-    /**
-     * Exit printing fatal error message.
-     *
-     * @param err The error message to print.
-     */
-    public static void fatal(String err) {
-        if (err == null || err.isEmpty()) {
-            err = "Bogus null fatal error message";
-            Thread.dumpStack();
-        }
-        System.err.println(err);
-        System.exit(1);
-    }
-
-    /**
-     * Just gripe to System.err.
-     *
-     * @param template A {@code StringTemplate} to print.
-     */
-    public static void gripe(StringTemplate template) {
-        System.err.println(Messages.message(template));
-    }
-
-    /**
-     * Just gripe to System.err.
-     *
-     * @param key A message key.
-     */
-    public static void gripe(String key) {
-        System.err.println(Messages.message(key));
-    }
-
-    /**
-     * Log a warning with a stack trace.
-     *
-     * @param logger The {@code Logger} to log to.
-     * @param warn The warning message.
-     */
-    public static void trace(Logger logger, String warn) {
-        FreeColDebugger.trace(logger, warn);
-    }
-
-    /** Definitions for all the options. */
-    private static String argDir = "cli.arg.directory";
-    private static String argFile = "cli.arg.file";
-    private static String[][] optionsTable = {
-            // Help options
-            { "?", "usage", "cli.help", null },
-            { "@", "help", "cli.help", null },
-            // Special early options
-            { "d", "freecol-data", "cli.freecol-data", argDir },
-            { "L", "default-locale", "cli.default-locale", "cli.arg.locale" },
-            // Ordinary options
-            { "a", "advantages", getAdvantagesDescription(), "cli.arg.advantages" },
-            { null,  "check-savegame", "cli.check-savegame", argFile },
-            { "O", "clientOptions", "cli.clientOptions", "cli.arg.clientOptions" },
-            { "D", "debug", getDebugDescription(), "cli.arg.debug" },
-            { "R", "debug-run", "cli.debug-run", "cli.arg.debugRun" },
-            { "S", "debug-start", "cli.debug-start", null },
-            { "D", "difficulty", "cli.difficulty", "cli.arg.difficulty" },
-            { "e", "europeans", "cli.european-count", "cli.arg.europeans" },
-            { null,  "fast", "cli.fast", null },
-            { "f", "font", "cli.font", "cli.arg.font" },
-            { "F", "full-screen", "cli.full-screen", null },
-            { "g", "gui-scale", getGUIScaleDescription(), "!cli.arg.gui-scale" },
-            { "H", "headless", "cli.headless", null },
-            { "l", "load-savegame", "cli.load-savegame", argFile },
-            { null,  "log-console", "cli.log-console", null },
-            { null,  "log-file", "cli.log-file", "cli.arg.name" },
-            { null,  "log-level", "cli.log-level", "cli.arg.loglevel" },
-            { "m", "meta-server", "cli.meta-server", "cli.arg.metaServer" },
-            { "n", "name", "cli.name", "cli.arg.name" },
-            { null,  "no-intro", "cli.no-intro", null },
-            { null,  "no-java-check", "cli.no-java-check", null },
-            { null,  "no-memory-check", "cli.no-memory-check", null },
-            { null,  "no-sound", "cli.no-sound", null },
-            { null,  "no-splash", "cli.no-splash", null },
-            { "p", "private", "cli.private", null },
-            { "Z", "seed", "cli.seed", "cli.arg.seed" },
-            { null,  "server", "cli.server", null },
-            { null,  "server-name", "cli.server-name", "cli.arg.name" },
-            { null,  "server-port", "cli.server-port", "cli.arg.port" },
-            { "s", "splash", "cli.splash", "!" + argFile },
-            { "t", "tc", "cli.tc", "cli.arg.name" },
-            { "T", "timeout", "cli.timeout", "cli.arg.timeout" },
-            { "C", "user-cache-directory", "cli.user-cache-directory", argDir },
-            { "c", "user-config-directory", "cli.user-config-directory", argDir },
-            { "u", "user-data-directory", "cli.user-data-directory", argDir },
-            { "v", "version", "cli.version", null },
-            { "w", "windowed", "cli.windowed", "!cli.arg.dimensions" },
-    };
-
     /**
      * Prints the usage message and exits.
      *
@@ -514,9 +246,7 @@ public final class Config {
      * @param difficulty An optional difficulty level.
      * @return A {@code Specification}.
      */
-    public static Specification loadSpecification(FreeColTcFile tcf,
-                                                  Advantages advantages,
-                                                  String difficulty) {
+    public static Specification loadSpecification(FreeColTcFile tcf, Advantages advantages, String difficulty) {
         Specification spec = null;
         try {
             if (tcf != null) spec = tcf.getSpecification();
@@ -533,11 +263,11 @@ public final class Config {
      *
      * @return A {@code Specification}, quits on error.
      */
-    protected static Specification getTCSpecification() {
+    static Specification getTCSpecification() {
         Specification spec = loadSpecification(getTCFile(), getAdvantages(),
                 getDifficulty());
         if (spec == null) {
-            fatal(StringTemplate.template("cli.error.badTC")
+            Logging.fatal(StringTemplate.template("cli.error.badTC")
                     .addName("%tc%", getTC()));
         }
         return spec;
@@ -564,7 +294,7 @@ public final class Config {
      * @param as The name of the new advantages type.
      * @return The type of advantages set, or null if none.
      */
-    private static Advantages selectAdvantages(String as) {
+    static Advantages selectAdvantages(String as) {
         Advantages a = find(Advantages.values(), Messages.matchesNamed(as));
         if (a != null) setAdvantages(a);
         return a;
@@ -576,7 +306,7 @@ public final class Config {
      * @param advantages The new {@code Advantages} type.
      */
     public static void setAdvantages(Advantages advantages) {
-        Config.advantages = advantages;
+        ConfigPara.advantages = advantages;
     }
 
     /**
@@ -584,7 +314,7 @@ public final class Config {
      *
      * @return A list of advantage types.
      */
-    private static String getValidAdvantages() {
+    static String getValidAdvantages() {
         return transform(Advantages.values(), alwaysTrue(),
                 a -> Messages.getName(a), Collectors.joining(","));
     }
@@ -594,7 +324,7 @@ public final class Config {
      *
      * @return A suitable description.
      */
-    private static String getAdvantagesDescription() {
+    static String getAdvantagesDescription() {
         return Messages.message(StringTemplate.template("cli.advantages")
                 .addName("%advantages%", getValidAdvantages()));
     }
@@ -604,7 +334,7 @@ public final class Config {
      *
      * @return A suitable description.
      */
-    private static String getDebugDescription() {
+    static String getDebugDescription() {
         return Messages.message(StringTemplate.template("cli.debug")
                 .addName("%modes%", FreeColDebugger.getDebugModes()));
     }
@@ -648,7 +378,7 @@ public final class Config {
      * @param difficulty The new difficulty.
      */
     public static void setDifficulty(String difficulty) {
-        Config.difficulty = difficulty;
+        ConfigPara.difficulty = difficulty;
     }
 
     /**
@@ -729,7 +459,7 @@ public final class Config {
      *
      * @return A suitable description.
      */
-    private static String getGUIScaleDescription() {
+    static String getGUIScaleDescription() {
         return Messages.message(StringTemplate.template("cli.gui-scale")
                 .addName("%scales%", getValidGUIScales()));
     }
@@ -774,7 +504,7 @@ public final class Config {
      *
      * @param arg The new meta-server location in HOST:PORT format.
      */
-    private static boolean setMetaServer(String arg) {
+    static boolean setMetaServer(String arg) {
         String[] s = arg.split(":");
         int port = -1;
         try {
@@ -805,7 +535,7 @@ public final class Config {
      * @param name The new user name.
      */
     public static void setName(String name) {
-        Config.name = name;
+        ConfigPara.name = name;
         logger.info("Set FreeCol.name = " + name);
     }
 
@@ -815,7 +545,7 @@ public final class Config {
      * @return The {@code Locale} currently in use.
      */
     public static Locale getLocale() {
-        return (Config.locale == null) ? Locale.getDefault() : Config.locale;
+        return (ConfigPara.locale == null) ? Locale.getDefault() : ConfigPara.locale;
     }
 
     /**
@@ -834,8 +564,8 @@ public final class Config {
             if (index > 0) localeArg = localeArg.substring(0, index);
             newLocale = Messages.getLocale(localeArg);
         }
-        if (newLocale != Config.locale) {
-            Config.locale = newLocale;
+        if (newLocale != ConfigPara.locale) {
+            ConfigPara.locale = newLocale;
             return true;
         }
         return false;
@@ -901,7 +631,7 @@ public final class Config {
      * @param tc The name of the new total conversion.
      */
     public static void setTC(String tc) {
-        Config.tc = tc;
+        ConfigPara.tc = tc;
     }
 
     /**
@@ -939,7 +669,7 @@ public final class Config {
         try {
             long result = Long.parseLong(timeout);
             if (TIMEOUT_MIN <= result && result <= TIMEOUT_MAX) {
-                Config.timeout = result;
+                ConfigPara.timeout = result;
                 return true;
             }
         } catch (NumberFormatException nfe) {}
@@ -973,7 +703,7 @@ public final class Config {
      *
      * @param arg The window size specification.
      */
-    private static void setWindowSize(String arg) {
+    static void setWindowSize(String arg) {
         String[] xy;
         if (arg != null
                 && (xy = arg.split("[^0-9]")) != null
@@ -985,95 +715,4 @@ public final class Config {
         }
         if (windowSize == null) windowSize = new Dimension(-1, -1);
     }
-
-
-    /**
-     * Generate a failure message depending on a file parameter.
-     *
-     * @param messageId The failure message identifier.
-     * @param file The {@code File} that caused the failure.
-     * @return A {@code StringTemplate} with the error message.
-     */
-    public static StringTemplate badFile(String messageId, File file) {
-        return StringTemplate.template(messageId)
-                .addName("%name%", (file == null) ? "-" : file.getPath());
-    }
-
-    /**
-     * Build an error template from an exception.
-     *
-     * @param ex The {@code Exception} to make an error from.
-     * @param fallbackKey A message key to use to make a fallback message
-     *     if the exception is unsuitable.
-     * @return An error {@code StringTemplate}.
-     */
-    public static StringTemplate errorFromException(Exception ex,
-                                                    String fallbackKey) {
-        return errorFromException(ex, StringTemplate.template(fallbackKey));
-    }
-
-    /**
-     * Build an error template from an exception.
-     *
-     * @param ex The {@code Exception} to make an error from.
-     * @param fallback A {@code StringTemplate} to use as a fall
-     *     back if the exception is unsuitable.
-     * @return An error {@code StringTemplate}.
-     */
-    public static StringTemplate errorFromException(Exception ex,
-                                                    StringTemplate fallback) {
-        String msg;
-        return (ex == null || (msg = ex.getMessage()) == null)
-                ? fallback
-                : (Messages.containsKey(msg))
-                ? StringTemplate.template(msg)
-                : (FreeColDebugger.isInDebugMode(FreeColDebugger.DebugMode.MENUS))
-                ? StringTemplate.name(msg)
-                : fallback;
-    }
-
-    /**
-     * We get a lot of lame bug reports with insufficient configuration
-     * information.  Get a buffer containing as much information as we can
-     * to embed in the log file and saved games.
-     *
-     * @return A {@code StringBuilder} full of configuration information.
-     */
-    public static StringBuilder getConfiguration() {
-        File autosave = FreeColDirectories.getAutosaveDirectory();
-        File clientOptionsFile = FreeColDirectories.getClientOptionsFile();
-        File save = FreeColDirectories.getSaveDirectory();
-        File userConfig = FreeColDirectories.getUserConfigDirectory();
-        File userData = FreeColDirectories.getUserDataDirectory();
-        File userMods = FreeColDirectories.getUserModsDirectory();
-        StringBuilder sb = new StringBuilder(256);
-        sb.append("Configuration:")
-                .append("\n  version     ").append(getRevision())
-                .append("\n  java:       ").append(JAVA_VERSION)
-                .append("\n  memory:     ").append(MEMORY_MAX)
-                .append("\n  locale:     ").append(getLocale())
-                .append("\n  data:       ")
-                .append(FreeColDirectories.getDataDirectory().getPath())
-                .append("\n  userConfig: ")
-                .append((userConfig == null) ? "NONE" : userConfig.getPath())
-                .append("\n  userData:   ")
-                .append((userData == null) ? "NONE" : userData.getPath())
-                .append("\n  autosave:   ")
-                .append((autosave == null) ? "NONE" : autosave.getPath())
-                .append("\n  logFile:    ")
-                .append(FreeColDirectories.getLogFilePath())
-                .append("\n  options:    ")
-                .append((clientOptionsFile == null) ? "NONE"
-                        : clientOptionsFile.getPath())
-                .append("\n  save:       ")
-                .append((save == null) ? "NONE" : save.getPath())
-                .append("\n  userMods:   ")
-                .append((userMods == null) ? "NONE" : userMods.getPath())
-                .append("\n  debug:      ")
-                .append(FreeColDebugger.getDebugModes());
-        return sb;
-    }
-
-
-
 }

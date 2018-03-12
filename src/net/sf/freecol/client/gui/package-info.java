@@ -3,7 +3,7 @@
  *
  * <p>Contains the graphical user interface (GUI) classes.</p>
  *
- * <p>A {@code JFrame} is created during the startup of the
+ * <p>A {@code JFrame} is created during the start of the
  * program. This frame will be a {@link net.sf.freecol.client.gui.FreeColFrame}
  * which handles both windowed and full screen presentations.</p>
  *
