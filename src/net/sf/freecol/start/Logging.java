@@ -1,6 +1,5 @@
 package net.sf.freecol.start;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.debug.FreeColDebugger;
@@ -24,10 +23,6 @@ import java.util.logging.Logger;
 
 public class Logging {
 
-    static Logger logger = Logger.getLogger(FreeCol.class.getName());
-    private static boolean consoleLogging = false;
-    private static final Level  LOGLEVEL_DEFAULT = Level.INFO;
-
     /** The levels of logging in this game. */
     private static class LogLevel {
 
@@ -50,7 +45,7 @@ public class Logging {
         }
     }
     private static final List<LogLevel> logLevels = new ArrayList<>();
-    static { logLevels.add(new LogLevel("", LOGLEVEL_DEFAULT)); }
+    static { logLevels.add(new LogLevel("", ConfigPara.LOGLEVEL_DEFAULT)); }
 
     /** The special client options that must be processed early. */
     private static Map<String,String> specialOptions = null;
@@ -62,7 +57,7 @@ public class Logging {
         }
         try {
             Writer writer = FreeColDirectories.getLogWriter();
-            baseLogger.addHandler(new DefaultHandler(consoleLogging, writer));
+            baseLogger.addHandler(new DefaultHandler(ConfigPara.consoleLogging, writer));
             for (LogLevel ll : logLevels) ll.buildLogger();
         } catch (FreeColException e) {
             System.err.println("Logging initialization failure: "
@@ -85,7 +80,7 @@ public class Logging {
             specialOptions = ClientOptions.getSpecialOptions();
         } catch (FreeColException fce) {
             specialOptions = new HashMap<>();
-            logger.log(Level.WARNING, "Special options unavailable", fce);
+            ConfigPara.getLogger().log(Level.WARNING, "Special options unavailable", fce);
         }
         String cLang;
         if (localeArg == null
@@ -93,7 +88,7 @@ public class Logging {
                 && !Messages.AUTOMATIC.equalsIgnoreCase(cLang)
                 && ConfigPara.setLocale(cLang)) {
             Messages.loadMessageBundle(ConfigPara.getLocale());
-            logger.info("Loaded messages for " + ConfigPara.getLocale());
+            ConfigPara.getLogger().info("Loaded messages for " + ConfigPara.getLocale());
         }
 
         // Now we have the user mods directory and the locale is now
@@ -153,7 +148,7 @@ public class Logging {
         // XRender is available for most unix (not MacOS?)
         xRender(lb);
 
-        lb.log(logger, Level.INFO);
+        lb.log(ConfigPara.getLogger(), Level.INFO);
     }
 
     public static LogBuilder xRender (LogBuilder lb) {

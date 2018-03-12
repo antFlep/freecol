@@ -20,56 +20,28 @@
 package net.sf.freecol.start;
 
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Writer;
 import java.net.InetAddress;
-import java.net.JarURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
 
-import net.sf.freecol.client.ClientOptions;
-import net.sf.freecol.client.FreeColClient;
-import net.sf.freecol.common.FreeColException;
-import net.sf.freecol.common.FreeColSeed;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
-import net.sf.freecol.common.io.FreeColDirectories;
-import net.sf.freecol.common.io.FreeColSavegameFile;
-import net.sf.freecol.common.io.FreeColModFile;
 import net.sf.freecol.common.io.FreeColTcFile;
-import net.sf.freecol.common.logging.DefaultHandler;
 import net.sf.freecol.common.model.NationOptions.Advantages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
 import net.sf.freecol.common.option.OptionGroup;
 import static net.sf.freecol.common.util.CollectionUtils.*;
-import net.sf.freecol.common.util.LogBuilder;
-import net.sf.freecol.common.util.OSUtils;
-import net.sf.freecol.server.FreeColServer;
-import net.sf.freecol.server.control.Controller;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.DefaultParser;
 
 
 /**
@@ -84,7 +56,7 @@ public final class ConfigPara {
     private static final Logger logger = Logger.getLogger(ConfigPara.class.getName());
 
     /** The FreeCol release version number. */
-    private static final String FREECOL_VERSION = "0.11.6";
+    public static final String FREECOL_VERSION = "0.11.6";
 
     /** The FreeCol protocol version number. */
     private static final String FREECOL_PROTOCOL_VERSION = "0.1.6";
@@ -128,7 +100,7 @@ public final class ConfigPara {
     public static final float   GUI_SCALE_MAX = GUI_SCALE_MAX_PCT / 100.0f;
     private static final int    GUI_SCALE_STEP_PCT = 25;
     public static final float   GUI_SCALE_STEP = GUI_SCALE_STEP_PCT / 100.0f;
-    private static final Level  LOGLEVEL_DEFAULT = Level.INFO;
+    static final Level  LOGLEVEL_DEFAULT = Level.INFO;
     static final String JAVA_VERSION_MIN = "1.8";
     static final int    MEMORY_MIN = 128; // Mbytes
     private static final String META_SERVER_ADDRESS = "meta.freecol.org";
@@ -714,5 +686,21 @@ public final class ConfigPara {
             } catch (NumberFormatException nfe) {}
         }
         if (windowSize == null) windowSize = new Dimension(-1, -1);
+    }
+
+    public static void setFreeColRevision(String freeColRevision) {
+        ConfigPara.freeColRevision = freeColRevision;
+    }
+
+    public static boolean isStandAloneServer() {
+        return standAloneServer;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    public static void setSplashStream(InputStream splashStream) {
+        ConfigPara.splashStream = splashStream;
     }
 }

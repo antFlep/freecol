@@ -20,18 +20,14 @@
 package net.sf.freecol.start;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 
-import net.sf.freecol.common.FreeColSeed;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
@@ -40,13 +36,8 @@ import net.sf.freecol.common.model.NationOptions.Advantages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.DefaultParser;
 
 
 /**
@@ -58,7 +49,7 @@ import org.apache.commons.cli.DefaultParser;
  */
 public final class Tools {
 
-    private static void systemCheck() {
+    public static void systemCheck() {
         if (ConfigPara.javaCheck && ConfigPara.JAVA_VERSION_MIN.compareTo(ConfigPara.JAVA_VERSION) > 0) {
             Logging.fatal(StringTemplate.template("main.javaVersion")
                     .addName("%version%", ConfigPara.JAVA_VERSION)
@@ -78,7 +69,7 @@ public final class Tools {
      * @return The {@code JarURLConnection}.
      * @exception IOException if the connection fails to open.
      */
-    private static JarURLConnection getJarURLConnection(Class c) throws IOException, ClassCastException {
+    public static JarURLConnection getJarURLConnection(Class c) throws IOException, ClassCastException {
         String resourceName = "/" + c.getName().replace('.', '/') + ".class";
         URL url = c.getResource(resourceName);
         return (JarURLConnection)url.openConnection();
@@ -91,7 +82,7 @@ public final class Tools {
      * @return A value of the package version attribute.
      * @exception IOException if the manifest is not available.
      */
-    private static String readVersion(JarURLConnection juc) throws IOException {
+    public static String readVersion(JarURLConnection juc) throws IOException {
         Manifest mf = juc.getManifest();
         return (mf == null) ? null
                 : mf.getMainAttributes().getValue("Package-Version");
@@ -107,7 +98,7 @@ public final class Tools {
      * @return A suitable {@code InputStream}, or null on error.
      * @exception IOException if the connection fails to open.
      */
-    private static InputStream getDefaultSplashStream(JarURLConnection juc) throws IOException {
+    public static InputStream getDefaultSplashStream(JarURLConnection juc) throws IOException {
         JarFile jf = juc.getJarFile();
         ZipEntry ze = jf.getEntry(ConfigPara.SPLASH_DEFAULT);
         return jf.getInputStream(ze);

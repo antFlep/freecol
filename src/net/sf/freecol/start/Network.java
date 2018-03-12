@@ -4,15 +4,12 @@ import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.io.FreeColSavegameFile;
-import net.sf.freecol.common.io.FreeColTcFile;
-import net.sf.freecol.common.model.NationOptions;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.control.Controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 
 public class Network {
@@ -62,7 +59,7 @@ public class Network {
      * Start the server.
      */
     public static void startServer() {
-        Logging.logger.info("Starting stand-alone server.");
+        ConfigPara.getLogger().info("Starting stand-alone server.");
         FreeColServer freeColServer;
         File saveGame = FreeColDirectories.getSavegameFile();
         if (saveGame != null) {
@@ -72,7 +69,7 @@ public class Network {
                 freeColServer = new FreeColServer(fis, (Specification)null,
                         ConfigPara.serverPort, ConfigPara.serverName);
             } catch (Exception e) {
-                Logging.logger.log(Level.SEVERE, "Load fail", e);
+                ConfigPara.getLogger().log(Level.SEVERE, "Load fail", e);
                 Logging.fatal(Messages.message(Tools.badFile("error.couldNotLoad", saveGame))
                         + ": " + e);
                 freeColServer = null;
@@ -130,7 +127,7 @@ public class Network {
                     break;
             }
             if (freeColServer == null) {
-                Logging.logger.warning("Integrity test blocked");
+                ConfigPara.getLogger().warning("Integrity test blocked");
             }
             Logging.gripe(StringTemplate.template(k)
                     .add("%log%", FreeColDirectories.getLogFilePath()));

@@ -1,34 +1,16 @@
 package net.sf.freecol.start;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.JarURLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.jar.JarFile;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.FreeColSeed;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
-import net.sf.freecol.common.io.FreeColTcFile;
 import net.sf.freecol.common.model.NationOptions.Advantages;
-import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
-import net.sf.freecol.common.option.OptionGroup;
-import static net.sf.freecol.common.util.CollectionUtils.*;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -104,7 +86,7 @@ public final class ArgsHandler {
      *
      * @param args The command-line arguments.
      */
-    private static void handleArgs(String[] args) {
+    public static void handleArgs(String[] args) {
         Options options = new Options();
         for (String[] o : optionsTable) {
             String arg = o[3];
@@ -376,5 +358,22 @@ public final class ArgsHandler {
         formatter.printHelp("java -Xmx 256M -jar freecol.jar [OPTIONS]",
                 options);
         System.exit(status);
+    }
+
+    /**
+     * Find an option before the real option handling can get started.
+     * Takes care to use the *last* instance.
+     *
+     * @param option The option to find.
+     * @param args The  command-line arguments.
+     * @return The option's parameter.
+     */
+    public static String findArg(String option, String[] args) {
+        for (int i = args.length - 2; i >= 0; i--) {
+            if (option.equals(args[i])) {
+                return args[i+1];
+            }
+        }
+        return null;
     }
 }
