@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.io.sza.SimpleZippedAnimation;

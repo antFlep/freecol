@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.xml.stream.XMLStreamException;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.control.ClientInputHandler;
 import net.sf.freecol.client.control.ConnectController;
 import net.sf.freecol.client.control.InGameController;

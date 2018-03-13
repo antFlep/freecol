@@ -35,12 +35,10 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.option.AudioMixerOption;
 import net.sf.freecol.common.option.AudioMixerOption.MixerWrapper;
 import net.sf.freecol.common.option.PercentageOption;
 import net.sf.freecol.start.ConfigPara;
-import sun.security.krb5.Config;
 
 
 /**

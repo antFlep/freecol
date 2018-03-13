@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.menu.FreeColMenuBar;
 import net.sf.freecol.client.gui.menu.InGameMenuBar;

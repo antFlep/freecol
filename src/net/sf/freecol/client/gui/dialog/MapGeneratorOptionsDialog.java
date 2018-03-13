@@ -36,7 +36,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.client.gui.option.BooleanOptionUI;
@@ -51,6 +50,7 @@ import net.sf.freecol.common.option.BooleanOption;
 import net.sf.freecol.common.option.FileOption;
 import net.sf.freecol.common.option.MapGeneratorOptions;
 import net.sf.freecol.common.option.OptionGroup;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -241,7 +241,7 @@ public final class MapGeneratorOptionsDialog extends OptionsDialog {
             logger.log(Level.WARNING, "Options in disarray", ex);
         }           
         if (!ok) {
-            getGUI().showErrorMessage(FreeCol.badFile("error.couldNotSave", file));
+            getGUI().showErrorMessage(Tools.badFile("error.couldNotSave", file));
             return false;
         }
         return super.save(file);

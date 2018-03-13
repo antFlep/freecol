@@ -21,7 +21,6 @@ package net.sf.freecol.client.networking;
 
 import java.io.IOException;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.networking.Connection;

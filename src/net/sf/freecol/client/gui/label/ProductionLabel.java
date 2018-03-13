@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.FontLibrary;
@@ -40,6 +39,7 @@ import net.sf.freecol.client.gui.ImageLibrary;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.model.AbstractGoods;
 import net.sf.freecol.common.model.GoodsType;
+import net.sf.freecol.start.Logging;
 
 
 /**
@@ -144,9 +144,9 @@ public final class ProductionLabel extends AbstractGoodsLabel {
         super(lib, ag);
 
         if (getType() == null) {
-            FreeCol.trace(logger, "Bad production label (no type)");
+            Logging.trace(logger, "Bad production label (no type)");
         } else if (getAmount() == 0 && stockNumber < 0) {
-            FreeCol.trace(logger, "Bad production label: " + ag
+            Logging.trace(logger, "Bad production label: " + ag
                 + " stock=" + stockNumber);
         }
 

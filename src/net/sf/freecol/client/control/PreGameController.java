@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.GUI;
@@ -46,6 +45,7 @@ import net.sf.freecol.common.option.GameOptions;
 import net.sf.freecol.common.option.MapGeneratorOptions;
 import net.sf.freecol.common.option.OptionGroup;
 import net.sf.freecol.common.util.Utils;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -246,7 +246,7 @@ public final class PreGameController extends FreeColClientHolder {
      */
     public void startGameHandler() {
         final FreeColClient fcc = getFreeColClient();
-        new Thread(FreeCol.CLIENT_THREAD + "Starting game") {
+        new Thread(ConfigPara.CLIENT_THREAD + "Starting game") {
                 @Override
                 public void run() {
                     logger.info("Client starting game");

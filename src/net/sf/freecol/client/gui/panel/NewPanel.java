@@ -38,7 +38,6 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.ClientOptions;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.control.ConnectController;
@@ -52,7 +51,6 @@ import net.sf.freecol.common.model.NationOptions.Advantages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.option.OptionGroup;
 import net.sf.freecol.start.ConfigPara;
-import sun.security.krb5.Config;
 
 
 /**

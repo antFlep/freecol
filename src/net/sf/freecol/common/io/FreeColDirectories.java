@@ -35,7 +35,6 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import javax.swing.filechooser.FileSystemView;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.model.StringTemplate;

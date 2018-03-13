@@ -29,7 +29,6 @@ import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.ChoiceItem;
 import net.sf.freecol.client.gui.option.OptionGroupUI;
@@ -37,6 +36,7 @@ import net.sf.freecol.client.gui.panel.*;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.option.OptionGroup;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -224,7 +224,7 @@ public abstract class OptionsDialog extends FreeColDialog<OptionGroup> {
      */
     protected boolean save(File file) {
         if (this.group.save(file, null, true)) return true;
-        getGUI().showErrorMessage(FreeCol.badFile("error.couldNotSave", file));
+        getGUI().showErrorMessage(Tools.badFile("error.couldNotSave", file));
         return false;
     }
 
