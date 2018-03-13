@@ -207,7 +207,7 @@ public class SoundPlayer {
                     }
                 } else {
                     try (
-                        AudioInputStream in = playList.remove(0);
+                        AudioInputStream in = playList.remove(0)
                     ) {
                         playSound(in);
                     } catch (IOException e) {

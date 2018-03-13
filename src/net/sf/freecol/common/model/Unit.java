@@ -2622,7 +2622,7 @@ public class Unit extends GoodsLocation
         Location ret = getTile();
         if (isOnCarrier()) {
             if (ret != null) {
-                ; // OK
+                // OK
             } else if (carrier.getDestination() == null) {
                 ret = null;
             } else if (carrier.getDestination() instanceof Map) {
@@ -2634,7 +2634,7 @@ public class Unit extends GoodsLocation
             }
         } else if (isNaval()) {
             if (ret != null) {
-                ; // OK
+                // OK
             } else if (getDestination() == null
                 || getDestination() instanceof Map) {
                 ret = getFullEntryLocation();
@@ -3874,7 +3874,7 @@ public class Unit extends GoodsLocation
 
         // Move out of the old location.
         if (this.location == null) {
-            ; // do nothing
+            // do nothing
         } else if (!this.location.remove(this)) {//-vis
             // "Should not happen" (should always be able to remove)
             throw new RuntimeException("Failed to remove " + this

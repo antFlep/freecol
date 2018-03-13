@@ -40,7 +40,7 @@ public final class TileType extends FreeColSpecObjectType
 
     public static final String TAG = "tile-type";
 
-    public static enum RangeType { HUMIDITY, TEMPERATURE, ALTITUDE };
+    public static enum RangeType { HUMIDITY, TEMPERATURE, ALTITUDE }
 
     /**
      * Use these tile types only for "land maps", i.e. maps that only

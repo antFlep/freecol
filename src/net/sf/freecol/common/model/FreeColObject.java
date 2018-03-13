@@ -885,7 +885,7 @@ public abstract class FreeColObject
      */
     public boolean save(File file, WriteScope scope, boolean pretty) {
         try (
-            FileOutputStream fos = new FileOutputStream(file);
+            FileOutputStream fos = new FileOutputStream(file)
         ) {
             return save(fos, scope, pretty);
         } catch (FileNotFoundException fnfe) {
@@ -908,7 +908,7 @@ public abstract class FreeColObject
         boolean ret = false;
         if (scope == null) scope = FreeColXMLWriter.WriteScope.toSave();
         try (
-            FreeColXMLWriter xw = new FreeColXMLWriter(out, scope, pretty);
+            FreeColXMLWriter xw = new FreeColXMLWriter(out, scope, pretty)
         ) {
             xw.writeStartDocument("UTF-8", "1.0");
 
@@ -979,7 +979,7 @@ public abstract class FreeColObject
         throws XMLStreamException {
         StringWriter sw = new StringWriter();
         try (
-            FreeColXMLWriter xw = new FreeColXMLWriter(sw, scope);
+            FreeColXMLWriter xw = new FreeColXMLWriter(sw, scope)
         ) {
             if (fields == null) {
                 this.toXML(xw);
@@ -1040,8 +1040,8 @@ public abstract class FreeColObject
     public <T extends FreeColObject> T copy(Game game, Class<T> returnClass) {
         T ret = null;
         try (
-             FreeColXMLReader xr = new FreeColXMLReader(new StringReader(this.serialize()));
-             ) {
+             FreeColXMLReader xr = new FreeColXMLReader(new StringReader(this.serialize()))
+        ) {
             ret = xr.copy(game, returnClass);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to copy: " + getId(), e);
@@ -1062,8 +1062,8 @@ public abstract class FreeColObject
         Player player) {
         T ret = null;
         try (
-             FreeColXMLReader xr = new FreeColXMLReader(new StringReader(this.serialize(player)));
-             ) {
+             FreeColXMLReader xr = new FreeColXMLReader(new StringReader(this.serialize(player)))
+        ) {
             ret = xr.copy(game, returnClass);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to copy: " + getId(), e);

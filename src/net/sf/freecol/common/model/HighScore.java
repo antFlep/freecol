@@ -397,7 +397,7 @@ public class HighScore extends FreeColObject {
 
         try (
             FileInputStream fis = new FileInputStream(hsf);
-            FreeColXMLReader xr = new FreeColXMLReader(fis);
+            FreeColXMLReader xr = new FreeColXMLReader(fis)
         ) {
             xr.nextTag();
 
@@ -429,7 +429,7 @@ public class HighScore extends FreeColObject {
         try (
             FileOutputStream fos = new FileOutputStream(hsf);
             FreeColXMLWriter xw = new FreeColXMLWriter(fos,
-                FreeColXMLWriter.WriteScope.toSave(), true);
+                FreeColXMLWriter.WriteScope.toSave(), true)
         ) {
             xw.writeStartDocument("UTF-8", "1.0");
             xw.writeStartElement(HIGH_SCORES_TAG);

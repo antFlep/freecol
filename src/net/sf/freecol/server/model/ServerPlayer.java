@@ -125,7 +125,7 @@ public class ServerPlayer extends Player implements TurnTaker {
         IS_DEFEATED,
         IS_AUTORECRUIT,
         IS_ALIVE
-    };
+    }
 
     // Penalty for destroying a settlement (Col1)
     public static final int SCORE_SETTLEMENT_DESTROYED = -5;
@@ -2615,7 +2615,7 @@ outer:  for (Effect effect : effects) {
                     "attackedByPrivateers", Boolean.TRUE.toString());
             }
         } else if (defender.hasAbility(Ability.PIRACY)) {
-            ; // do nothing
+            // do nothing
         } else if (burnedNativeCapital) {
             defenderPlayer.getTension(this).setValue(Tension.SURRENDERED);
             // FIXME: just the tension
@@ -4303,7 +4303,7 @@ outer:  for (Effect effect : effects) {
             UnitType mainType = unit.getType();
             UnitTypeChange uc;
             if ((uc = unit.getUnitChange(change, null, newOwner)) == null) {
-                ; // mainType is unchanged
+                // mainType is unchanged
             } else if (uc.isAvailableTo(newOwner)) {
                 mainType = uc.to;
             } else { // Can not have this unit.
@@ -4316,7 +4316,7 @@ outer:  for (Effect effect : effects) {
 
             for (Unit u : unit.getUnitList()) {
                 if ((uc = u.getUnitChange(change, null, newOwner)) == null) {
-                    ; // no change for this passenger
+                    // no change for this passenger
                 } else if (uc.isAvailableTo(newOwner)) {
                     if (uc.to != u.getType() && !u.changeType(uc.to)) {
                         logger.warning("Type change failure: " + u

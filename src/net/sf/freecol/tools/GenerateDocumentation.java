@@ -83,7 +83,7 @@ public class GenerateDocumentation {
         File sourceFile = new File(RULE_DIRECTORY, "resources.properties");
         try (
                 Reader reader = Utils.getFileUTF8Reader(sourceFile);
-                BufferedReader bufferedReader = new BufferedReader(reader);
+                BufferedReader bufferedReader = new BufferedReader(reader)
         ) {
             String line = bufferedReader.readLine();
             while (line != null) {
@@ -123,7 +123,7 @@ public class GenerateDocumentation {
 
             try (
                     Reader reader = Utils.getFileUTF8Reader(sourceFile);
-                    BufferedReader bufferedReader = new BufferedReader(reader);
+                    BufferedReader bufferedReader = new BufferedReader(reader)
             ) {
                 String line = bufferedReader.readLine();
                 while (line != null) {
@@ -148,7 +148,7 @@ public class GenerateDocumentation {
         }
         File destinationFile = new File(DESTINATION_DIRECTORY, "freecol.tmx");
         try (
-                Writer out = Utils.getFileUTF8Writer(destinationFile);
+                Writer out = Utils.getFileUTF8Writer(destinationFile)
         ) {
             out.write("<?xml version =\"1.0\" encoding=\"UTF-8\"?>\n");
             out.write("<tmx version=\"1.4b\">\n");

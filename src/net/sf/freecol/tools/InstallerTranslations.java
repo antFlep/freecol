@@ -192,7 +192,7 @@ public class InstallerTranslations {
         Map<String, String> result = new HashMap<>();
         try (
             Reader reader = Utils.getFileUTF8Reader(file);
-            BufferedReader bufferedReader = new BufferedReader(reader);
+            BufferedReader bufferedReader = new BufferedReader(reader)
         ) {
             String line = bufferedReader.readLine();
             while (line != null) {

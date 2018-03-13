@@ -71,7 +71,7 @@ public class Map extends FreeColGameObject implements Location {
      * Possible actions by the unit travelling along a path in consideration
      * of the next tile.
      */
-    private static enum MoveStep { FAIL, BYLAND, BYWATER, EMBARK, DISEMBARK };
+    private static enum MoveStep { FAIL, BYLAND, BYWATER, EMBARK, DISEMBARK }
 
     /**
      * The number of tiles from the upper edge that are considered
@@ -84,8 +84,8 @@ public class Map extends FreeColGameObject implements Location {
      * natural tile improvements that are not resources.
      */
     public static enum Layer {
-        NONE, LAND, TERRAIN, REGIONS, RIVERS, RESOURCES, RUMOURS, NATIVES, ALL;
-    };
+        NONE, LAND, TERRAIN, REGIONS, RIVERS, RESOURCES, RUMOURS, NATIVES, ALL
+    }
 
     /** A position on the Map. */
     public static final class Position {
@@ -1403,7 +1403,7 @@ public class Map extends FreeColGameObject implements Location {
                 .append(']');
             return sb.toString();
         }
-    };
+    }
 
     /**
      * Searches for a path to a goal determined by the given

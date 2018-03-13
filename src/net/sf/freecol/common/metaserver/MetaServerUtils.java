@@ -121,8 +121,8 @@ public class MetaServerUtils {
         REMOVE,
         SERVERLIST,
         UPDATE,
-    };
-    
+    }
+
     private static Map<Timer, ServerInfo> updaters
         = Collections.synchronizedMap(new HashMap<>());
 

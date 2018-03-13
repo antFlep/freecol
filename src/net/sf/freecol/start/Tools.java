@@ -105,19 +105,6 @@ public final class Tools {
     }
 
     /**
-     * Prints the usage message and exits.
-     *
-     * @param options The command line {@code Options}.
-     * @param status The status to exit with.
-     */
-    private static void printUsage(Options options, int status) {
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -Xmx 256M -jar freecol.jar [OPTIONS]",
-                options);
-        System.exit(status);
-    }
-
-    /**
      * Get the specification from a given TC file.
      *
      * @param tcf The {@code FreeColTcFile} to load.

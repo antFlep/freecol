@@ -258,7 +258,7 @@ public abstract class OptionsDialog extends FreeColDialog<OptionGroup> {
     public OptionGroup getResponse() {
         OptionGroup value = super.getResponse();
         if (value == null) {
-            ; // Cancelled, do nothing
+            // Cancelled, do nothing
         } else {
             getOptionUI().updateOption();
         }

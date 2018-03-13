@@ -71,7 +71,7 @@ public class NationOptions extends FreeColSpecObject {
         public final String getNameKey() {
             return Messages.nameKey("model." + getKey());
         }
-    };
+    }
 
     /**
      * Nations may be available to all players, to AI players only, or

@@ -818,7 +818,7 @@ public final class FreeColServer {
     private void saveGame(File file, String owner, OptionGroup options,
                           Unit active, BufferedImage image) throws IOException {
         try (
-            JarOutputStream fos = new JarOutputStream(new FileOutputStream(file));
+            JarOutputStream fos = new JarOutputStream(new FileOutputStream(file))
         ) {
             if (image != null) {
                 fos.putNextEntry(new JarEntry(FreeColSavegameFile.THUMBNAIL_FILE));
@@ -985,7 +985,7 @@ public final class FreeColServer {
 
         ServerGame serverGame = null;
         try (
-            FreeColXMLReader xr = fis.getSavedGameFreeColXMLReader();
+            FreeColXMLReader xr = fis.getSavedGameFreeColXMLReader()
         ) {
             // Switch to the read scope that creates server objects.
             xr.setReadScope(FreeColXMLReader.ReadScope.SERVER);

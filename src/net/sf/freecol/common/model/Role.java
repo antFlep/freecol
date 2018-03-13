@@ -58,7 +58,7 @@ public class Role extends BuildableType {
         public Role getCapture(Specification spec) {
             return spec.getRole(capture);
         }
-    };
+    }
 
     /**
      * A comparator to order roles by descending total military

@@ -344,7 +344,7 @@ public class OptionGroup extends AbstractOption<OptionGroup>
         if (file == null) return false;
         boolean ret = false;
         try (
-            FreeColXMLReader xr = new FreeColXMLReader(file);
+            FreeColXMLReader xr = new FreeColXMLReader(file)
         ) {
             ret = load(xr);
         } catch (FileNotFoundException|XMLStreamException xse) {

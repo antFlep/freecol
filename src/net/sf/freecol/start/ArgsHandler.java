@@ -155,7 +155,7 @@ public final class ArgsHandler {
                             .addName("%modes%", FreeColDebugger.getDebugModes()));
                 }
                 // Keep doing this before checking log-level option!
-                ConfigPara.logLevels.add(new ConfigPara.LogLevel("", Level.FINEST));
+                Logging.logLevels.add(new Logging.LogLevel("", Level.FINEST));
             }
             if (line.hasOption("debug-run")) {
                 FreeColDebugger.enableDebugMode(FreeColDebugger.DebugMode.MENUS);
@@ -229,9 +229,9 @@ public final class ArgsHandler {
             if (line.hasOption("log-level")) {
                 for (String value : line.getOptionValues("log-level")) {
                     String[] s = value.split(":");
-                    ConfigPara.logLevels.add((s.length == 1)
-                            ? new ConfigPara.LogLevel("", Level.parse(s[0].toUpperCase()))
-                            : new ConfigPara.LogLevel(s[0], Level.parse(s[1].toUpperCase())));
+                    Logging.logLevels.add((s.length == 1)
+                            ? new Logging.LogLevel("", Level.parse(s[0].toUpperCase()))
+                            : new Logging.LogLevel(s[0], Level.parse(s[1].toUpperCase())));
                 }
             }
 
@@ -355,8 +355,7 @@ public final class ArgsHandler {
      */
     private static void printUsage(Options options, int status) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -Xmx 256M -jar freecol.jar [OPTIONS]",
-                options);
+        formatter.printHelp("java -Xmx 256M -jar freecol.jar [OPTIONS]", options);
         System.exit(status);
     }
 

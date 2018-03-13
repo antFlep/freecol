@@ -69,7 +69,7 @@ public class FreeColXMLWriter implements Closeable, XMLStreamWriter {
         CLIENT,  // Only the client-visible information
         SERVER,  // Full server-visible information
         SAVE     // Absolutely everything needed to save the game state
-    };
+    }
 
     public static class WriteScope {
 

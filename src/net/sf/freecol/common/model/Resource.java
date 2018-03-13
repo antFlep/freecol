@@ -165,7 +165,7 @@ public class Resource extends TileItem {
      */
     public int useQuantity(int usedQuantity) {
         if (quantity == UNLIMITED) {
-            ; // No change
+            // No change
         } else if (quantity >= usedQuantity) {
             quantity -= usedQuantity;
         } else {

@@ -69,14 +69,14 @@ public class Game extends FreeColGameObject {
         NEW_GAME,   // Part reset back to the NewPanel
         QUIT,       // Player quits and whole game is over
         RECONNECT,  // Implement reconnect
-    };
-    
+    }
+
     /** State for the FCGO iterator, out here because it has to be static. */
     private static enum FcgoState {
         INVALID,
         VALID,
         CONSUMED,
-    };
+    }
 
     /** Map of all classes with corresponding server classes. */
     private static final java.util.Map<Class<? extends FreeColObject>,
@@ -101,7 +101,7 @@ public class Game extends FreeColGameObject {
                           net.sf.freecol.server.model.ServerPlayer.class);
         serverClasses.put(net.sf.freecol.common.model.Unit.class,
                           net.sf.freecol.server.model.ServerUnit.class);
-    };
+    }
 
     /**
      * Map of class name to class for the location classes, to speed
@@ -128,7 +128,7 @@ public class Game extends FreeColGameObject {
                             net.sf.freecol.common.model.Tile.class);
         locationClasses.put("Unit",
                             net.sf.freecol.common.model.Unit.class);
-    };
+    }
 
 
     /** The Specification this game uses. */
@@ -314,7 +314,7 @@ public class Game extends FreeColGameObject {
                 new Class[] { Game.class, String.class },
                 new Object[] { game, (String)null }); // No intern!
         } catch (Introspector.IntrospectorException ex) {
-            ; // Allow another try on failure
+            // Allow another try on failure
         }
 
         if (game != null
@@ -1740,7 +1740,7 @@ public class Game extends FreeColGameObject {
                 UUID u = UUID.fromString(str);
                 this.uuid = u;
             } catch (IllegalArgumentException iae) {
-                ;// Preserve existing uuid
+                // Preserve existing uuid
             }
         }
 

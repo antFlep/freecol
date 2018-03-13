@@ -108,7 +108,7 @@ public abstract class WorkLocation extends UnitLocation
         public int getAmount() {
             return this.amount;
         }
-    };
+    }
 
     /** The colony that contains this work location. */
     protected Colony colony;

@@ -502,7 +502,7 @@ public class ServerUnit extends Unit implements TurnTaker {
                         && tile.getOwner().isIndian();
                     break;
                 default:
-                    ; // unacceptable result for mounds
+                    // unacceptable result for mounds
                 }
             }
         }
@@ -685,7 +685,7 @@ public class ServerUnit extends Unit implements TurnTaker {
                     }
                 } else {
                     if (other.isIndian()) {
-                        ; // Do nothing
+                        // Do nothing
                     } else {
                         other.csNativeFirstContact(serverPlayer, null, cs);
                     }
@@ -763,7 +763,7 @@ public class ServerUnit extends Unit implements TurnTaker {
         setState(UnitState.ACTIVE);
         setStateToAllChildren(UnitState.SENTRY);
         if (oldLocation instanceof HighSeas) {
-            ; // Do not try to calculate move cost from Europe!
+            // Do not try to calculate move cost from Europe!
         } else if (oldLocation instanceof Unit) {
             setMovesLeft(0); // Disembark always consumes all moves.
         } else {

@@ -76,8 +76,8 @@ public class IndianDemandMission extends Mission {
         selectPredicates.add(gt -> gt.isBuildingMaterial());
         selectPredicates.add(gt -> gt.isTradeGoods());
         selectPredicates.add(gt -> gt.isRefined());
-    };
-    
+    }
+
     /** The colony to demand from. */
     private Colony colony;
 

@@ -363,13 +363,13 @@ public class FreeColDebugger {
             prs = new PrintStream(fos, true, "UTF-8");
             prs.println(msg);
         } catch (FileNotFoundException|UnsupportedEncodingException ex) {
-            ; // Ignore failure
+            // Ignore failure
         } finally {
             try {
                 if (prs != null) prs.close();
                 if (fos != null) fos.close();
             } catch (IOException ioe) {
-                ; // Ignore failure
+                // Ignore failure
             }
         }
     }

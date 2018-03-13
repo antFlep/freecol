@@ -484,5 +484,5 @@ public final class GoalDeciders {
         public HashMap<Location, PathNode> getResults() {
             return results;
         }
-    };
+    }
 }

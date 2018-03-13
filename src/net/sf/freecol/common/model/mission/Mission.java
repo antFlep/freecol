@@ -52,7 +52,7 @@ public interface Mission {
          * destination has been destroyed.
          */
         ABORTED
-    };
+    }
 
 
     /**

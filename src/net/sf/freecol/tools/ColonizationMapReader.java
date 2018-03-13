@@ -164,7 +164,7 @@ public class ColonizationMapReader {
                         break;
                     default:
                         break;
-                    };
+                    }
                     System.out.print(terrain);
                     index++;
                 }

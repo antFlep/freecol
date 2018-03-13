@@ -1548,7 +1548,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
             Stance newStance = determineStance(p);
             if (newStance != serverPlayer.getStance(p)) {
                 if (newStance == Stance.WAR && peaceHolds(p)) {
-                    ; // Peace treaty holds for now
+                    // Peace treaty holds for now
                 } else {
                     getAIMain().getFreeColServer().getInGameController()
                         .changeStance(serverPlayer, newStance,

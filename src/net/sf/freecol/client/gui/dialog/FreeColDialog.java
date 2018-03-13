@@ -72,7 +72,7 @@ public class FreeColDialog<T> extends JDialog implements PropertyChangeListener 
     public static enum DialogType {
         PLAIN,
         QUESTION,
-    };
+    }
 
     /** The enclosing client. */
     protected final FreeColClient freeColClient;

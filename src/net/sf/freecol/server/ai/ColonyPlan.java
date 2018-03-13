@@ -109,7 +109,7 @@ public class ColonyPlan {
                                  type.getSuffix(), weight, support,
                                  difficulty, getValue());
         }
-    };
+    }
 
     /** Comparator to sort buildable by descending value. */
     private static final Comparator<BuildPlan> buildPlanComparator
@@ -145,7 +145,8 @@ public class ColonyPlan {
                 : (size <= 8) ? ProfileType.LARGE
                 : ProfileType.CAPITAL;
         }
-    };
+    }
+
     private ProfileType profileType;
 
     /** Private copy of the AIMain. */
@@ -785,7 +786,7 @@ public class ColonyPlan {
         for (UnitType unitType : transform(spec().getUnitTypeList(),
                                            ut -> colony.canBuild(ut))) {
             if (unitType.hasAbility(Ability.NAVAL_UNIT)) {
-                ; // FIXME: decide to build a ship
+                // FIXME: decide to build a ship
             } else if (unitType.isDefensive()) {
                 if (colony.isBadlyDefended()) {
                     prioritize(unitType, DEFENCE_WEIGHT,

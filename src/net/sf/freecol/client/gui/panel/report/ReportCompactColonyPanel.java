@@ -99,7 +99,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
             OVERFLOW,    // Positive production and above capacity
             PRODUCTION,  // Positive production but could produce more
             CONSUMPTION, // Positive production but could consume more
-        };
+        }
 
         public static BinaryOperator<GoodsProduction> goodsProductionAccumulator
             = (g1, g2) -> {
@@ -127,7 +127,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
                 this.status = status;
                 this.extra = extra;
             }
-        };
+        }
 
 
         /** The colony being summarized. */
@@ -336,7 +336,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
                 suggestions.put(expert, suggestion);
             }
         }
-    };
+    }
 
     /** Predicate to select the goods to report on. */
     private static final Predicate<GoodsType> reportGoodsPred = gt ->

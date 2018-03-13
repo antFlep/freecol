@@ -774,7 +774,7 @@ public class TileImprovement extends TileItem implements Named {
                     + type + ": " + str);
         } else if (str == null) {
             if (!isComplete() || isVirtual()) {
-                ; // Null style OK for incomplete or virtual roads
+                // Null style OK for incomplete or virtual roads
             } else {
                 logger.warning("At " + tile + " unexpected null style for "
                     + type);

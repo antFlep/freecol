@@ -762,7 +762,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         WorkLocation wl = getWorkLocationWithAbility(ability);
         try {
             if (wl != null) return returnClass.cast(wl);
-        } catch (ClassCastException cce) {};
+        } catch (ClassCastException cce) {}
         return null;
     }
 
@@ -2159,7 +2159,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         public int getAmount() {
             return this.amount;
         }
-    };
+    }
 
     /**
      * Collect suggestions for tiles that need exploration or

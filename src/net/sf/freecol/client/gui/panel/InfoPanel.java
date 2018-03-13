@@ -355,7 +355,7 @@ public final class InfoPanel extends FreeColPanel {
     }
 
     private static enum InfoPanelMode {
-        NONE, END, MAP, TILE, UNIT;
+        NONE, END, MAP, TILE, UNIT
     }
 
     private static final int PANEL_WIDTH = 260;

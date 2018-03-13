@@ -94,7 +94,7 @@ public class MergeTranslations {
                 System.out.println("Copying " + name + " from trunk.");
                 try (
                     Reader in = Utils.getFileUTF8Reader(sourceFile);
-                    Writer out = Utils.getFileUTF8Writer(targetFile);
+                    Writer out = Utils.getFileUTF8Writer(targetFile)
                 ) {
                     int c;
                     while ((c = in.read()) != -1) {
@@ -109,7 +109,7 @@ public class MergeTranslations {
         Map<String, String> result = new HashMap<>();
         try (
             Reader reader = Utils.getFileUTF8Reader(file);
-            BufferedReader bufferedReader = new BufferedReader(reader); 
+            BufferedReader bufferedReader = new BufferedReader(reader)
         ) {
             String line = bufferedReader.readLine();
             while (line != null) {

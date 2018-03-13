@@ -99,7 +99,7 @@ public class EquipForRoleMessage extends AttributeMessage {
             return serverPlayer.clientError(e.getMessage());
         }
         if (unit.isInEurope()) {
-            ; // Always OK
+            // Always OK
         } else if (!unit.hasTile()) {
             return serverPlayer.clientError("Unit is not on the map: "
                 + unitId);

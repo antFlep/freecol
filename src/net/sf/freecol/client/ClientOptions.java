@@ -563,7 +563,7 @@ public class ClientOptions extends OptionGroup {
         if (save == null) return false;
         boolean ret = false;
         try (
-            FreeColXMLReader xr = save.getClientOptionsFreeColXMLReader();
+            FreeColXMLReader xr = save.getClientOptionsFreeColXMLReader()
         ) {
             ret = load(xr);
         } catch (IOException|XMLStreamException ex) {

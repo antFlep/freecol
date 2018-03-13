@@ -83,8 +83,8 @@ public final class CostDeciders {
             return adjust(unit, oldLocation.getTile(), newLocation.getTile(),
                           movesLeft);
         }
-    };
-   
+    }
+
 
     /**
      * A {@code CostDecider} that only considers the number of legal
@@ -118,14 +118,15 @@ public final class CostDeciders {
             int cost = super.getCost(unit, oldLocation, newLocation, movesLeft);
             if (cost != ILLEGAL_MOVE && cost != Map.INFINITY) {
                 if (newLocation instanceof Europe) {
-                    ; // ok
+                    // ok
                 } else if (!newLocation.getTile().isExploredBy(unit.getOwner())) {
                     return ILLEGAL_MOVE;
                 }
             }
             return cost;
         }
-    };
+    }
+
     /**
      * A server-side {@code CostDecider} that costs unit moves normally.
      */
@@ -151,7 +152,8 @@ public final class CostDeciders {
             }
             return cost;
         }
-    };
+    }
+
     /**
      * An instance of the cost decider for avoiding settlements.
      */
@@ -184,7 +186,7 @@ public final class CostDeciders {
             }
             return cost;
         }
-    };
+    }
 
     /**
      * An instance of the settlement+unit avoiding cost decider.
@@ -227,7 +229,7 @@ public final class CostDeciders {
             }
             return cost;
         }
-    };
+    }
 
 
     // Public interface

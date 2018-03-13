@@ -1171,7 +1171,7 @@ public class SwingGUI extends GUI {
         if (fcc.isMapEditor()) {
             startMapEditorGUI();
         } else if (fcc.isInGame()) {
-            ; // do nothing
+            // do nothing
         } else {
             showMainPanel(null); // back to the main panel
         }

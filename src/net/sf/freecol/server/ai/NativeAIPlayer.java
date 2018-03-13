@@ -270,14 +270,14 @@ public class NativeAIPlayer extends MissionAIPlayer {
         Tension tension;
         for (Tile t : is.getTile().getSurroundingTiles(is.getRadius() + 1)) {
             if (!t.isLand() || t.getUnitCount() == 0) {
-                ; // Do nothing
+                // Do nothing
             } else if ((enemy = t.getFirstUnit().getOwner()) == player) {
                 // Its one of ours!
                 for (Unit u : t.getUnitList()) {
                     AIUnit aiu;
                     if (defenders.contains(u) || units.contains(u)
                         || (aiu = aiMain.getAIUnit(u)) == null) {
-                        ; // Do nothing
+                        // Do nothing
                     } else if ((dm = aiu.getMission(DefendSettlementMission.class)) != null
                         && dm.getTarget() == is) {
                         defenders.add(u);
@@ -287,7 +287,7 @@ public class NativeAIPlayer extends MissionAIPlayer {
                 }
             } else if ((tension = is.getAlarm(enemy)) == null
                 || tension.getLevel().compareTo(Tension.Level.CONTENT) <= 0) {
-                ; // Not regarded as a threat
+                // Not regarded as a threat
             } else {
                 // Evaluate the threat
                 double threshold;

@@ -101,7 +101,7 @@ public class DemandTributeMessage extends AttributeMessage {
         }
         if (unit.isArmed()
             || unit.hasAbility(Ability.DEMAND_TRIBUTE)) {
-            ; // ok
+            // ok
         } else {
             return serverPlayer.clientError("Unit is neither armed"
                 + " nor able to demand tribute: " + unitId);

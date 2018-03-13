@@ -23,8 +23,10 @@ import java.util.logging.Logger;
 
 public class Logging {
 
+    Logging(){}
+
     /** The levels of logging in this game. */
-    private static class LogLevel {
+    static class LogLevel {
 
         public final String name;
         public final Level level;
@@ -44,7 +46,7 @@ public class Logging {
             this.logger.setLevel(this.level);
         }
     }
-    private static final List<LogLevel> logLevels = new ArrayList<>();
+    static final List<LogLevel> logLevels = new ArrayList<>();
     static { logLevels.add(new LogLevel("", ConfigPara.LOGLEVEL_DEFAULT)); }
 
     /** The special client options that must be processed early. */

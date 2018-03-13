@@ -165,7 +165,7 @@ public final class DragListener extends MouseAdapter {
                 ((PortPanel)this.parentPanel).setSelectedUnitLabel(label);
             }
         } else if (comp instanceof TradeRouteCargoLabel) {
-            ; // Do nothing, TradeRouteInputPanel handles this
+            // Do nothing, TradeRouteInputPanel handles this
         } else {
             System.err.println("DragListener did not recognize:" + comp);
         }

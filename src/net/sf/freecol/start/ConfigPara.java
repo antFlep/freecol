@@ -139,32 +139,6 @@ public final class ConfigPara {
     /** A font override. */
     static String fontName = null;
 
-    /** The levels of logging in this game. */
-    static class LogLevel {
-
-        public final String name;
-        public final Level level;
-        // We need to keep a hard reference to the instantiated logger, as
-        // Logger only uses weak references.
-        public Logger logger;
-
-        public LogLevel(String name, Level level) {
-            this.name = name;
-            this.level = level;
-            this.logger = null;
-        }
-
-        public void buildLogger() {
-            this.logger = Logger.getLogger("net.sf.freecol"
-                    + ((this.name.isEmpty()) ? "" : "." + this.name));
-            this.logger.setLevel(this.level);
-        }
-    }
-    static final List<LogLevel> logLevels = new ArrayList<>();
-    static {
-        logLevels.add(new LogLevel("", LOGLEVEL_DEFAULT));
-    }
-
     /** Meta-server location. */
     private static String metaServerAddress = META_SERVER_ADDRESS;
     private static int metaServerPort = META_SERVER_PORT;
@@ -196,19 +170,6 @@ public final class ConfigPara {
 
     /** The special client options that must be processed early. */
     private static Map<String,String> specialOptions = null;
-
-    /**
-     * Prints the usage message and exits.
-     *
-     * @param options The command line {@code Options}.
-     * @param status The status to exit with.
-     */
-    private static void printUsage(Options options, int status) {
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -Xmx 256M -jar freecol.jar [OPTIONS]",
-                options);
-        System.exit(status);
-    }
 
     /**
      * Get the specification from a given TC file.

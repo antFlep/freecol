@@ -104,7 +104,7 @@ public class BuildColonyMessage extends AttributeMessage {
         if (colonyName == null) {
             return serverPlayer.clientError("Null colony name");
         } else if (Player.ASSIGN_SETTLEMENT_NAME.equals(colonyName)) {
-            ; // ok
+            // ok
         } else if (game.getSettlementByName(colonyName) != null) {
             return serverPlayer.clientError("Non-unique colony name "
                 + colonyName);

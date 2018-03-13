@@ -131,7 +131,7 @@ public abstract class TrivialMessage extends Message {
      */
     protected void setStringAttribute(String key, String value) {
         if (key == null || value == null) {
-            ; // Always OK to set nothing
+            // Always OK to set nothing
         } else { // Nope
             throw new RuntimeException(getType() + ".setStringAttribute NYI");
         }
@@ -163,7 +163,7 @@ public abstract class TrivialMessage extends Message {
      */
     protected void setChildren(List<? extends FreeColObject> fcos) {
         if (fcos == null || fcos.isEmpty()) {
-            ; // Always OK to set nothing
+            // Always OK to set nothing
         } else { // Nope
             throw new RuntimeException(getType() + ".setChildren NYI");
         }
@@ -174,7 +174,7 @@ public abstract class TrivialMessage extends Message {
      */
     protected <T extends FreeColObject> void appendChild(T fco) {
         if (fco == null) {
-            ; // Always OK to add nothing
+            // Always OK to add nothing
         } else {
             throw new RuntimeException(getType() + ".append NYI");
         }
@@ -185,7 +185,7 @@ public abstract class TrivialMessage extends Message {
      */
     protected <T extends FreeColObject> void appendChildren(Collection<T> fcos) {
         if (fcos == null) {
-            ; // Always OK to add nothing
+            // Always OK to add nothing
         } else {
             throw new RuntimeException(getType() + ".append NYI");
         }

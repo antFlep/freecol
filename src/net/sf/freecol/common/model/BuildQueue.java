@@ -58,7 +58,7 @@ public class BuildQueue<T extends BuildableType> implements Consumer {
          * implemented as a build queue at the moment, however).
          */
         ADD_RANDOM
-    };
+    }
 
 
     /** A list of Buildable items. */

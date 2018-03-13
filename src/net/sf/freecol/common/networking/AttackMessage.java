@@ -109,7 +109,7 @@ public class AttackMessage extends AttributeMessage {
         if (moveType == MoveType.ENTER_INDIAN_SETTLEMENT_WITH_SCOUT
             || moveType == MoveType.ENTER_FOREIGN_COLONY_WITH_SCOUT
             || moveType.isAttack()) {
-            ; // OK
+            // OK
         } else {
             return serverPlayer.clientError("Illegal attack move for: "
                 + unitId

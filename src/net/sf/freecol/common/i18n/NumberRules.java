@@ -98,7 +98,7 @@ public class NumberRules {
 
     public static void load(InputStream in) {
         try (
-            FreeColXMLReader xr = new FreeColXMLReader(in);
+            FreeColXMLReader xr = new FreeColXMLReader(in)
         ) {
             readFromXML(xr);
         } catch (Exception e) {

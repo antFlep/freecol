@@ -260,10 +260,10 @@ public final class InGameController extends FreeColClientHolder {
      */
     private void updateGUI(Tile tile) {
         if (displayModelMessages(false, false)) {
-            ; // If messages are displayed they probably refer to the
+            // If messages are displayed they probably refer to the
               // current unit, so do not update it.
         } else if (updateActiveUnit(tile)) {
-            ; // setActiveUnit will update the menu bar
+            // setActiveUnit will update the menu bar
         } else {
             getGUI().updateMapControls();
             getGUI().updateMenuBar();
@@ -1634,7 +1634,7 @@ public final class InGameController extends FreeColClientHolder {
                 colonyPanel(tile.getColony(), unit);
                 ret = false;
             } else {
-                ; // Automatic movement can continue after successful move.
+                // Automatic movement can continue after successful move.
             }
         }
         return ret && !discover;
@@ -2793,7 +2793,7 @@ public final class InGameController extends FreeColClientHolder {
         final Tile tile = unit.getTile();
         final Europe europe = unit.getOwner().getEurope();
         if (europe == null || unit.isInEurope()) {
-            ;// No need to check for transport.
+            // No need to check for transport.
         } else {
             int fee = unit.getTransportFee();
             StringTemplate template;
@@ -3479,7 +3479,7 @@ public final class InGameController extends FreeColClientHolder {
         final Player player = getMyPlayer();
         
         if (gold < 0) {
-            ; // protocol fail
+            // protocol fail
         } else if (!player.checkGold(gold)) {
             invokeLater(() ->
                 getGUI().showInformationMessage(is, StringTemplate
@@ -4835,7 +4835,7 @@ public final class InGameController extends FreeColClientHolder {
         FreeColDebugger.finishDebugRun(fcc, true);
         if (fcc.getSinglePlayer()) {
             if (player.getPlayerType() == Player.PlayerType.RETIRED) {
-                    ; // Do nothing, retire routine will quit
+                // Do nothing, retire routine will quit
             } else if (player.getPlayerType() != Player.PlayerType.UNDEAD) {
                 if (getGUI().confirm("defeatedSinglePlayer.text",
                                      "defeatedSinglePlayer.yes", "quit")) {

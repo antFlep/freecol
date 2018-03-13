@@ -364,7 +364,7 @@ public class OggVorbisDecoderFactory {
             }
             return range;
         }
-    };
+    }
 
     /**
      * The AudioInputStream extension to handle decoding Ogg/Vorbis Audio
@@ -440,7 +440,7 @@ public class OggVorbisDecoderFactory {
         public void reset() {
             os.reset();
         }
-    };
+    }
 
 
     /**

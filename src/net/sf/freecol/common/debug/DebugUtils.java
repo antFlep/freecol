@@ -663,7 +663,7 @@ public class DebugUtils {
         Settlement cSettlement = cTile.getSettlement();
         if (sSettlement == null) {
             if (cSettlement == null) {
-                ;// OK
+                // OK
             } else {
                 lb.add("Settlement still present in client: ", cSettlement);
             }
@@ -671,7 +671,7 @@ public class DebugUtils {
             if (cSettlement == null) {
                 lb.add("Settlement not present in client: ", sSettlement);
             } else if (sSettlement.getId().equals(cSettlement.getId())) {
-                ;// OK
+                // OK
             } else {
                 lb.add("Settlements differ.\n  Server: ",
                     sSettlement.toString(), "\n  Client: ", 

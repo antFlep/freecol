@@ -721,7 +721,7 @@ public class ServerColony extends Colony implements TurnTaker {
                 // Ready to build something.  FIXME: OO!
                 BuildableType buildable = csNextBuildable(queue, cs);
                 if (buildable == null) {
-                    ; // It was invalid, ignore.
+                    // It was invalid, ignore.
                 } else if (buildable instanceof UnitType) {
                     Unit newUnit = csBuildUnit(queue, random, cs);
                     if (newUnit.hasAbility(Ability.BORN_IN_COLONY)) {

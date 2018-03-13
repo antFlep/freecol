@@ -134,7 +134,7 @@ public final class Specification implements OptionContainer {
         public String toString() {
             return getId();
         }
-    };
+    }
 
     public static final Source AMBUSH_BONUS_SOURCE
         = new Source("model.source.ambushBonus");
@@ -403,7 +403,7 @@ public final class Specification implements OptionContainer {
      */
     private void load(InputStream in) {
         try (
-            FreeColXMLReader xr = new FreeColXMLReader(in);
+            FreeColXMLReader xr = new FreeColXMLReader(in)
         ) {
             xr.nextTag();
             load(xr);
@@ -2046,7 +2046,7 @@ public final class Specification implements OptionContainer {
 
         File rolf = FreeColDirectories.getCompatibilityFile(ROLES_COMPAT_FILE_NAME);
         try (
-            FileInputStream fis = new FileInputStream(rolf);
+            FileInputStream fis = new FileInputStream(rolf)
         ) {
             load(fis);
         } catch (Exception e) {
@@ -2072,8 +2072,8 @@ public final class Specification implements OptionContainer {
             matchKeyEquals(UnitChangeType.ENTER_COLONY, UnitChangeType::getId));
         File uctf = FreeColDirectories.getCompatibilityFile(UNIT_CHANGE_TYPES_COMPAT_FILE_NAME);
         try (
-             FileInputStream fis = new FileInputStream(uctf);
-             ) {
+             FileInputStream fis = new FileInputStream(uctf)
+        ) {
             load(fis);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to load unit changes.", e);
@@ -2159,7 +2159,7 @@ public final class Specification implements OptionContainer {
                     if (roleId == null) {
                         au.setRoleId(DEFAULT_ROLE_ID);
                     } else if (au.getRoleId().startsWith("model.role.")) {
-                        ; // OK
+                        // OK
                     } else if ("DEFAULT".equals(au.getRoleId())) {
                         au.setRoleId(DEFAULT_ROLE_ID);
                     } else if ("DRAGOON".equals(au.getRoleId())) {

@@ -1178,7 +1178,7 @@ public class Player extends FreeColGameObject implements Nameable {
         int unreduced = Math.round(current
             / applyModifiers(1f, turn, Modifier.RELIGIOUS_UNREST_BONUS));
         immigrationRequired = (int)applyModifiers(unreduced + (float) base, turn,
-            Modifier.RELIGIOUS_UNREST_BONUS);;
+            Modifier.RELIGIOUS_UNREST_BONUS);
         logger.finest("Immigration for " + getId() + " updated " + current
             + " -> " + immigrationRequired);
     }
@@ -3085,7 +3085,7 @@ public class Player extends FreeColGameObject implements Nameable {
         Stance oldStance = stance.get(player.getId());
         if (newStance == oldStance) return true;
 
-        boolean valid = true;;
+        boolean valid = true;
         if ((newStance == Stance.CEASE_FIRE && oldStance != Stance.WAR)
             || newStance == Stance.UNCONTACTED) {
             valid = false;
@@ -3297,7 +3297,7 @@ public class Player extends FreeColGameObject implements Nameable {
         public String getNameKey() {
             return Messages.nameKey("model." + getKey());
         }        
-    };
+    }
 
     /**
      * Can a tile be owned by this player?

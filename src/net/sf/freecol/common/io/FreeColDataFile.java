@@ -96,7 +96,7 @@ public class FreeColDataFile {
     private static String findJarDirectory(File file) {
         String expected = file.getName().substring(0, file.getName().lastIndexOf('.'));
         try (
-            JarFile jf = new JarFile(file);
+            JarFile jf = new JarFile(file)
         ) {
             final JarEntry entry = jf.entries().nextElement();
             final String en = entry.getName();
@@ -172,7 +172,7 @@ public class FreeColDataFile {
         lb.mark();
         for (String fileName : FreeColDirectories.getResourceFileNames()) {
             try (
-                final InputStream is = getInputStream(fileName);
+                final InputStream is = getInputStream(fileName)
             ) {
                 properties.load(is);
                 lb.add(' ', file, '/', fileName, ":ok");

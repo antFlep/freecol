@@ -45,7 +45,7 @@ public class DisplayTileTextAction extends SelectableAction {
         public String getKey() {
             return getEnumKey(this);
         }
-    };
+    }
 
     private static final int[] accelerators = {
         KeyEvent.VK_E,

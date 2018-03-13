@@ -239,7 +239,7 @@ public abstract class ReportUnitPanel extends ReportPanel {
      * @param unitType The UnitType to check
      * @return Defaults to false unless specific conditions are met
      */
-    protected boolean isReportable(UnitType unitType) { return false; };
+    protected boolean isReportable(UnitType unitType) { return false; }
 
     /**
      * Checks whether a Unit is reportable
@@ -247,6 +247,6 @@ public abstract class ReportUnitPanel extends ReportPanel {
      * @param unit The Unit to check
      * @return Defaults to false unless specific conditions are met
      */
-    protected boolean isReportable(Unit unit) { return false; };
+    protected boolean isReportable(Unit unit) { return false; }
 
 }

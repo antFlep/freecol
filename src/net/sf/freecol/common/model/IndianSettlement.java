@@ -57,7 +57,7 @@ public class IndianSettlement extends Settlement implements TradeLocation {
         CONTACTED,       // Name, wanted-goods now visible
         VISITED,         // Skill now known
         SCOUTED          // Scouting bonus consumed
-    };
+    }
 
 
     /** The production fudge factor. */

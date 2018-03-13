@@ -184,7 +184,7 @@ public class MultipleMessage extends AttributeMessage {
         case 1:
             ret = this.messages.get(0);
             if (this.getStringAttributeMap().isEmpty()) {
-                ; // child is good
+                // child is good
             } else if (ret instanceof AttributeMessage) {
                 ret.setStringAttributeMap(this.getStringAttributeMap());
             } else {

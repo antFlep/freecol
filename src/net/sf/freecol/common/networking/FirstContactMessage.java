@@ -134,7 +134,7 @@ public class FirstContactMessage extends AttributeMessage {
         if (first == null) {
             return serverPlayer.clientError("Invalid player: " + playerId);
         } else if (serverPlayer.getId().equals(playerId)) {
-            ; // OK
+            // OK
         } else {
             return serverPlayer.clientError("Not our player: " + playerId);
         }

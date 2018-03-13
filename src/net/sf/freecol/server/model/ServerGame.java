@@ -420,7 +420,7 @@ public class ServerGame extends Game implements TurnTaker {
         for (Unit unit : weakest.getUnitList()) {
             lb.add(" ", unit.getId());
             if (unit.isOnCarrier()) {
-                ; // Allow carrier to handle
+                // Allow carrier to handle
             } else if (!weakest.csChangeOwner(unit, strongest, //-vis(both)
                     UnitChangeType.CAPTURE, null, cs)) {
                 logger.warning("Owner change failed for " + unit);

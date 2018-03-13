@@ -133,7 +133,7 @@ public final class DifficultyDialog extends OptionsDialog
                 File file = getGUI().showLoadDialog(dir, "xml");
                 if (file != null) {
                     if (load(file)) {
-                        ; // OptionsDialog.load should update the GUI
+                        // OptionsDialog.load should update the GUI
                     } else {
                         StringTemplate err = StringTemplate
                             .template("error.couldNotLoadDifficulty")

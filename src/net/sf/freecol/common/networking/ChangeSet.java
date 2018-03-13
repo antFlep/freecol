@@ -59,7 +59,7 @@ public class ChangeSet {
     private enum SeeCheck {
         VISIBLE,
         INVISIBLE,
-        SPECIAL;
+        SPECIAL
     }
     
     /** The changes to send. */

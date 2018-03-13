@@ -105,7 +105,7 @@ public class NativeTrade extends FreeColGameObject {
         public boolean isEuropean() {
             return this.fromEuropeans;
         }
-    };
+    }
 
     /** The unit that is trading. */
     private Unit unit;

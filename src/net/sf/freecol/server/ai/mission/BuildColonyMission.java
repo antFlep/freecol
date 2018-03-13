@@ -468,7 +468,7 @@ public class BuildColonyMission extends Mission {
             }
 
             if (tile.getOwner() == null) {
-                ; // All is well
+                // All is well
             } else if (player.owns(tile)) { // Already ours, clear users
                 Colony colony = (Colony)tile.getOwningSettlement();
                 if (colony != null) {

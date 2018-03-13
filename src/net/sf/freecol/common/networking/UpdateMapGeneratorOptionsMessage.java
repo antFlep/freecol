@@ -114,7 +114,7 @@ public class UpdateMapGeneratorOptionsMessage extends ObjectMessage {
         final OptionGroup mapOptions = getMapGeneratorOptions();
 
         if (freeColClient.isInGame()) {
-            ; // Ignore
+            // Ignore
         } else {
             pgc(freeColClient).updateMapGeneratorOptionsHandler(mapOptions);
         }
