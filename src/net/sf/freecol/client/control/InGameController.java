@@ -3849,24 +3849,6 @@ public final class InGameController extends FreeColClientHolder {
 
         getGUI().setSelectedTile(newTile);
         return true;
-    } 
-
-    /**
-     * The player names a new region.
-     *
-     * Called from newRegionName, GUI.showNameNewRegionDialog
-     *
-     * @param tile The {@code Tile} within the region.
-     * @param unit The {@code Unit} that has discovered the region.
-     * @param region The {@code Region} to name.
-     * @param name The name to offer.
-     * @return True if the new region was named.
-     */
-    public boolean nameNewRegion(final Tile tile, final Unit unit,
-                                 final Region region, final String name) {
-        if (tile == null || unit == null || region == null) return false;
-
-        return askServer().newRegionName(region, tile, unit, name);
     }
 
     /**
@@ -4167,8 +4149,7 @@ public final class InGameController extends FreeColClientHolder {
      * @param name The name to offer.
      * @return True if the new region was named.
      */
-    public boolean newRegionName(final Region region, final Tile tile,
-                                 final Unit unit, final String name) {
+    public boolean newRegionName(final Region region, final Tile tile, final Unit unit, final String name) {
         if (tile == null || unit == null || region == null) return false;
 
         return askServer().newRegionName(region, tile, unit, name);
@@ -4182,8 +4163,7 @@ public final class InGameController extends FreeColClientHolder {
      * @param unit The {@code Unit} that has landed.
      * @param name The default name to use.
      */
-    public void newRegionNameHandler(Region region, Tile tile, Unit unit,
-                                     String name) {
+    public void newRegionNameHandler(Region region, Tile tile, Unit unit, String name) {
         invokeLater(() -> {
                 if (region.hasName()) {
                     if (region.isPacific()) {
