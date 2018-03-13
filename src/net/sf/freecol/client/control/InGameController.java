@@ -1024,12 +1024,12 @@ public final class InGameController extends FreeColClientHolder {
             // Move on the map if there is no Europe or there is a
             // destination that is not Europe, move to Europe if it is
             // the destination, otherwise ask the player.
-            result = (getMyPlayer().getEurope() == null
-                || (destination != null && !(destination instanceof Europe)))
-                ? moveTile(unit, direction)
-                : (destination instanceof Europe)
-                ? moveTowardEurope(unit, (Europe)destination)
-                : moveHighSeas(unit, direction);
+            if (getMyPlayer().getEurope() == null || destination != null && !(destination instanceof Europe))
+                result = moveTile(unit, direction);
+            else if (destination instanceof Europe)
+                result = moveTowardEurope(unit, (Europe) destination);
+            else
+                result = moveHighSeas(unit, direction);
             break;
         case MOVE:
             result = moveTile(unit, direction);
@@ -1301,12 +1301,15 @@ public final class InGameController extends FreeColClientHolder {
             break;
 
         case SETTLEMENT_TRIBUTE:
-            int amount = (settlement instanceof Colony)
-                ? getGUI().confirmEuropeanTribute(unit, (Colony)settlement,
-                    nationSummary(settlement.getOwner()))
-                : (settlement instanceof IndianSettlement)
-                ? getGUI().confirmNativeTribute(unit, (IndianSettlement)settlement)
-                : -1;
+            int amount;
+            if ((settlement instanceof Colony))
+                amount = getGUI().confirmEuropeanTribute(unit, (Colony) settlement, nationSummary(settlement.getOwner()));
+            else if (settlement instanceof IndianSettlement)
+                amount = getGUI().confirmNativeTribute(unit, (IndianSettlement) settlement);
+            else amount = -1;
+
+
+
             if (amount > 0) return moveTribute(unit, amount, direction);
             break;
             
@@ -2256,9 +2259,8 @@ public final class InGameController extends FreeColClientHolder {
                 logger.warning("Unexpected empty goods unload " + goods);
                 continue;
             }
-            int toUnload = present;
             int atStop = trl.getImportAmount(type, 0);
-            int amount = toUnload;
+            int amount = present;
             if (amount > atStop) {
                 StringTemplate locName = ((Location)trl).getLocationLabel();
                 int option = getClientOptions()
@@ -2270,7 +2272,7 @@ public final class InGameController extends FreeColClientHolder {
                         .addStringTemplate("%unit%",
                             unit.getLabel(Unit.UnitLabelType.NATIONAL))
                         .addStringTemplate("%colony%", locName)
-                        .addAmount("%amount%", toUnload - atStop)
+                        .addAmount("%amount%", present - atStop)
                         .addNamed("%goods%", goods);
                     if (!getGUI().confirm(unit.getTile(), template,
                                      unit, "yes", "no")) {
@@ -2865,11 +2867,17 @@ public final class InGameController extends FreeColClientHolder {
             || claimant == null) return false;
 
         final Player player = getMyPlayer();
-        final int price = ((claimant instanceof Settlement)
-                ? player.canClaimForSettlement(tile)
-                : player.canClaimForImprovement(tile))
-            ? 0
-            : player.getLandPrice(tile);
+
+        final int price;
+        boolean b;
+        if ((claimant instanceof Settlement)) {
+            b = player.canClaimForSettlement(tile);
+        } else {
+            b = player.canClaimForImprovement(tile);
+        }
+        if (b) price = 0;
+        else price = player.getLandPrice(tile);
+
         UnitWas unitWas = (claimant instanceof Unit)
             ? new UnitWas((Unit)claimant) : null;
         boolean ret = askClaimTile(player, tile, claimant, price);

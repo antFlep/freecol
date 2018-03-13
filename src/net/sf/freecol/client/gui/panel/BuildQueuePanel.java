@@ -725,10 +725,11 @@ public class BuildQueuePanel extends FreeColPanel implements ItemListener {
      *     null on error.
      */
     private JList<? extends BuildableType> convertJComp(JComponent comp) {
-        return (comp == this.unitList) ? this.unitList
-            : (comp == this.buildQueueList) ? this.buildQueueList
-            : (comp == this.buildingList) ? this.buildingList
-            : null;
+
+        if (comp == this.unitList) return this.unitList;
+        else if (comp == this.buildQueueList) return this.buildQueueList;
+        else if (comp == this.buildingList) return this.buildingList;
+        else return null;
     }
 
     private void removeBuildable(Object type) {

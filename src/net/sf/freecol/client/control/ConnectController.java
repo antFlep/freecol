@@ -267,9 +267,14 @@ public final class ConnectController extends FreeColClientHolder {
         // Reattach to the game
         fcc.login(state == ServerState.IN_GAME, game, player, single);
         if (current) game.setCurrentPlayer(player);
+
+        String str;
+        if (fcc.isInGame()) str = "running";
+        else if (game.allPlayersReadyToLaunch()) str = "ready";
+        else str = "new";
+
         logger.info("Login accepted for client " + player.getName()
-            + " to " + ((fcc.isInGame()) ? "running"
-                : (game.allPlayersReadyToLaunch()) ? "ready" : "new")
+            + " to " + str
             + " " + ((single) ? "single" : "multi")
             + "-player game as " + user + "/" + player.getId());
 
@@ -326,9 +331,8 @@ public final class ConnectController extends FreeColClientHolder {
         Messages.loadActiveModMessageBundle(mods, ConfigPara.getLocale());
 
         FreeColServer fcs = fcc.startServer(false, true, spec, -1);
-        return (fcs == null) ? false
-            : requestLogin(ConfigPara.getName(),
-                           fcs.getHost(), fcs.getPort());
+        return (fcs != null) && requestLogin(ConfigPara.getName(),
+                fcs.getHost(), fcs.getPort());
     }
 
     /**
