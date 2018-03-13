@@ -139,6 +139,7 @@ import net.sf.freecol.server.model.ServerPlayer;
 import net.sf.freecol.server.model.ServerRegion;
 import net.sf.freecol.server.model.ServerUnit;
 import net.sf.freecol.server.model.Session;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -188,7 +189,7 @@ public final class InGameController extends Controller {
      */
     private long getTimeout() {
         final boolean single = getFreeColServer().getSinglePlayer();
-        return FreeCol.getTimeout(single);
+        return ConfigPara.getTimeout(single);
     }
 
 

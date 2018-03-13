@@ -34,6 +34,7 @@ import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.io.sza.SimpleZippedAnimation;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -179,7 +180,7 @@ public class ResourceManager {
             return; // Do not preload in headless mode
         }
 
-        preloadThread = new Thread(FreeCol.CLIENT_THREAD + "-Resource loader") {
+        preloadThread = new Thread(ConfigPara.CLIENT_THREAD + "-Resource loader") {
                 @Override
                 public void run() {
                     // Make a local list of the resources to load.

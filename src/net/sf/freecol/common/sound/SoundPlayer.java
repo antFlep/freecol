@@ -39,6 +39,8 @@ import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.option.AudioMixerOption;
 import net.sf.freecol.common.option.AudioMixerOption.MixerWrapper;
 import net.sf.freecol.common.option.PercentageOption;
+import net.sf.freecol.start.ConfigPara;
+import sun.security.krb5.Config;
 
 
 /**
@@ -169,7 +171,7 @@ public class SoundPlayer {
 
 
         public SoundPlayerThread() {
-            super(FreeCol.CLIENT_THREAD + "SoundPlayer");
+            super(ConfigPara.CLIENT_THREAD + "SoundPlayer");
         }
 
         private synchronized void awaken() {

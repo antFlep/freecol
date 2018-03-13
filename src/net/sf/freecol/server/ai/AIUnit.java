@@ -63,6 +63,7 @@ import net.sf.freecol.server.ai.mission.UnitWanderHostileMission;
 import net.sf.freecol.server.ai.mission.UnitWanderMission;
 import net.sf.freecol.server.ai.mission.WishRealizationMission;
 import net.sf.freecol.server.ai.mission.WorkInsideColonyMission;
+import net.sf.freecol.start.Logging;
 
 
 /**
@@ -704,7 +705,7 @@ public class AIUnit extends TransportableAIObject {
             ? (AIMessage.askDisembark(this)
                 && unit.getLocation() == carrier.getLocation())
             : move(direction);
-if (direction == null && !result) net.sf.freecol.FreeCol.trace(logger, "LTFAIL");
+if (direction == null && !result) Logging.trace(logger, "LTFAIL");
         if (result) {
             requestLocalRearrange();
             dropTransport();

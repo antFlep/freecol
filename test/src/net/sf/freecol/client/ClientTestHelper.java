@@ -30,6 +30,7 @@ import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.common.debug.FreeColDebugger;
+import net.sf.freecol.start.ConfigPara;
 
 
 public class ClientTestHelper {
@@ -48,8 +49,8 @@ public class ClientTestHelper {
         FreeColDebugger.enableDebugMode(FreeColDebugger.DebugMode.MENUS);
         FreeColDebugger.setDebugRunTurns(1);
 
-        FreeCol.setLocale(null);
-        Messages.loadMessageBundle(FreeCol.getLocale());
+        ConfigPara.setLocale(null);
+        Messages.loadMessageBundle(ConfigPara.getLocale());
 
         logger.info("Debug value: " + FreeColDebugger.isInDebugMode());
 

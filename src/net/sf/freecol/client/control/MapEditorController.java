@@ -48,6 +48,8 @@ import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.generator.MapGenerator;
 import net.sf.freecol.server.model.ServerGame;
 import net.sf.freecol.server.model.ServerPlayer;
+import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -151,8 +153,8 @@ public final class MapEditorController extends FreeColClientHolder {
      * @throws IOException on failure to find the spec.
      */
     public Specification getDefaultSpecification() throws IOException {
-        return FreeCol.loadSpecification(FreeCol.getTCFile(), 
-            FreeCol.getAdvantages(), FreeCol.getDifficulty());
+        return Tools.loadSpecification(ConfigPara.getTCFile(),
+            ConfigPara.getAdvantages(), ConfigPara.getDifficulty());
     }
         
     /**
@@ -236,7 +238,7 @@ public final class MapEditorController extends FreeColClientHolder {
         map.resetLayers();
 
         gui.showStatusPanel(Messages.message("status.savingGame"));
-        new Thread(FreeCol.CLIENT_THREAD + "-Saving-Map") {
+        new Thread(ConfigPara.CLIENT_THREAD + "-Saving-Map") {
             @Override
             public void run() {
                 try {
@@ -249,7 +251,7 @@ public final class MapEditorController extends FreeColClientHolder {
                 } catch (IOException e) {
                     SwingUtilities.invokeLater(() -> {
                             gui.closeStatusPanel();
-                            gui.showErrorMessage(FreeCol.badFile("error.couldNotSave", file),
+                            gui.showErrorMessage(Tools.badFile("error.couldNotSave", file),
                                 (e == null) ? null : e.getMessage());
                         });
                 }
@@ -264,7 +266,7 @@ public final class MapEditorController extends FreeColClientHolder {
     public void loadGame() {
         File file = getGUI()
             .showLoadSaveFileDialog(FreeColDirectories.getUserMapsDirectory(),
-                                    FreeCol.FREECOL_MAP_EXTENSION);
+                                    ConfigPara.FREECOL_MAP_EXTENSION);
         if (file != null) loadGame(file);
     }
 
@@ -281,7 +283,7 @@ public final class MapEditorController extends FreeColClientHolder {
         gui.showStatusPanel(Messages.message("status.loadingGame"));
 
         final File theFile = file;
-        new Thread(FreeCol.CLIENT_THREAD + "Loading-Map") {
+        new Thread(ConfigPara.CLIENT_THREAD + "Loading-Map") {
             @Override
             public void run() {
                 final FreeColServer freeColServer = getFreeColServer();
@@ -300,12 +302,12 @@ public final class MapEditorController extends FreeColClientHolder {
                         });
                 } catch (FileNotFoundException fnfe) {
                     ej = gui.errorJob(fnfe,
-                        FreeCol.badFile("error.couldNotFind", theFile));
+                        Tools.badFile("error.couldNotFind", theFile));
                 } catch (IOException ioe) {
                     ej = gui.errorJob(ioe, "server.initialize");
                 } catch (XMLStreamException xse) {
                     ej = gui.errorJob(xse,
-                        FreeCol.badFile("error.couldNotLoad", theFile));
+                        Tools.badFile("error.couldNotLoad", theFile));
                 } catch (FreeColException ex) {
                     ej = gui.errorJob(ex, "server.initialize");
                 }

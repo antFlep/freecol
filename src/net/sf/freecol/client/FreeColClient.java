@@ -64,6 +64,9 @@ import net.sf.freecol.common.resources.ResourceManager;
 import net.sf.freecol.common.resources.ResourceMapping;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.FreeColServer.ServerState;
+import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Logging;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -139,7 +142,7 @@ public final class FreeColClient {
     
     public FreeColClient(final InputStream splashStream,
                          final String fontName) {
-        this(splashStream, fontName, FreeCol.GUI_SCALE_DEFAULT, true);
+        this(splashStream, fontName, ConfigPara.GUI_SCALE_DEFAULT, true);
     }
 
     /**
@@ -324,7 +327,7 @@ public final class FreeColClient {
             invokeMainPanel(userMsg).run();
         }
 
-        String quit = FreeCol.CLIENT_THREAD + "Quit Game";
+        String quit = ConfigPara.CLIENT_THREAD + "Quit Game";
         Runtime.getRuntime().addShutdownHook(new Thread(quit) {
                 @Override
                 public void run() {
@@ -391,7 +394,7 @@ public final class FreeColClient {
      */
     public static void fatal(String err) {
         logger.log(Level.SEVERE, err);
-        FreeCol.fatal(err);
+        Logging.fatal(err);
     }
 
 
@@ -790,7 +793,7 @@ public final class FreeColClient {
         logger.log(Level.WARNING, Messages.message(template), ex);
         if (isHeadless() // If this is a debug run, fail hard.
             || FreeColDebugger.getDebugRunTurns() >= 0) {
-            FreeCol.fatal(ej.toString());
+            Logging.fatal(ej.toString());
         }
         ej.setRunnable(invokeMainPanel(null)).invokeLater();
         return null;
@@ -884,7 +887,7 @@ public final class FreeColClient {
         try {
             fsg = new FreeColSavegameFile(saveFile);
         } catch (FileNotFoundException fnfe) {
-            return failToMain(fnfe, FreeCol.badFile("error.couldNotFind", saveFile));
+            return failToMain(fnfe, Tools.badFile("error.couldNotFind", saveFile));
         } catch (IOException ioe) {
             return failToMain(ioe, "server.initialize");
         }
@@ -892,7 +895,7 @@ public final class FreeColClient {
         try {
             fcs = new FreeColServer(fsg, (Specification)null, port, name);
         } catch (XMLStreamException xse) {
-            return failToMain(xse, FreeCol.badFile("error.couldNotLoad", saveFile));
+            return failToMain(xse, Tools.badFile("error.couldNotLoad", saveFile));
         } catch (Exception ex) {
             return failToMain(ex, "server.initialize");
         }

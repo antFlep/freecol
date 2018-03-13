@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.metaserver.ServerInfo;
 import net.sf.freecol.common.networking.Connection;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -148,7 +149,7 @@ public final class MetaRegister {
             Connection mc = null;
             try {
                 mc = new Connection(newSi.getAddress(), newSi.getPort(),
-                                    FreeCol.METASERVER_THREAD);
+                                    ConfigPara.METASERVER_THREAD);
                 if (mc == null) {
                     logger.info("Server not found: " + identity);
                 } else {

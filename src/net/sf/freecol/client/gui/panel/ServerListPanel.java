@@ -35,6 +35,8 @@ import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.control.ConnectController;
 import net.sf.freecol.common.metaserver.ServerInfo;
+import net.sf.freecol.start.ConfigPara;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
 
@@ -136,7 +138,7 @@ public final class ServerListPanel extends FreeColPanel {
         // FIXME: This should be added as a filtering rule:
         // Remove servers with an incorrect version from the list:
         removeInPlace(servers,
-                      si -> !si.getVersion().equals(FreeCol.getVersion()));
+                      si -> !si.getVersion().equals(ConfigPara.getVersion()));
 
         tableModel.setItems(servers);
         setEnabled(true);

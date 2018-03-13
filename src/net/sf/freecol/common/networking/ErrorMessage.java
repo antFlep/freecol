@@ -28,6 +28,7 @@ import net.sf.freecol.common.model.Game;
 import net.sf.freecol.common.model.StringTemplate;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.ai.AIPlayer;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -80,7 +81,7 @@ public class ErrorMessage extends ObjectMessage {
      * @param ex The {@code Exception} to use.
      */
     public ErrorMessage(Exception ex) {
-        this(FreeCol.errorFromException(ex, "server.reject"));
+        this(Tools.errorFromException(ex, "server.reject"));
     }
 
     /**

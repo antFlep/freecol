@@ -90,6 +90,8 @@ import net.sf.freecol.server.model.ServerPlayer;
 import net.sf.freecol.server.model.Session;
 import net.sf.freecol.server.networking.DummyConnection;
 import net.sf.freecol.server.networking.Server;
+import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -245,7 +247,7 @@ public final class FreeColServer {
         addresses.add(InetAddress.getLoopbackAddress());
         int tryMax = 1;
         if (firstPort < 0) {
-            firstPort = FreeCol.getServerPort();
+            firstPort = ConfigPara.getServerPort();
             tryMax = 10;
         }
         IOException ex = null;
@@ -619,7 +621,7 @@ public final class FreeColServer {
      */
     public void addNewUserConnection(Socket socket) throws IOException {
         final String name = socket.getInetAddress() + ":" + socket.getPort();
-        Connection c = new Connection(socket, FreeCol.SERVER_THREAD + name)
+        Connection c = new Connection(socket, ConfigPara.SERVER_THREAD + name)
             .setMessageHandler(this.userConnectionHandler);
         getServer().addConnection(c);
         // Short delay here improves reliability
@@ -848,14 +850,14 @@ public final class FreeColServer {
                     FreeColXMLWriter.WriteScope.toSave(), false)) {
                 xw.writeStartDocument("UTF-8", "1.0");
 
-                xw.writeComment(FreeCol.getConfiguration().toString());
+                xw.writeComment(Tools.getConfiguration().toString());
                 xw.writeCharacters("\n");
 
                 xw.writeStartElement(SAVED_GAME_TAG);
 
                 // Add the attributes:
                 xw.writeAttribute(OWNER_TAG,
-                                  (owner != null) ? owner : FreeCol.getName());
+                                  (owner != null) ? owner : ConfigPara.getName());
 
                 xw.writeAttribute(PUBLIC_SERVER_TAG, this.publicServer);
 
@@ -1322,7 +1324,7 @@ public final class FreeColServer {
                               null, -1, // Missing these at this point
                               slots, players,
                               this.serverState == ServerState.IN_GAME,
-                              FreeCol.getVersion(),
+                              ConfigPara.getVersion(),
                               getServerState().ordinal());
     }
 

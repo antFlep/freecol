@@ -29,6 +29,8 @@ import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
+import net.sf.freecol.start.ConfigPara;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 
@@ -120,10 +122,10 @@ public class NationOptions extends FreeColSpecObject {
     public NationOptions(Specification specification) {
         super(specification);
         
-        this.nationalAdvantages = FreeCol.getAdvantages();
+        this.nationalAdvantages = ConfigPara.getAdvantages();
         if (specification != null) {
             int counter = 0;
-            int maxEuropeans = FreeCol.getEuropeanCount();
+            int maxEuropeans = ConfigPara.getEuropeanCount();
             for (Nation nation : transform(specification.getNations(),
                     n -> !n.isUnknownEnemy() && !n.getType().isREF())) {
                 if (nation.getType().isEuropean() && nation.isSelectable()) {

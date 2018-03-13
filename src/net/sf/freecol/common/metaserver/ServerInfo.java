@@ -121,7 +121,7 @@ public class ServerInfo {
      * Get the FreeCol version of the server.
      *
      * @return The version.
-     * @see net.sf.freecol.FreeCol#getVersion
+     * @see net.sf.freecol.start.ConfigPara#getVersion
      */
     public String getVersion() {
         return this.version;

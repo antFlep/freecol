@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 
 import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.model.Direction;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -52,7 +53,7 @@ public class ScrollThread extends Thread {
      * @param canvas The Canvas containing the map to scroll.
      */
     public ScrollThread(Canvas canvas) {
-        super(FreeCol.CLIENT_THREAD + "Mouse scroller");
+        super(ConfigPara.CLIENT_THREAD + "Mouse scroller");
         this.canvas = canvas;
     }
 

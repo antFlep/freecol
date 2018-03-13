@@ -30,6 +30,7 @@ import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.util.Utils;
+import net.sf.freecol.start.Logging;
 
 
 /**
@@ -129,7 +130,7 @@ public class StringTemplate extends FreeColObject {
 
     public static StringTemplate name(String value) {
         if (value == null) {
-            net.sf.freecol.FreeCol.trace(logger, "Null name template");
+            Logging.trace(logger, "Null name template");
         }
         return new StringTemplate(value, null, TemplateType.NAME);
     }

@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 
 import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.networking.Connection;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -149,7 +150,7 @@ public final class MetaServer extends Thread {
                 logger.info("Client connection from: "
                     + clientSocket.getInetAddress().toString());
                 Connection connection = new Connection(clientSocket,
-                    FreeCol.METASERVER_THREAD)
+                    ConfigPara.METASERVER_THREAD)
                     .setMessageHandler(getMetaServerHandler());
                 this.connections.put(clientSocket, connection);
             } catch (IOException e) {

@@ -36,7 +36,6 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.io.FreeColModFile;
@@ -57,6 +56,7 @@ import net.sf.freecol.common.option.TextOption;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.Utils;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -670,7 +670,7 @@ public class ClientOptions extends OptionGroup {
             if (colonyNameComparator == null) {
                 // Can not be done statically, must wait for CLI parsing
                 colonyNameComparator = Comparator.comparing(Colony::getName,
-                    Collator.getInstance(FreeCol.getLocale()));
+                    Collator.getInstance(ConfigPara.getLocale()));
             }
             return colonyNameComparator;
         default:

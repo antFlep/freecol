@@ -38,6 +38,7 @@ import net.sf.freecol.client.gui.FontLibrary;
 import net.sf.freecol.client.gui.LoadingSavegameInfo;
 import net.sf.freecol.client.gui.panel.*;
 import net.sf.freecol.common.i18n.Messages;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -85,7 +86,7 @@ public final class LoadingSavegameDialog extends FreeColConfirmDialog {
         JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEADING));
         p2.add(Utility.localizedLabel("loadingSavegameDialog.port"));
 
-        portField = new JSpinner(new SpinnerNumberModel(FreeCol.getServerPort(),
+        portField = new JSpinner(new SpinnerNumberModel(ConfigPara.getServerPort(),
                                                         1, 65536, 1));
         ButtonGroup bg = new ButtonGroup();
         String str = Messages.message("loadingSavegameDialog.singlePlayer");

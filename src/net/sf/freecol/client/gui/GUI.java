@@ -78,6 +78,7 @@ import net.sf.freecol.common.model.Unit;
 import net.sf.freecol.common.option.Option;
 import net.sf.freecol.common.option.OptionGroup;
 import net.sf.freecol.common.resources.ResourceManager;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -97,12 +98,12 @@ public class GUI extends FreeColClientHolder {
 
         
         public ErrorJob(Exception ex, String key) {
-            this.template = FreeCol.errorFromException(ex, key);
+            this.template = Tools.errorFromException(ex, key);
             this.runnable = null;
         }
 
         public ErrorJob(Exception ex, StringTemplate tmpl) {
-            this.template = FreeCol.errorFromException(ex, tmpl);
+            this.template = Tools.errorFromException(ex, tmpl);
             this.runnable = null;
         }
 
@@ -1383,7 +1384,7 @@ public class GUI extends FreeColClientHolder {
     final public File showLoadSaveFileDialog(File root, String extension) {
         File file = showLoadDialog(root, extension);
         if (file != null && !file.isFile()) {
-            showErrorMessage(FreeCol.badFile("error.noSuchFile", file));
+            showErrorMessage(Tools.badFile("error.noSuchFile", file));
             file = null;
         }
         return file;

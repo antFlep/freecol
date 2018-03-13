@@ -178,6 +178,8 @@ import net.sf.freecol.common.resources.ResourceManager;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 import net.sf.freecol.common.util.Utils;
+import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Tools;
 
 
 /**
@@ -1568,7 +1570,7 @@ public final class Canvas extends JDesktopPane {
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(bgImage, 0, 0, size.width, size.height, this);
-                String versionStr = "v. " + FreeCol.getVersion();
+                String versionStr = "v. " + ConfigPara.getVersion();
                 Font oldFont = g2d.getFont();
                 Color oldColor = g2d.getColor();
                 Font newFont = oldFont.deriveFont(Font.BOLD);
@@ -1926,7 +1928,7 @@ public final class Canvas extends JDesktopPane {
         DifficultyDialog dd = new DifficultyDialog(freeColClient, frame,
                                                    spec, group, editable);
         OptionGroup ret = showFreeColDialog(dd, null);
-        if (ret != null) FreeCol.setDifficulty(ret);
+        if (ret != null) ConfigPara.setDifficulty(ret);
         return ret;
     }
 
@@ -2178,7 +2180,7 @@ public final class Canvas extends JDesktopPane {
             file = showFreeColDialog(new LoadDialog(freeColClient, frame,
                                                     directory, filters), null);
             if (file == null || file.isFile()) break;
-            showErrorMessage(Messages.message(FreeCol.badFile("error.noSuchFile", file)), null);
+            showErrorMessage(Messages.message(Tools.badFile("error.noSuchFile", file)), null);
         }
         return file;
     }

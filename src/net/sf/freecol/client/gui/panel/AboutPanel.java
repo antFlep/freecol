@@ -39,6 +39,7 @@ import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.gui.FontLibrary;
 import net.sf.freecol.common.resources.ResourceManager;
 import net.sf.freecol.common.util.OSUtils;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -110,7 +111,7 @@ public final class AboutPanel extends FreeColPanel {
         // Version
         JLabel apVersion = Utility.localizedLabel("aboutPanel.version");
         apVersion.setFont(fontBold);
-        JLabel apRevision = new JLabel(FreeCol.getRevision());
+        JLabel apRevision = new JLabel(ConfigPara.getRevision());
         apRevision.setFont(fontNormal);
         add(apVersion, "newline 20");
         add(apRevision, "newline");

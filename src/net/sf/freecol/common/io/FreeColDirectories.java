@@ -44,6 +44,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.OSUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 import net.sf.freecol.common.util.Utils;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -153,14 +154,14 @@ public class FreeColDirectories {
      */
     public static final Predicate<File> saveGameFilter = f ->
         f.isFile() && f.canRead()
-            && f.getName().endsWith("." + FreeCol.FREECOL_SAVE_EXTENSION);
+            && f.getName().endsWith("." + ConfigPara.FREECOL_SAVE_EXTENSION);
 
     /**
      * Predicate to select readable files that look like maps.
      */
     private static final Predicate<File> mapFilter = f ->
         f.isFile() && f.canRead()
-            && f.getName().endsWith("." + FreeCol.FREECOL_MAP_EXTENSION);
+            && f.getName().endsWith("." + ConfigPara.FREECOL_MAP_EXTENSION);
 
     /** Predicate to filter suitable candidates to be made into TCs. */
     private static final Predicate<File> tcFileFilter = f ->
@@ -645,7 +646,7 @@ public class FreeColDirectories {
      */
     private static List<File> getAutosaveFiles(String prefix,
                                                Predicate<File> pred) {
-        final String suffix = "." + FreeCol.FREECOL_SAVE_EXTENSION;
+        final String suffix = "." + ConfigPara.FREECOL_SAVE_EXTENSION;
         final File asd = getAutosaveDirectory();
         final Predicate<File> fullPred = pred.and(f ->
             f.getName().startsWith(prefix) && f.getName().endsWith(suffix));
@@ -672,7 +673,7 @@ public class FreeColDirectories {
         final long timeNow = System.currentTimeMillis();
         final Predicate<File> outdatedPred = f -> 
             f.lastModified() + validMS < timeNow;
-        final String extension = "." + FreeCol.FREECOL_SAVE_EXTENSION;
+        final String extension = "." + ConfigPara.FREECOL_SAVE_EXTENSION;
         final List<String> ex = transform(excludeSuffixes, alwaysTrue(),
                                           s -> sanitize(s));
         final Predicate<File> suffixPred = f ->
@@ -1043,7 +1044,7 @@ public class FreeColDirectories {
      * @return The directory to save user options in.
      */
     public static File getOptionsDirectory() {
-        File dir = new File(getUserConfigDirectory(), FreeCol.getTC());
+        File dir = new File(getUserConfigDirectory(), ConfigPara.getTC());
         return (insistDirectory(dir)) ? dir : null;
     }
 

@@ -41,6 +41,7 @@ import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
+import net.sf.freecol.start.ConfigPara;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
@@ -582,7 +583,7 @@ public class HighScore extends FreeColObject {
         newLandName = xr.getAttribute(NEW_LAND_NAME_TAG, "New World");
         
         difficulty = xr.getAttribute(DIFFICULTY_TAG,
-                                     FreeCol.getDifficulty());
+                                     ConfigPara.getDifficulty());
 
         nUnits = xr.getAttribute(UNITS_TAG, 0);
 

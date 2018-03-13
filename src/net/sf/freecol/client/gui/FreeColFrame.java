@@ -40,6 +40,7 @@ import net.sf.freecol.client.gui.menu.InGameMenuBar;
 import net.sf.freecol.client.gui.menu.MapEditorMenuBar;
 import net.sf.freecol.client.gui.menu.MenuMouseMotionListener;
 import net.sf.freecol.common.resources.ResourceManager;
+import net.sf.freecol.start.ConfigPara;
 
 
 /**
@@ -160,7 +161,7 @@ public class FreeColFrame extends JFrame {
      * @return The standard frame name.
      */
     private static String getFrameName() {
-        return "FreeCol " + FreeCol.getVersion();
+        return "FreeCol " + ConfigPara.getVersion();
     } 
 
 
