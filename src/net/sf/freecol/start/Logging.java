@@ -32,7 +32,7 @@ public class Logging {
         public final Level level;
         // We need to keep a hard reference to the instantiated logger, as
         // Logger only uses weak references.
-        public Logger logger;
+        private Logger logger;
 
         public LogLevel(String name, Level level) {
             this.name = name;
@@ -62,8 +62,7 @@ public class Logging {
             baseLogger.addHandler(new DefaultHandler(ConfigPara.consoleLogging, writer));
             for (LogLevel ll : logLevels) ll.buildLogger();
         } catch (FreeColException e) {
-            System.err.println("Logging initialization failure: "
-                    + e.getMessage());
+            System.err.println("Logging initialization failure: " + e.getMessage());
             e.printStackTrace();
         }
         Thread.setDefaultUncaughtExceptionHandler((Thread thread, Throwable e) -> {

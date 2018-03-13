@@ -63,7 +63,7 @@ public final class ReportLabourPanel extends ReportPanel {
     /** An individual unit type panel. */
     private class LabourUnitPanel extends JPanel {
 
-        public boolean selected;
+        private boolean selected;
         public final UnitType unitType;
 
 

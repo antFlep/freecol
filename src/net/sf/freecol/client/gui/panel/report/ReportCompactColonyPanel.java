@@ -87,6 +87,14 @@ public final class ReportCompactColonyPanel extends ReportPanel
     /** Container class for all the information about a colony. */
     private static class ColonySummary {
 
+        public static BinaryOperator<GoodsProduction> getGoodsProductionAccumulator() {
+            return goodsProductionAccumulator;
+        }
+
+        public static void setGoodsProductionAccumulator(BinaryOperator<GoodsProduction> goodsProductionAccumulator) {
+            ColonySummary.goodsProductionAccumulator = goodsProductionAccumulator;
+        }
+
         /** Types of production for a given goods type. */
         public static enum ProductionStatus {
             FAIL,        // Negative production and below low alarm level
@@ -101,30 +109,54 @@ public final class ReportCompactColonyPanel extends ReportPanel
             CONSUMPTION, // Positive production but could consume more
         }
 
-        public static BinaryOperator<GoodsProduction> goodsProductionAccumulator
+        private static BinaryOperator<GoodsProduction> goodsProductionAccumulator
             = (g1, g2) -> {
-                g1.amount += g2.amount;
-                g1.status = (g1.status == ProductionStatus.NONE
-                        && g2.status == ProductionStatus.NONE)
+                g1.setAmount(g1.getAmount() + g2.getAmount());
+                g1.setStatus((g1.getStatus() == ProductionStatus.NONE
+                        && g2.getStatus() == ProductionStatus.NONE)
                     ? ProductionStatus.NONE
-                    : (g1.amount < 0) ? ProductionStatus.BAD
-                    : (g1.amount > 0) ? ProductionStatus.GOOD
-                    : ProductionStatus.ZERO;
-                g1.extra = 0;
+                    : (g1.getAmount() < 0) ? ProductionStatus.BAD
+                    : (g1.getAmount() > 0) ? ProductionStatus.GOOD
+                    : ProductionStatus.ZERO);
+                g1.setExtra(0);
                 return g1;
             };
 
         /** Container class for goods production. */
         public static class GoodsProduction {
 
-            public int amount;
-            public ProductionStatus status;
-            public int extra;
+            private int amount;
+            private ProductionStatus status;
+            private int extra;
 
             public GoodsProduction(int amount, ProductionStatus status,
                                    int extra) {
+                this.setAmount(amount);
+                this.setStatus(status);
+                this.setExtra(extra);
+            }
+
+            public int getAmount() {
+                return amount;
+            }
+
+            public void setAmount(int amount) {
                 this.amount = amount;
+            }
+
+            public ProductionStatus getStatus() {
+                return status;
+            }
+
+            public void setStatus(ProductionStatus status) {
                 this.status = status;
+            }
+
+            public int getExtra() {
+                return extra;
+            }
+
+            public void setExtra(int extra) {
                 this.extra = extra;
             }
         }
@@ -622,21 +654,21 @@ public final class ReportCompactColonyPanel extends ReportPanel
         // if exported, cAlarm if too high, else cGood.
         for (GoodsType gt : this.goodsTypes) {
             final ColonySummary.GoodsProduction gp = s.production.get(gt);
-            switch (gp.status) {
+            switch (gp.getStatus()) {
             case FAIL:
                 c = cAlarm;
                 t = stpld("report.colony.production.low")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", -gp.amount)
-                        .addAmount("%turns%", gp.extra);
+                        .addAmount("%amount%", -gp.getAmount())
+                        .addAmount("%turns%", gp.getExtra());
                 break;
             case BAD:
                 c = cWarn;
                 t = stpld("report.colony.production")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount);
+                        .addAmount("%amount%", gp.getAmount());
                 break;
             case NONE:
                 c = null;
@@ -647,60 +679,60 @@ public final class ReportCompactColonyPanel extends ReportPanel
                 t = stpld("report.colony.production")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount);
+                        .addAmount("%amount%", gp.getAmount());
                 break;
             case GOOD:
                 c = cGood;
                 t = stpld("report.colony.production")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount);
+                        .addAmount("%amount%", gp.getAmount());
                 break;
             case EXPORT:
                 c = cExport;
                 t = stpld("report.colony.production.export")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount)
-                        .addAmount("%export%", gp.extra);
+                        .addAmount("%amount%", gp.getAmount())
+                        .addAmount("%export%", gp.getExtra());
                 break;
             case EXCESS:
                 c = cWarn;
                 t = stpld("report.colony.production.high")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount)
-                        .addAmount("%turns%", gp.extra);
+                        .addAmount("%amount%", gp.getAmount())
+                        .addAmount("%turns%", gp.getExtra());
                 break;
             case OVERFLOW:
                 c = cAlarm;
                 t = stpld("report.colony.production.waste")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount)
-                        .addAmount("%waste%", gp.extra);
+                        .addAmount("%amount%", gp.getAmount())
+                        .addAmount("%waste%", gp.getExtra());
                 break;
             case PRODUCTION:
                 c = cWarn;
                 t = stpld("report.colony.production.maxProduction")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount)
-                        .addAmount("%more%", gp.extra);
+                        .addAmount("%amount%", gp.getAmount())
+                        .addAmount("%more%", gp.getExtra());
                 break;
             case CONSUMPTION:
                 c = cWarn;
                 t = stpld("report.colony.production.maxConsumption")
                         .addName("%colony%", s.colony.getName())
                         .addNamed("%goods%", gt)
-                        .addAmount("%amount%", gp.amount)
-                        .addAmount("%more%", gp.extra);
+                        .addAmount("%amount%", gp.getAmount())
+                        .addAmount("%more%", gp.getExtra());
                 break;
             default:
-                throw new IllegalStateException("Bogus status: " + gp.status);
+                throw new IllegalStateException("Bogus status: " + gp.getStatus());
             }
             reportPanel.add((c == null) ? new JLabel()
-                : newButton(cac, Integer.toString(gp.amount), null, c, t));
+                : newButton(cac, Integer.toString(gp.getAmount()), null, c, t));
         }
 
         // Field: New colonist arrival or famine warning.
@@ -899,7 +931,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
             rBonus += s.bonus;
             rSizeChange += s.sizeChange;
             accumulateMap(rProduction, s.production,
-                          ColonySummary.goodsProductionAccumulator);
+                    ColonySummary.getGoodsProductionAccumulator());
             teacherLen = Math.max(teacherLen, s.teachers.size());
             for (Unit u : s.teachers.keySet()) {
                 accumulateToMap(rTeachers, u.getType(), 1, integerAccumulator);
@@ -966,7 +998,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
         // cPlain if production balanced at zero, otherwise cGood.
         for (GoodsType gt : this.goodsTypes) {
             final ColonySummary.GoodsProduction gp = rProduction.get(gt);
-            switch (gp.status) {
+            switch (gp.getStatus()) {
             case BAD:
                 c = cWarn;
                 break;
@@ -980,10 +1012,10 @@ public final class ReportCompactColonyPanel extends ReportPanel
                 c = cGood;
                 break;
             default:
-                throw new IllegalStateException("Bogus status: " + gp.status);
+                throw new IllegalStateException("Bogus status: " + gp.getStatus());
             }
             reportPanel.add((c == null) ? new JLabel()
-                : newLabel(Integer.toString(gp.amount), null, c,
+                : newLabel(Integer.toString(gp.getAmount()), null, c,
                     stpld("report.colony.production.summary")
                         .addNamed("%goods%", gt)));
         }

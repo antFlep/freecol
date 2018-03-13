@@ -102,7 +102,7 @@ public final class SelectDestinationDialog extends FreeColDialog<Location>
         public final String extras;
         public final String text;
         public final int score;
-        public ImageIcon icon;
+        private ImageIcon icon;
 
 
         /**

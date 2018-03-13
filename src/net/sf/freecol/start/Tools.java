@@ -36,9 +36,6 @@ import net.sf.freecol.common.model.NationOptions.Advantages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
 
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-
 
 /**
  * This class is responsible for handling the command-line arguments

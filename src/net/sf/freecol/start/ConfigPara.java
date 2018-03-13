@@ -23,8 +23,6 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,9 +37,6 @@ import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.model.StringTemplate;
 import net.sf.freecol.common.option.OptionGroup;
 import static net.sf.freecol.common.util.CollectionUtils.*;
-
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
 
 
 /**
