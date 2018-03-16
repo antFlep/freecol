@@ -3434,8 +3434,12 @@ public final class InGameController extends FreeColClientHolder {
      * @return True if the server interaction succeeded.
      */
     public boolean highScore(Boolean high) {
-        return askServer().getHighScores((high == null) ? null
-            : ((high) ? "highscores.yes" : "highscores.no"));
+        String s;
+        if (high == null) s = null;
+        else if (high) s = "highscores.yes";
+        else s = "highscores.no";
+
+        return askServer().getHighScores(s);
     }
 
     /**
@@ -3538,24 +3542,27 @@ public final class InGameController extends FreeColClientHolder {
         }
 
         final String nation = Messages.message(unit.getOwner().getNationLabel());
-        ModelMessage m = (type == null)
-            ? new ModelMessage(ModelMessage.MessageType.DEMANDS,
-                               "indianDemand.gold.text", colony, unit)
-                .addName("%nation%", nation)
-                .addName("%colony%", colony.getName())
-                .addAmount("%amount%", amount)
-            : (type.isFoodType())
-            ? new ModelMessage(ModelMessage.MessageType.DEMANDS,
-                               "indianDemand.food.text", colony, unit)
-                .addName("%nation%", nation)
-                .addName("%colony%", colony.getName())
-                .addAmount("%amount%", amount)
-            : new ModelMessage(ModelMessage.MessageType.DEMANDS,
-                               "indianDemand.other.text", colony, unit)
-                .addName("%nation%", nation)
-                .addName("%colony%", colony.getName())
-                .addAmount("%amount%", amount)
-                .addNamed("%goods%", type);
+        ModelMessage m;
+        if (type == null)
+            m = new ModelMessage(MessageType.DEMANDS,
+                    "indianDemand.gold.text", colony, unit)
+                    .addName("%nation%", nation)
+                    .addName("%colony%", colony.getName())
+                    .addAmount("%amount%", amount);
+        else if ((type.isFoodType()))
+            m = new ModelMessage(MessageType.DEMANDS,
+                    "indianDemand.food.text", colony, unit)
+                    .addName("%nation%", nation)
+                    .addName("%colony%", colony.getName())
+                    .addAmount("%amount%", amount);
+        else
+            m = new ModelMessage(MessageType.DEMANDS,
+                    "indianDemand.other.text", colony, unit)
+                    .addName("%nation%", nation)
+                    .addName("%colony%", colony.getName())
+                    .addAmount("%amount%", amount)
+                    .addNamed("%goods%", type);
+
         player.addModelMessage(m);
         invokeLater(() -> displayModelMessages(false));
     }
