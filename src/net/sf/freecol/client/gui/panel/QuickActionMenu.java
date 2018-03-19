@@ -22,7 +22,6 @@ package net.sf.freecol.client.gui.panel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.*;
-import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -79,8 +78,6 @@ import static net.sf.freecol.common.util.StringUtils.*;
  * @author Brian
  */
 public final class QuickActionMenu extends JPopupMenu {
-
-    private static final Logger logger = Logger.getLogger(QuickActionMenu.class.getName());
 
     private final FreeColClient freeColClient;
 

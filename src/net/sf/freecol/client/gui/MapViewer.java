@@ -132,7 +132,6 @@ public final class MapViewer extends FreeColClientHolder {
 
     private int topSpace;
     private int topRows;
-    private int bottomSpace;
     private int bottomRows;
     private int leftSpace;
     private int rightSpace;

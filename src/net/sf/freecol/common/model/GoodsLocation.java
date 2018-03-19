@@ -21,7 +21,6 @@ package net.sf.freecol.common.model;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamException;
@@ -39,8 +38,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * @see Locatable
  */
 public abstract class GoodsLocation extends UnitLocation {
-
-    private static final Logger logger = Logger.getLogger(GoodsLocation.class.getName());
 
     /** The container for the goods. */
     private GoodsContainer goodsContainer = null;

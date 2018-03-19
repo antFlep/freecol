@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -98,10 +97,6 @@ public class HighScore extends FreeColObject {
             return minimumScore;
         }
     }
-
-    /** The format to use for dates.  Almost ISO8601. */
-    private final SimpleDateFormat dateFormat
-        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
 
     /** The turn in which independence was granted. */
     private int independenceTurn = -1;

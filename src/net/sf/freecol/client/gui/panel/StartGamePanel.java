@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui.panel;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -49,8 +48,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * shown.
  */
 public final class StartGamePanel extends FreeColPanel {
-
-    private static final Logger logger = Logger.getLogger(StartGamePanel.class.getName());
 
     private boolean singlePlayerGame;
 

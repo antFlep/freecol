@@ -19,8 +19,6 @@
 
 package net.sf.freecol.client.gui.panel;
 
-import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -35,9 +33,6 @@ import net.sf.freecol.common.resources.ResourceManager;
  * This panel is displayed when an imporantant event in the game has happened.
  */
 public final class EventPanel extends FreeColPanel {
-
-    private static final Logger logger = Logger.getLogger(EventPanel.class.getName());
-
 
     /**
      * The constructor that will add the items to this panel.

@@ -26,7 +26,6 @@ import java.net.InetAddress;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import net.sf.freecol.common.debug.FreeColDebugger;
@@ -162,9 +161,6 @@ public final class ConfigPara {
 
     /** How much gui elements get scaled. */
     static float guiScale = GUI_SCALE_DEFAULT;
-
-    /** The special client options that must be processed early. */
-    private static Map<String,String> specialOptions = null;
 
     /**
      * Get the specification from a given TC file.

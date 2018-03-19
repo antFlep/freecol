@@ -23,7 +23,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.swing.ComponentInputMap;
 import javax.swing.ImageIcon;
@@ -58,12 +57,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * This panel is used to show information about a tile.
  */
 public final class TilePanel extends FreeColPanel {
-
-    @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(TilePanel.class.getName());
-
-    private static final String COLOPEDIA = "COLOPEDIA";
-
 
     /**
      * Creates a panel describing a tile.

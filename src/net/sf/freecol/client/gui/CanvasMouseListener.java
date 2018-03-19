@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.logging.Logger;
 
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.control.FreeColClientHolder;
@@ -32,10 +31,7 @@ import net.sf.freecol.common.model.Unit;
 /**
  * Listens to mouse buttons being pressed at the level of the Canvas.
  */
-public final class CanvasMouseListener extends FreeColClientHolder
-        implements MouseListener {
-
-    private static final Logger logger = Logger.getLogger(CanvasMouseListener.class.getName());
+public final class CanvasMouseListener extends FreeColClientHolder implements MouseListener {
 
     private final Canvas canvas;
 

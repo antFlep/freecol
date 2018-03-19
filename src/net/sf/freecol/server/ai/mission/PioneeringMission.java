@@ -20,7 +20,6 @@
 package net.sf.freecol.server.ai.mission;
 
 import java.util.Comparator;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -57,19 +56,10 @@ import net.sf.freecol.server.ai.TileImprovementPlan;
  */
 public class PioneeringMission extends Mission {
 
-    private static final Logger logger = Logger.getLogger(PioneeringMission.class.getName());
-
     public static final String TAG = "pioneeringMission";
 
     /** The tag for this mission. */
     private static final String tag = "AI pioneer";
-
-
-    // FIXME: This is unused, delete?
-    /**
-     * Default distance in turns to a threatening unit.
-     */
-    private static final int DEFAULT_THREAT_TURNS = 3;
 
     /** The improvement this pioneer is to work on. */
     private TileImprovementPlan tileImprovementPlan;

@@ -19,7 +19,6 @@
 
 package net.sf.freecol.common.model;
 
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamException;
@@ -32,10 +31,7 @@ import net.sf.freecol.common.util.LogBuilder;
 /**
  * Represents a {@code TileItem} item on a {@code Tile}.
  */
-public abstract class TileItem extends FreeColGameObject
-    implements Locatable, Named {
-
-    private static final Logger logger = Logger.getLogger(TileItem.class.getName());
+public abstract class TileItem extends FreeColGameObject implements Locatable, Named {
 
     /** The tile where the tile item is. */
     protected Tile tile;

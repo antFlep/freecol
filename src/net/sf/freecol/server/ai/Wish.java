@@ -19,8 +19,6 @@
 
 package net.sf.freecol.server.ai;
 
-import java.util.logging.Logger;
-
 import javax.xml.stream.XMLStreamException;
 
 import net.sf.freecol.common.io.FreeColXMLReader;
@@ -36,8 +34,6 @@ import net.sf.freecol.common.util.Utils;
  * Represents a need for something at a given {@code Location}.
  */
 public abstract class Wish extends ValuedAIObject {
-
-    private static final Logger logger = Logger.getLogger(Wish.class.getName());
 
     /** The requesting location of this wish. */
     protected Location destination;

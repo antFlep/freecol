@@ -21,7 +21,6 @@ package net.sf.freecol.common.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -38,8 +37,6 @@ import static net.sf.freecol.common.util.StringUtils.*;
  * The options specific to a nation.
  */
 public class NationOptions extends FreeColSpecObject {
-
-    private static final Logger logger = Logger.getLogger(NationOptions.class.getName());
 
     public static final String TAG = "nationOptions";
 

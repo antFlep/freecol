@@ -19,8 +19,6 @@
 
 package net.sf.freecol.server.ai.mission;
 
-import java.util.logging.Logger;
-
 import javax.xml.stream.XMLStreamException;
 
 import net.sf.freecol.common.io.FreeColXMLReader;
@@ -49,8 +47,6 @@ import net.sf.freecol.server.ai.AIUnit;
  * Mission for sending a missionary to a native settlement.
  */
 public class MissionaryMission extends Mission {
-
-    private static final Logger logger = Logger.getLogger(MissionaryMission.class.getName());
 
     public static final String TAG = "missionaryMission";
 

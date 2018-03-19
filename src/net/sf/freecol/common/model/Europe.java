@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
@@ -48,10 +47,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * In Europe, you can recruit, train and purchase new units.  You can
  * also equip units, as well as sell and buy goods.
  */
-public class Europe extends UnitLocation
-    implements Ownable, Named, TradeLocation {
-
-    private static final Logger logger = Logger.getLogger(Europe.class.getName());
+public class Europe extends UnitLocation implements Ownable, Named, TradeLocation {
 
     /** Class index for Europe. */
     private static final int EUROPE_CLASS_INDEX = 30;

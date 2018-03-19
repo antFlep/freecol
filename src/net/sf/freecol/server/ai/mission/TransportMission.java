@@ -82,8 +82,6 @@ public class TransportMission extends Mission {
      */
     private static final int DESTINATION_UPPER_BOUND = 4;
 
-    private static final int MINIMUM_GOLD_TO_STAY_IN_EUROPE = 600;
-
     /** A list of {@code Cargo}s to work on. */
     private final List<Cargo> cargoes = new ArrayList<>();
 

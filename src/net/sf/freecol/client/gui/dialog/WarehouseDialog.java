@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui.dialog;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -50,8 +49,6 @@ import net.sf.freecol.common.option.GameOptions;
  * A dialog to display a colony warehouse.
  */
 public final class WarehouseDialog extends FreeColConfirmDialog {
-
-    private static final Logger logger = Logger.getLogger(WarehouseDialog.class.getName());
 
     private JPanel warehousePanel;
 

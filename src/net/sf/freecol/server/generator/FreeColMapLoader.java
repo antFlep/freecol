@@ -22,7 +22,6 @@ package net.sf.freecol.server.generator;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.model.Game;
@@ -47,8 +46,6 @@ import javax.xml.stream.XMLStreamException;
  * Load a FreeCol map.
  */
 public class FreeColMapLoader implements MapLoader {
-
-    private static final Logger logger = Logger.getLogger(FreeColMapLoader.class.getName());
 
     private Map importMap = null;
 

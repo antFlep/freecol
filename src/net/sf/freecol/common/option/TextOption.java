@@ -110,9 +110,6 @@ public class TextOption extends AbstractOption<String> {
 
     // Serialization
 
-    private static final String CHOICE_TAG = "choice";
-
-
     /**
      * {@inheritDoc}
      */

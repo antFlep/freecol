@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui.dialog;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,10 +42,7 @@ import net.sf.freecol.common.option.OptionGroup;
  *
  * @see OptionGroup
  */
-public final class DifficultyDialog extends OptionsDialog
-    implements TreeSelectionListener {
-
-    private static final Logger logger = Logger.getLogger(DifficultyDialog.class.getName());
+public final class DifficultyDialog extends OptionsDialog implements TreeSelectionListener {
 
     /** The currently selected subgroup. */
     private OptionGroup selected;

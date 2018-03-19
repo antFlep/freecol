@@ -22,7 +22,6 @@ package net.sf.freecol.common.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -37,8 +36,6 @@ import static net.sf.freecol.common.util.StringUtils.*;
  * A named region on the map.
  */
 public class Region extends FreeColGameObject implements Nameable {
-
-    private static final Logger logger = Logger.getLogger(Region.class.getName());
 
     public static final String TAG = "region";
 

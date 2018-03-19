@@ -22,7 +22,6 @@ package net.sf.freecol.client.gui.panel;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -70,8 +69,6 @@ import net.sf.freecol.start.ConfigPara;
  *
  */
 public final class AboutPanel extends FreeColPanel {
-
-    private static final Logger logger = Logger.getLogger(AboutPanel.class.getName());
 
     /** The main FreeCol website */
     private static final String SITE_URL

@@ -41,8 +41,6 @@ public class InstallerTranslations {
         new File(SOURCE_DIRECTORY, "FreeColMessages.properties");
     private static final File DESTINATION_DIRECTORY =
         new File("build/installer");
-    private static final File LANGUAGE_CODES =
-        new File(DESTINATION_DIRECTORY, "iso-639-2.txt");
 
     // it seems IzPack doesn't use ISO codes at all
     private static final String[][] IZPACK_CODES = {

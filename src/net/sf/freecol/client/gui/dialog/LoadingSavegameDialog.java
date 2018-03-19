@@ -20,7 +20,6 @@
 package net.sf.freecol.client.gui.dialog;
 
 import java.awt.FlowLayout;
-import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -44,8 +43,6 @@ import net.sf.freecol.start.ConfigPara;
  * Dialog for setting some options when loading a game.
  */
 public final class LoadingSavegameDialog extends FreeColConfirmDialog {
-
-    private static final Logger logger = Logger.getLogger(LoadingSavegameDialog.class.getName());
 
     private final JRadioButton singlePlayer;
 

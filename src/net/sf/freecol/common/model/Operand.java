@@ -20,7 +20,6 @@
 package net.sf.freecol.common.model;
 
 import java.util.Collection;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -46,8 +45,6 @@ import net.sf.freecol.common.util.Utils;
  * OperandType is NONE.
  */
 public class Operand extends Scope {
-
-    private static final Logger logger = Logger.getLogger(Operand.class.getName());
 
     public static enum OperandType {
         UNITS, BUILDINGS, SETTLEMENTS, FOUNDING_FATHERS, YEAR, OPTION, NONE

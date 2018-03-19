@@ -23,7 +23,6 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu.Separator;
@@ -45,8 +44,6 @@ import net.sf.freecol.common.util.OSUtils;
  * be precise).
  */
 public final class DragListener extends MouseAdapter {
-
-    private static final Logger logger = Logger.getLogger(DragListener.class.getName());
 
     /**
      * The maximum numbers of pixels of the user's screen height

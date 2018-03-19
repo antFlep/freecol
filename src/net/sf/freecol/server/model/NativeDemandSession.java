@@ -19,8 +19,6 @@
 
 package net.sf.freecol.server.model;
 
-import java.util.logging.Logger;
-
 import net.sf.freecol.common.model.Colony;
 import net.sf.freecol.common.model.GoodsType;
 import net.sf.freecol.common.model.Unit;
@@ -34,8 +32,6 @@ import net.sf.freecol.server.model.ServerPlayer;
  * A type of session to handle trading with a native settlement.
  */
 public class NativeDemandSession extends TimedSession {
-
-    private static final Logger logger = Logger.getLogger(NativeDemandSession.class.getName());
 
     private Unit unit;
     private Colony colony;

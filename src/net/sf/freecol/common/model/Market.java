@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -39,8 +38,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * determined solely by its availability in that market.
  */
 public final class Market extends FreeColGameObject implements Ownable {
-
-    private static final Logger logger = Logger.getLogger(Market.class.getName());
 
     public static final String TAG = "market";
 

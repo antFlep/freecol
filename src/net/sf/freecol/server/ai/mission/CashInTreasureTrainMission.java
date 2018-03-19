@@ -21,7 +21,6 @@ package net.sf.freecol.server.ai.mission;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -50,8 +49,6 @@ import net.sf.freecol.server.ai.AIUnit;
  * FIXME: Better avoidance of enemy units
  */
 public class CashInTreasureTrainMission extends Mission {
-
-    private static final Logger logger = Logger.getLogger(CashInTreasureTrainMission.class.getName());
 
     public static final String TAG = "cashInTreasureTrainMission";
 

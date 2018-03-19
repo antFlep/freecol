@@ -21,7 +21,6 @@ package net.sf.freecol.client.gui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.logging.Logger;
 
 import net.sf.freecol.client.FreeColClient;
 
@@ -29,11 +28,7 @@ import net.sf.freecol.client.FreeColClient;
 /**
  * Listens to the mouse being moved at the level of the Canvas.
  */
-public final class CanvasMouseMotionListener extends AbstractCanvasListener
-    implements MouseMotionListener {
-
-    private static final Logger logger = Logger.getLogger(CanvasMouseMotionListener.class.getName());
-
+public final class CanvasMouseMotionListener extends AbstractCanvasListener implements MouseMotionListener {
 
     /**
      * Creates a new listener for mouse movement.

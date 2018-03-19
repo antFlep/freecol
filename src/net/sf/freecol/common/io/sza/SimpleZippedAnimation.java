@@ -19,7 +19,6 @@
 
 package net.sf.freecol.common.io.sza;
 
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -54,8 +53,6 @@ public final class SimpleZippedAnimation implements Iterable<AnimationEvent> {
 
     private static final class ImageAnimationEventImpl
         implements ImageAnimationEvent {
-
-        private static final Component _c = new Component() {};
         
         private final BufferedImage image;
         private final int durationInMs;

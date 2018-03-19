@@ -22,7 +22,6 @@ package net.sf.freecol.client.gui.dialog;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -43,8 +42,6 @@ import net.sf.freecol.start.Tools;
  * Dialog for changing the options of an {@link OptionGroup}.
  */
 public abstract class OptionsDialog extends FreeColDialog<OptionGroup> {
-
-    private static final Logger logger = Logger.getLogger(OptionsDialog.class.getName());
 
     /** Are the settings in this dialog editable? */
     private final boolean editable;

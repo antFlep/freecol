@@ -20,7 +20,6 @@
 package net.sf.freecol.server.ai;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -71,10 +70,6 @@ public abstract class AIPlayer extends AIObject {
 
     /** Do nothing! */
     private static final Runnable nullRunnable = () -> {};
-    
-    /** A comparator to sort AI units by location. */
-    private static final Comparator<AIUnit> aiUnitLocationComparator
-        = Comparator.comparing(AIUnit::getUnit, Unit.locComparator);
 
     /** The FreeColGameObject this AIObject contains AI-information for. */
     private ServerPlayer player;

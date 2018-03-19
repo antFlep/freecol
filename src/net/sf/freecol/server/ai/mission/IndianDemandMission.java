@@ -24,7 +24,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -57,8 +56,6 @@ import net.sf.freecol.server.ai.AIUnit;
  * Mission for demanding goods from a specified player.
  */
 public class IndianDemandMission extends Mission {
-
-    private static final Logger logger = Logger.getLogger(IndianDemandMission.class.getName());
 
     public static final String TAG = "indianDemandMission";
 

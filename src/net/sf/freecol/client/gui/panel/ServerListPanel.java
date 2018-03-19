@@ -22,7 +22,6 @@ package net.sf.freecol.client.gui.panel;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -44,8 +43,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * This panel is used to display the information received from the meta-server.
  */
 public final class ServerListPanel extends FreeColPanel {
-
-    private static final Logger logger = Logger.getLogger(ServerListPanel.class.getName());
 
     private final ConnectController connectController;
 

@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
@@ -42,8 +41,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * - FreeColObject itself implements a null version.
  */
 public final class FeatureContainer {
-
-    private static final Logger logger = Logger.getLogger(FeatureContainer.class.getName());
 
     /** Lock variables. */
     private final Object abilitiesLock = new Object();

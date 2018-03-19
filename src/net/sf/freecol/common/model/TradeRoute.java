@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -38,8 +37,6 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public class TradeRoute extends FreeColGameObject
     implements Nameable, Ownable {
-
-    private static final Logger logger = Logger.getLogger(TradeRoute.class.getName());
 
     public static final String TAG = "tradeRoute";
 

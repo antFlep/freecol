@@ -4329,7 +4329,6 @@ public class Unit extends GoodsLocation
     // Serialization
 
     private static final String ATTRITION_TAG = "attrition";
-    private static final String COUNT_TAG = "count";
     private static final String CURRENT_STOP_TAG = "currentStop";
     private static final String DESTINATION_TAG = "destination";
     private static final String ENTRY_LOCATION_TAG = "entryLocation";

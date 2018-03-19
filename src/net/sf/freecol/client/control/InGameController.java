@@ -144,10 +144,6 @@ public final class InGameController extends FreeColClientHolder {
 
     private static final short UNIT_LAST_MOVE_DELAY = 300;
 
-    /** A template to use as a magic cookie for aborted trades. */
-    private static final StringTemplate abortTrade
-        = StringTemplate.template("");
-
     /** A comparator for ordering trade route units. */
     private static final Comparator<Unit> tradeRouteUnitComparator
         = Comparator.comparing((Unit u) -> u.getTradeRoute().getName())

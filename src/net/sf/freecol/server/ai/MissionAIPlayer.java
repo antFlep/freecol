@@ -59,8 +59,7 @@ public abstract class MissionAIPlayer extends AIPlayer {
     private static final Logger logger = Logger.getLogger(MissionAIPlayer.class.getName());
 
     /** A comparator to sort AI units by location. */
-    private static final Comparator<AIUnit> aiUnitLocationComparator
-        = new Comparator<AIUnit>() {
+    private static final Comparator<AIUnit> aiUnitLocationComparator = new Comparator<AIUnit>() {
             @Override
             public int compare(AIUnit a1, AIUnit a2) {
                 Location l1 = (a1 == null) ? null
