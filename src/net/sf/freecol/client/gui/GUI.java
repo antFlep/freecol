@@ -257,14 +257,14 @@ public class GUI extends FreeColClientHolder {
      * @exception FreeColException if the LAF is incompatible with the GUI.
      */
     public void installLookAndFeel(String fontName) throws FreeColException {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Quit the GUI.  All that is required is to exit the full screen.
      */
     public void quit() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -275,14 +275,14 @@ public class GUI extends FreeColClientHolder {
      *     active unit.
      */
     public void reconnect(Unit active, Tile tile) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Set up the mouse listeners for the canvas and map viewer.
      */
     public void setupMouseListeners() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -291,14 +291,14 @@ public class GUI extends FreeColClientHolder {
      * @param splashStream A stream to find the image in.
      */
     public void displaySplashScreen(final InputStream splashStream) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Hide the splash screen.
      */
     public void hideSplashScreen() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -307,7 +307,7 @@ public class GUI extends FreeColClientHolder {
      * @param userMsg An optional user message.
      */
     public void showOpeningVideo(final String userMsg) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -323,14 +323,14 @@ public class GUI extends FreeColClientHolder {
      * Change the windowed mode.
      */
     public void changeWindowedMode() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Start the GUI for the map editor.
      */
     public void startMapEditorGUI() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     // Goto-path handling
@@ -339,7 +339,7 @@ public class GUI extends FreeColClientHolder {
      * Start/stop the goto path display.
      */
     public void activateGotoPath() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -348,21 +348,21 @@ public class GUI extends FreeColClientHolder {
      * @param tile The new {@code Tile} to go to.
      */
     public void updateGotoPath(Tile tile) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Stop the goto path display.
      */
     public void clearGotoPath() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Send the active unit along the current goto path as far as possible.
      */
     public void traverseGotoPath() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     // Other non-trivial public routines.
@@ -373,7 +373,7 @@ public class GUI extends FreeColClientHolder {
      * @param panel The panel to close.
      */
     public void closePanel(String panel) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
     
     /**
@@ -417,7 +417,7 @@ public class GUI extends FreeColClientHolder {
      */
     public void displayChat(Player player, String message,
                             boolean privateChat) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -429,21 +429,21 @@ public class GUI extends FreeColClientHolder {
      */
     public void displayStartChat(Player player, String message,
                                  boolean privateChat) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
     
     /**
      * Refresh the GUI.
      */
     public void refresh() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
      * Reset the menu bar.
      */
     public void resetMenuBar() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     protected void resetMapZoom() {
@@ -480,7 +480,7 @@ public class GUI extends FreeColClientHolder {
      * Update the menu bar.
      */
     public void updateMenuBar() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
 
@@ -508,7 +508,7 @@ public class GUI extends FreeColClientHolder {
     public void animateUnitAttack(Unit attacker, Unit defender,
                                   Tile attackerTile, Tile defenderTile,
                                   boolean success) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -519,7 +519,7 @@ public class GUI extends FreeColClientHolder {
      * @param dstTile The {@code Tile} the unit moves to.
      */
     public void animateUnitMove(Unit unit, Tile srcTile, Tile dstTile) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
 
@@ -533,19 +533,19 @@ public class GUI extends FreeColClientHolder {
      * @param enable If true then enable.
      */
     public void enableMapControls(boolean enable) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void updateMapControls() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void zoomInMapControls() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void zoomOutMapControls() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public boolean canZoomInMapControls() {
@@ -557,11 +557,11 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void miniMapToggleViewControls() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void miniMapToggleFogOfWarControls() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
 
@@ -1234,15 +1234,15 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void closeMainPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void closeMenus() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void closeStatusPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public boolean containsInGameComponents() {
@@ -1270,23 +1270,23 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void paintImmediatelyCanvasIn(Rectangle rectangle) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void paintImmediatelyCanvasInItsBounds() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void refreshPlayersTable() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void removeInGameComponents() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void requestFocusForSubPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public boolean requestFocusInWindow() {
@@ -1297,43 +1297,43 @@ public class GUI extends FreeColClientHolder {
      * Complete reset back to the main panel.
      */
     public void mainTitle() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showAboutPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showCaptureGoodsDialog(final Unit unit, List<Goods> gl, DialogHandler<List<Goods>> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showChatPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showChooseFoundingFatherDialog(final List<FoundingFather> ffs, DialogHandler<FoundingFather> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showClientOptionsDialog() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showColonyPanel(Colony colony, Unit unit) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showColopediaPanel(String nodeId) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showCompactLabourReport() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showDeclarationPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public OptionGroup showDifficultyDialog() {
@@ -1341,7 +1341,7 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showDumpCargoDialog(Unit unit, DialogHandler<List<Goods>> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public boolean showEditOptionDialog(Option option) {
@@ -1351,11 +1351,11 @@ public class GUI extends FreeColClientHolder {
     public void showEmigrationDialog(final Player player,
                                      final boolean fountainOfYouth,
                                      DialogHandler<Integer> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showEndTurnDialog(final List<Unit> units, DialogHandler<Boolean> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -1404,25 +1404,25 @@ public class GUI extends FreeColClientHolder {
      * @param callback Optional routine to run when the error panel is closed.
      */
     protected void showErrorMessage(String message, Runnable callback) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showEuropePanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showEventPanel(String header, String image, String footer) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showFindSettlementPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showFirstContactDialog(final Player player, final Player other,
                                        final Tile tile, int settlementCount,
                                        DialogHandler<Boolean> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public OptionGroup showGameOptionsDialog(boolean editable, boolean custom) {
@@ -1430,11 +1430,11 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showHighScoresPanel(String messageId, List<HighScore> scores) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showIndianSettlement(IndianSettlement indianSettlement) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showInformationMessage(String messageId) {
@@ -1499,11 +1499,11 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showLogFilePanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showMainPanel(String userMsg) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public OptionGroup showMapGeneratorOptionsDialog(boolean editable) {
@@ -1515,26 +1515,26 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showModelMessages(List<ModelMessage> modelMessages) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showMonarchDialog(final MonarchAction action,
                                   StringTemplate template, String monarchKey,
                                   DialogHandler<Boolean> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showNamingDialog(StringTemplate template,
                                  final String defaultName,
                                  final Unit unit,
                                  DialogHandler<String> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showNativeDemandDialog(Unit unit, Colony colony,
                                        GoodsType type, int amount,
                                        DialogHandler<Boolean> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public DiplomaticTrade showNegotiationDialog(FreeColGameObject our,
@@ -1545,10 +1545,12 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showNewPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
-    public void showNewPanel(Specification specification) {}
+    public void showNewPanel(Specification specification) {
+        // Needs implementation
+    }
 
     /**
      * Show a settlement.
@@ -1578,67 +1580,67 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showReportCargoPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportColonyPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportContinentalCongressPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportEducationPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportExplorationPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportForeignAffairPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportHistoryPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportIndianPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportLabourPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportMilitaryPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportNavalPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportProductionPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportReligiousPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportRequirementsPanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportTradePanel() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showReportTurnPanel(List<ModelMessage> messages) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public File showSaveDialog(File directory, String defaultName) {
@@ -1662,23 +1664,23 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showStartGamePanel(Game game, Player player, boolean singlePlayerMode) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showStatisticsPanel(Map<String, String> serverStats, Map<String, String> clientStats) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showStatusPanel(String message) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showTilePanel(Tile tile) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showTilePopUpAtSelectedTile() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     /**
@@ -1697,23 +1699,23 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void showTradeRoutePanel(Unit unit) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void showVictoryDialog(DialogHandler<Boolean> handler) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void centerActiveUnit() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void changeViewMode(int newViewMode) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public void executeWithUnitOutForAnimation(Unit unit, Tile sourceTile, OutForAnimationCallback r) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public Unit getActiveUnit() {
@@ -1741,7 +1743,7 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void setFocus(Tile tileToFocus) {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
     public boolean setSelectedTile(Tile newTileToSelect) {
@@ -1749,7 +1751,7 @@ public class GUI extends FreeColClientHolder {
     }
 
     public void toggleViewMode() {
-        // TODO: Needs implementation
+        // Needs implementation
     }
 
 
