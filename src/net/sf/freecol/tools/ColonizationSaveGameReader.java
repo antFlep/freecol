@@ -125,7 +125,7 @@ public class ColonizationSaveGameReader {
 
     public static class Colonist {
 
-        public final String[] OCCUPATION = {
+        public final String[] occupationF = {
             "Farmer",
             "Sugar planter",
             "Tobacco planter",
@@ -159,7 +159,7 @@ public class ColonizationSaveGameReader {
             "Mounted brave"
         };
 
-        public final String[] TILES = {
+        public final String[] tiles = {
             "N", "E", "S", "W", "NW", "NE", "SE", "SW"
         };
 
@@ -175,9 +175,9 @@ public class ColonizationSaveGameReader {
 
         public void print() {
             String tileString = (tile >= 0)
-                ? " [tile " + TILES[tile] + "]" : "";
-            System.out.println(OCCUPATION[speciality] + " working as "
-                               + OCCUPATION[occupation] + tileString);
+                ? " [tile " + tiles[tile] + "]" : "";
+            System.out.println(occupationF[speciality] + " working as "
+                               + occupationF[occupation] + tileString);
         }
 
     }

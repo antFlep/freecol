@@ -47,7 +47,6 @@ import net.sf.freecol.common.io.FreeColTcFile;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.model.NationOptions.Advantages;
-import net.sf.freecol.common.model.UnitChangeType;
 import net.sf.freecol.common.option.AbstractOption;
 import net.sf.freecol.common.option.AbstractUnitOption;
 import net.sf.freecol.common.option.BooleanOption;
@@ -267,12 +266,12 @@ public final class Specification implements OptionContainer {
 
     // Derived from readerMap container: nations
     private final List<Nation> europeanNations = new ArrayList<>();
-    private final List<Nation> REFNations = new ArrayList<>();
+    private final List<Nation> refNations = new ArrayList<>();
     private final List<Nation> indianNations = new ArrayList<>();
     // Derived from readerMap containers: indianNationTypes europeanNationTypes
     private final List<NationType> nationTypes = new ArrayList<>();
     // Derived from readerMap container: europeanNationTypes
-    private final List<EuropeanNationType> REFNationTypes = new ArrayList<>();
+    private final List<EuropeanNationType> refNationTypes = new ArrayList<>();
 
     // Derived from readerMap container: unitTypeList
     private final ArrayList<UnitType> buildableUnitTypes = new ArrayList<>();
@@ -578,14 +577,14 @@ public final class Specification implements OptionContainer {
             }
         }
 
-        REFNations.clear();
+        refNations.clear();
         europeanNations.clear();
         indianNations.clear();
         for (Nation nation : nations) {
             if (nation.isUnknownEnemy()) continue;
             if (nation.getType().isEuropean()) {
                 if (nation.getType().isREF()) {
-                    REFNations.add(nation);
+                    refNations.add(nation);
                 } else {
                     europeanNations.add(nation);
                 }
@@ -597,8 +596,8 @@ public final class Specification implements OptionContainer {
         nationTypes.clear();
         nationTypes.addAll(indianNationTypes);
         nationTypes.addAll(europeanNationTypes);
-        REFNationTypes.addAll(transform(europeanNationTypes, NationType::isREF));
-        europeanNationTypes.removeAll(REFNationTypes);
+        refNationTypes.addAll(transform(europeanNationTypes, NationType::isREF));
+        europeanNationTypes.removeAll(refNationTypes);
 
         experts.clear();
         unitTypesTrainedInEurope.clear();
@@ -1521,8 +1520,8 @@ public final class Specification implements OptionContainer {
         return europeanNationTypes;
     }
 
-    public List<EuropeanNationType> getREFNationTypes() {
-        return REFNationTypes;
+    public List<EuropeanNationType> getRefNationTypes() {
+        return refNationTypes;
     }
 
     public List<IndianNationType> getIndianNationTypes() {
@@ -1558,8 +1557,8 @@ public final class Specification implements OptionContainer {
         return indianNations;
     }
 
-    public List<Nation> getREFNations() {
-        return REFNations;
+    public List<Nation> getRefNations() {
+        return refNations;
     }
 
     /**
@@ -2986,7 +2985,7 @@ public final class Specification implements OptionContainer {
         writeSection(xw, BUILDING_TYPES_TAG, buildingTypeList);
         writeSection(xw, FOUNDING_FATHERS_TAG, foundingFathers);
         writeSection(xw, EUROPEAN_NATION_TYPES_TAG, europeanNationTypes);
-        writeSection(xw, EUROPEAN_NATION_TYPES_TAG, REFNationTypes);
+        writeSection(xw, EUROPEAN_NATION_TYPES_TAG, refNationTypes);
         writeSection(xw, INDIAN_NATION_TYPES_TAG, indianNationTypes);
         writeSection(xw, NATIONS_TAG, nations);
 

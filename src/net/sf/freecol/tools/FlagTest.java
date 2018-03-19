@@ -47,7 +47,7 @@ import net.sf.freecol.client.gui.dialog.Flag.UnionShape;
 public class FlagTest extends JFrame implements ActionListener, ItemListener {
 
 
-    private final Flag[] FLAGS = {
+    private final Flag[] fFlags = {
         ConfirmDeclarationDialog.ENGLISH_FLAG,
         ConfirmDeclarationDialog.SPANISH_FLAG,
         ConfirmDeclarationDialog.FRENCH_FLAG,
@@ -171,7 +171,7 @@ public class FlagTest extends JFrame implements ActionListener, ItemListener {
         Decoration newDecoration = (Decoration) decoration.getSelectedItem();
         UnionPosition newPosition = (UnionPosition) union.getSelectedItem();
         UnionShape newShape = (UnionShape) unionShape.getSelectedItem();
-        Flag newFlag = FLAGS[flags.getSelectedIndex()];
+        Flag newFlag = fFlags[flags.getSelectedIndex()];
         if (e == null || e.getSource() == flags) {
             if (newFlag == null) {
                 // custom

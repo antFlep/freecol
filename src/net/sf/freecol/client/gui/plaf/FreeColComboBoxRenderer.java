@@ -50,8 +50,8 @@ public class FreeColComboBoxRenderer<T>
 
     private static final Logger logger = Logger.getLogger(FreeColComboBoxRenderer.class.getName());
 
-    private final SelectedComponent SELECTED_COMPONENT = new SelectedComponent();
-    private final NormalComponent NORMAL_COMPONENT = new NormalComponent();
+    private final SelectedComponent selectedComponent = new SelectedComponent();
+    private final NormalComponent normalComponent = new NormalComponent();
 
     private final String prefix;
     private boolean localize = true;
@@ -105,7 +105,7 @@ public class FreeColComboBoxRenderer<T>
                                                   T value, int index,
                                                   boolean isSelected,
                                                   boolean hasFocus) {
-        JLabel c = isSelected ? SELECTED_COMPONENT : NORMAL_COMPONENT;
+        JLabel c = isSelected ? selectedComponent : normalComponent;
         c.setForeground(list.getForeground());
         c.setFont(list.getFont());
         setLabelValues(c, value);

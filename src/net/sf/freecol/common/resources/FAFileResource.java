@@ -25,18 +25,18 @@ import java.net.URL;
 
 
 /**
- * A {@code Resource} wrapping a {@code FAFile}.
+ * A {@code Resource} wrapping a {@code faFile}.
  *
  * @see Resource
  * @see FAFile
  */
 public class FAFileResource extends Resource {
 
-    private final FAFile FAFile;
+    private final FAFile faFile;
 
 
-    public FAFileResource(FAFile FAFile) {
-        this.FAFile = FAFile;
+    public FAFileResource(FAFile faFile) {
+        this.faFile = faFile;
     }
 
 
@@ -45,22 +45,22 @@ public class FAFileResource extends Resource {
      *
      * @param resourceLocator The {@code URI} used when loading this
      *     resource.
-     * @exception IOException if FAFile can not be opened.
+     * @exception IOException if faFile can not be opened.
      */
     public FAFileResource(URI resourceLocator) throws IOException {
         super(resourceLocator);
         URL url = resourceLocator.toURL();
-        FAFile = new FAFile(url.openStream());
+        faFile = new FAFile(url.openStream());
     }
 
 
     /**
-     * Gets the {@code FAFile} represented by this resource.
+     * Gets the {@code faFile} represented by this resource.
      *
-     * @return The {@code FAFile} for this resource, or the default
-     *     Java FAFile if none found.
+     * @return The {@code faFile} for this resource, or the default
+     *     Java faFile if none found.
      */
-    public FAFile getFAFile() {
-        return FAFile;
+    public FAFile getFaFile() {
+        return faFile;
     }
 }

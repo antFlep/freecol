@@ -53,13 +53,13 @@ public final class DeclarationPanel extends FreeColPanel {
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(DeclarationPanel.class.getName());
 
-    private final int SIGNATURE_Y = 450;
+    private final int signatureY = 450;
     
-    private final String ANIMATION_STOPPED = "AnimationStopped";
+    private final String animationStopped = "AnimationStopped";
 
-    private final int START_DELAY = 2000; // 2s before signing
-    private final int ANIMATION_DELAY = 50; // 50ms between signature steps
-    private final int FINISH_DELAY = 5000; // 5s before closing
+    private final int startDelay = 2000; // 2s before signing
+    private final int animationDelay = 50; // 50ms between signature steps
+    private final int finishDelay = 5000; // 5s before closing
 
 
     /**
@@ -90,12 +90,12 @@ public final class DeclarationPanel extends FreeColPanel {
         final SignaturePanel signaturePanel = new SignaturePanel();
         signaturePanel.initialize(getMyPlayer().getName());
         signaturePanel.setLocation((getWidth()-signaturePanel.getWidth()) / 2,
-            (getHeight() + SIGNATURE_Y - signaturePanel.getHeight()) / 2 - 15);
+            (getHeight() + signatureY - signaturePanel.getHeight()) / 2 - 15);
         signaturePanel.addActionListener(this);
 
         add(signaturePanel);
     
-        Timer t = new Timer(START_DELAY, (ActionEvent ae) -> {
+        Timer t = new Timer(startDelay, (ActionEvent ae) -> {
                 signaturePanel.startAnimation();
             });
         t.setRepeats(false);
@@ -111,8 +111,8 @@ public final class DeclarationPanel extends FreeColPanel {
     @Override
     public void actionPerformed(ActionEvent ae) {
         final String command = ae.getActionCommand();
-        if (ANIMATION_STOPPED.equals(command)) {
-            Timer t = new Timer(FINISH_DELAY, (x) -> {
+        if (animationStopped.equals(command)) {
+            Timer t = new Timer(finishDelay, (x) -> {
                     getGUI().removeFromCanvas(DeclarationPanel.this);
                 });
             t.setRepeats(false);
@@ -242,7 +242,7 @@ public final class DeclarationPanel extends FreeColPanel {
         private void notifyStopped() {
             for (ActionListener actionListener : actionListeners) {
                 actionListener.actionPerformed(new ActionEvent(this,
-                        ActionEvent.ACTION_PERFORMED, ANIMATION_STOPPED));
+                        ActionEvent.ACTION_PERFORMED, animationStopped));
             }
         }
 
@@ -269,7 +269,7 @@ public final class DeclarationPanel extends FreeColPanel {
                     notifyStopped();
                 }
             };
-            new Timer(ANIMATION_DELAY, taskPerformer).start();
+            new Timer(animationDelay, taskPerformer).start();
         }
 
 

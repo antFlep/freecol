@@ -80,7 +80,7 @@ public class NationTypeDetailPanel
 
         List<NationType> nations = new ArrayList<>();
         nations.addAll(getSpecification().getEuropeanNationTypes());
-        nations.addAll(getSpecification().getREFNationTypes());
+        nations.addAll(getSpecification().getRefNationTypes());
         nations.addAll(getSpecification().getIndianNationTypes());
         ImageIcon icon = new ImageIcon(ImageLibrary.getMiscImage(ImageLibrary.BELLS, ImageLibrary.ICON_SIZE));
         for (NationType type : nations) {

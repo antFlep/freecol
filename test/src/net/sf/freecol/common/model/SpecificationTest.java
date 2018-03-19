@@ -25,11 +25,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import net.sf.freecol.common.io.FreeColModFile;
 import net.sf.freecol.common.io.FreeColTcFile;
-import net.sf.freecol.common.model.Modifier;
 import net.sf.freecol.common.model.Modifier.ModifierType;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.util.test.FreeColTestCase;
@@ -190,7 +188,7 @@ public final class SpecificationTest extends FreeColTestCase {
         assertEquals(8, indianNations.size());
 
         // Unknown enemy has no REF
-        List<Nation> REFNations = spec().getREFNations();
+        List<Nation> REFNations = spec().getRefNations();
         assertEquals(europeanNations.size(), REFNations.size());
     }
 
@@ -199,7 +197,7 @@ public final class SpecificationTest extends FreeColTestCase {
 
         List<IndianNationType> indianNationTypes = spec.getIndianNationTypes();
         assertEquals(8, indianNationTypes.size());
-        List<EuropeanNationType> REFNationTypes = spec.getREFNationTypes();
+        List<EuropeanNationType> REFNationTypes = spec.getRefNationTypes();
         assertEquals(1, REFNationTypes.size());
 
     }

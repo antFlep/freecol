@@ -421,16 +421,16 @@ public final class TradeRouteInputPanel extends FreeColPanel
 
     private class StopRenderer implements ListCellRenderer<TradeRouteStop> {
 
-        private final JPanel SELECTED_COMPONENT = new JPanel();
-        private final JPanel NORMAL_COMPONENT = new JPanel();
+        private final JPanel selectedComponent = new JPanel();
+        private final JPanel normalComponent = new JPanel();
 
         public StopRenderer() {
-            NORMAL_COMPONENT.setLayout(new MigLayout("", "[80, center][]"));
-            NORMAL_COMPONENT.setOpaque(false);
-            SELECTED_COMPONENT.setLayout(new MigLayout("", "[80, center][]"));
-            SELECTED_COMPONENT.setOpaque(false);
-            SELECTED_COMPONENT.setUI((PanelUI)FreeColSelectedPanelUI
-                .createUI(SELECTED_COMPONENT));
+            normalComponent.setLayout(new MigLayout("", "[80, center][]"));
+            normalComponent.setOpaque(false);
+            selectedComponent.setLayout(new MigLayout("", "[80, center][]"));
+            selectedComponent.setOpaque(false);
+            selectedComponent.setUI((PanelUI)FreeColSelectedPanelUI
+                .createUI(selectedComponent));
         }
 
 
@@ -446,8 +446,8 @@ public final class TradeRouteInputPanel extends FreeColPanel
                                                       int index,
                                                       boolean isSelected,
                                                       boolean hasFocus) {
-            JPanel panel = (isSelected) ? SELECTED_COMPONENT
-                : NORMAL_COMPONENT;
+            JPanel panel = (isSelected) ? selectedComponent
+                : normalComponent;
             panel.removeAll();
             panel.setForeground(list.getForeground());
             panel.setFont(list.getFont());
