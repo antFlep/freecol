@@ -639,19 +639,23 @@ public class GUI extends FreeColClientHolder {
         Building school = (Building)((teacher) ? unit.getLocation()
             : unit.getTeacher().getLocation());
         StringTemplate label = unit.getLabel(Unit.UnitLabelType.NATIONAL);
-        StringTemplate template = (leaveColony) ? StringTemplate
-            .template("abandonEducation.text")
-            .addStringTemplate("%unit%", label)
-            .addName("%colony%", school.getColony().getName())
-            .addNamed("%building%", school)
-            .addStringTemplate("%action%", (teacher)
-                ? StringTemplate.key("abandonEducation.action.teaching")
-                : StringTemplate.key("abandonEducation.action.studying"))
-            : (teacher)
-            ? StringTemplate.template("abandonTeaching.text")
+        StringTemplate template;
+        if (leaveColony) if (teacher) template = StringTemplate
+                .template("abandonEducation.text")
                 .addStringTemplate("%unit%", label)
+                .addName("%colony%", school.getColony().getName())
                 .addNamed("%building%", school)
-            : null;
+                .addStringTemplate("%action%", StringTemplate.key("abandonEducation.action.teaching"));
+        else template = StringTemplate
+                    .template("abandonEducation.text")
+                    .addStringTemplate("%unit%", label)
+                    .addName("%colony%", school.getColony().getName())
+                    .addNamed("%building%", school)
+                    .addStringTemplate("%action%", StringTemplate.key("abandonEducation.action.studying"));
+        else if (teacher) template = StringTemplate.template("abandonTeaching.text")
+                .addStringTemplate("%unit%", label)
+                .addNamed("%building%", school);
+        else template = null;
         return template == null
             || confirm(unit.getTile(), template, unit,
                        "abandonEducation.yes", "abandonEducation.no");
@@ -699,9 +703,9 @@ public class GUI extends FreeColClientHolder {
         Player other = colony.getOwner();
         int strength = player.calculateStrength(false);
         int otherStrength = (ns == null) ? strength : ns.getMilitaryStrength();
-        int mil = (otherStrength <= 1 || otherStrength * 5 < strength) ? 0
-            : (strength == 0 || strength * 5 < otherStrength) ? 2
-            : 1;
+        int mil;
+        if (otherStrength <= 1 || otherStrength * 5 < strength) mil = 0;
+        else mil = (strength == 0 || strength * 5 < otherStrength) ? 2 : 1;
 
         StringTemplate t;
         int gold = (ns == null) ? 0 : ns.getGold();
@@ -712,7 +716,9 @@ public class GUI extends FreeColClientHolder {
             return -1;
         }
 
-        int fin = (gold <= 100) ? 0 : (gold <= 1000) ? 1 : 2;
+        int fin;
+        if (gold <= 1000) fin = (gold <= 100) ? 0 : 1;
+        else fin = (gold <= 100) ? 0 : 2;
         t = StringTemplate.template("confirmTribute.european")
             .addStringTemplate("%nation%", other.getNationLabel())
             .addStringTemplate("%danger%",
@@ -808,13 +814,11 @@ public class GUI extends FreeColClientHolder {
         Player player = attacker.getOwner();
         Player other = is.getOwner();
         int strength = player.calculateStrength(false);
-        String messageId = (other.getSettlementCount() >= strength)
-            ? "confirmTribute.unwise"
-            : (other.getStance(player) == Stance.CEASE_FIRE)
-            ? "confirmTribute.warLikely"
-            : (is.getAlarm(player).getLevel() == Tension.Level.HAPPY)
-            ? "confirmTribute.happy"
-            : "confirmTribute.normal";
+        String messageId;
+        if (other.getSettlementCount() >= strength) messageId = "confirmTribute.unwise";
+        else if (other.getStance(player) == Stance.CEASE_FIRE) messageId = "confirmTribute.warLikely";
+        else if (is.getAlarm(player).getLevel() == Tension.Level.HAPPY) messageId = "confirmTribute.happy";
+        else messageId = "confirmTribute.normal";
         return (confirm(is.getTile(), StringTemplate.template(messageId)
                 .addName("%settlement%", is.getName())
                 .addStringTemplate("%nation%", other.getNationLabel()),
@@ -1445,7 +1449,7 @@ public class GUI extends FreeColClientHolder {
         alertSound();
     }
 
-    final public void showInformationMessage(Settlement displayObject,
+    public final void showInformationMessage(Settlement displayObject,
                                        String messageId) {
         showInformationMessage(displayObject, StringTemplate.key(messageId));
     }
@@ -1460,7 +1464,7 @@ public class GUI extends FreeColClientHolder {
         alertSound();
     }
 
-    final public void showInformationMessage(Tile displayObject,
+    public final void showInformationMessage(Tile displayObject,
                                        String messageId) {
         showInformationMessage(displayObject, StringTemplate.key(messageId));
     }
@@ -1484,7 +1488,7 @@ public class GUI extends FreeColClientHolder {
         return null;
     }
 
-    final public File showLoadSaveFileDialog(File root, String extension) {
+    public final File showLoadSaveFileDialog(File root, String extension) {
         File file = showLoadDialog(root, extension);
         if (file != null && !file.isFile()) {
             showErrorMessage(Tools.badFile("error.noSuchFile", file));
