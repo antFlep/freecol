@@ -84,7 +84,6 @@ import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.RandomChoice;
 import static net.sf.freecol.common.util.RandomUtils.*;
 
-import net.sf.freecol.server.ai.GoodsWish;
 import net.sf.freecol.server.ai.mission.BuildColonyMission;
 import net.sf.freecol.server.ai.mission.CashInTreasureTrainMission;
 import net.sf.freecol.server.ai.mission.DefendSettlementMission;
@@ -99,8 +98,6 @@ import net.sf.freecol.server.ai.mission.UnitSeekAndDestroyMission;
 import net.sf.freecol.server.ai.mission.UnitWanderHostileMission;
 import net.sf.freecol.server.ai.mission.WishRealizationMission;
 import net.sf.freecol.server.ai.mission.WorkInsideColonyMission;
-import net.sf.freecol.server.ai.ValuedAIObject;
-import net.sf.freecol.server.ai.WorkerWish;
 import net.sf.freecol.server.model.ServerPlayer;
 
 
@@ -125,13 +122,13 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
                    Modifier::getSource);
 
     /** Maximum number of turns to travel to a building site. */
-    private static final int buildingRange = 5;
+    private static final int BUILDING_RANGE = 5;
 
     /** Maximum number of turns to travel to a cash in location. */
-    private static final int cashInRange = 20;
+    private static final int CASH_IN_RANGE = 20;
 
     /** Maximum number of turns to travel to a missionary target. */
-    private static final int missionaryRange = 20;
+    private static final int MISSIONARY_RANGE = 20;
 
     /**
      * Maximum number of turns to travel to make progress on
@@ -141,16 +138,16 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
      * horseback.  The AI is probably smart enough to do the former
      * already, and one day the latter.
      */
-    private static final int pioneeringRange = 10;
+    private static final int PIONEERING_RANGE = 10;
 
     /**
      * Maximum number of turns to travel to a privateering target.
      * Low number because of large naval moves.
      */
-    private static final int privateerRange = 1;
+    private static final int PRIVATEER_RANGE = 1;
 
     /** Maximum number of turns to travel to a scouting target. */
-    private static final int scoutingRange = 20;
+    private static final int SCOUTING_RANGE = 20;
 
     /** A comparator to sort units by decreasing builder score. */
     private static final Comparator<AIUnit> builderComparator
@@ -402,8 +399,8 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
             target = null;
             for (Unit u : carrier.getUnitList()) {
                 AIUnit aiu = aiMain.getAIUnit(u);
-                for (int range = buildingRange; range < maxRange;
-                     range += buildingRange) {
+                for (int range = BUILDING_RANGE; range < maxRange;
+                     range += BUILDING_RANGE) {
                     target = BuildColonyMission.findTarget(aiu, range, false);
                     if (target != null) break;
                 }
@@ -2063,7 +2060,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
         if (reason != null) return null;
         final Unit unit = aiUnit.getUnit();
         if (target == null) {
-            target = BuildColonyMission.findTarget(aiUnit, buildingRange,
+            target = BuildColonyMission.findTarget(aiUnit, BUILDING_RANGE,
                                                    unit.isInEurope());
         }
         return (target == null) ? null
@@ -2081,7 +2078,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
         if (reason != null) return null;
         final Unit unit = aiUnit.getUnit();
         Location loc = CashInTreasureTrainMission.findTarget(aiUnit,
-            cashInRange, unit.isInEurope());
+                CASH_IN_RANGE, unit.isInEurope());
         return (loc == null) ? null
             : new CashInTreasureTrainMission(getAIMain(), aiUnit, loc);
     }
@@ -2129,7 +2126,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
      */
     public Mission getMissionaryMission(AIUnit aiUnit) {
         if (MissionaryMission.prepare(aiUnit) != null) return null;
-        Location loc = MissionaryMission.findTarget(aiUnit, missionaryRange,
+        Location loc = MissionaryMission.findTarget(aiUnit, MISSIONARY_RANGE,
                                                     true);
         if (loc == null) {
             aiUnit.equipForRole(getSpecification().getDefaultRole());
@@ -2150,7 +2147,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
     public Mission getPioneeringMission(AIUnit aiUnit, Location target) {
         if (PioneeringMission.prepare(aiUnit) != null) return null;
         if (target == null) {
-            target = PioneeringMission.findTarget(aiUnit, pioneeringRange,
+            target = PioneeringMission.findTarget(aiUnit, PIONEERING_RANGE,
                                                   true);
         }
         if (target == null) {
@@ -2173,7 +2170,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
     public Mission getPrivateerMission(AIUnit aiUnit, Location target) {
         if (PrivateerMission.invalidReason(aiUnit) != null) return null;
         if (target == null) {
-            target = PrivateerMission.findTarget(aiUnit, privateerRange, true);
+            target = PrivateerMission.findTarget(aiUnit, PRIVATEER_RANGE, true);
         }
         return (target == null) ? null
             : new PrivateerMission(getAIMain(), aiUnit, target);
@@ -2187,7 +2184,7 @@ public class EuropeanAIPlayer extends MissionAIPlayer {
      */
     public Mission getScoutingMission(AIUnit aiUnit) {
         if (ScoutingMission.prepare(aiUnit) != null) return null;
-        Location loc = ScoutingMission.findTarget(aiUnit, scoutingRange, true);
+        Location loc = ScoutingMission.findTarget(aiUnit, SCOUTING_RANGE, true);
         if (loc == null) {
             Unit unit = aiUnit.getUnit();
             if (unit.isInEurope() || unit.getSettlement() != null) {
