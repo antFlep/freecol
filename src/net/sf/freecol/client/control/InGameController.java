@@ -123,12 +123,20 @@ import net.sf.freecol.start.Tools;
 public final class InGameController extends FreeColClientHolder {
 
     private static final Logger logger = Logger.getLogger(InGameController.class.getName());
+    private static final String SOUND_EVENT_LOAD_CARGO = "sound.event.loadCargo";
+    private static final String INFO_NOT_ENOUGH_GOLD = "info.notEnoughGold";
+    private static final String UNIT = "%unit%";
+    private static final String LOCATION = "%location%";
+    private static final String SOUND_EVENT_ILLEGAL_MOVE = "sound.event.illegalMove";
+    private static final String NATION = "%nation%";
+    private static final String CANCEL = "cancel";
+    private static final String GOODS_TYPE = "%goodsType%";
 
     /**
      * Selecting next unit depends on mode--- either from the active list,
      * from the going-to list, or flush going-to and end the turn.
      */
-    private static enum MoveMode {
+    private enum MoveMode {
         NEXT_ACTIVE_UNIT,
         EXECUTE_GOTO_ORDERS,
         END_TURN;
@@ -170,7 +178,6 @@ public final class InGameController extends FreeColClientHolder {
 
         // FIXME: fetch value of lastSaveGameFile from a persistent
         // client value
-        //   lastSaveGameFile = new File(getClientOptions().getString(null));
     }
 
 
@@ -275,16 +282,6 @@ public final class InGameController extends FreeColClientHolder {
         getFreeColClient().getGUI().invokeNowOrLater(runnable);
     }
 
-    /**
-     * GUI delegator.
-     *
-     * @param runnable The {@code Runnable} to run.
-     */
-    private void invokeAndWait(Runnable runnable) {
-        getFreeColClient().getGUI().invokeNowOrWait(runnable);
-    }
-
-
     // Server access routines called from multiple places.
 
     /**
@@ -297,9 +294,9 @@ public final class InGameController extends FreeColClientHolder {
     private boolean askAssignTradeRoute(Unit unit, TradeRoute tradeRoute) {
         if (tradeRoute == unit.getTradeRoute()) return true;
 
-        if (tradeRoute != null && unit.getTradeRoute() != null) {
-            if (!getGUI().confirmClearTradeRoute(unit)) return false;
-        }
+        if ((tradeRoute != null && unit.getTradeRoute() != null)
+                && (!getGUI().confirmClearTradeRoute(unit)))
+            return false;
 
         return askServer().assignTradeRoute(unit, tradeRoute)
             && unit.getTradeRoute() == tradeRoute;
@@ -370,7 +367,7 @@ public final class InGameController extends FreeColClientHolder {
         UnitWas unitWas = new UnitWas(unit);
         if (askServer().embark(unit, carrier, null)
             && unit.getLocation() == carrier) {
-            sound("sound.event.loadCargo");
+            sound(SOUND_EVENT_LOAD_CARGO);
             unitWas.fireChanges();
             if (colonyWas != null) colonyWas.fireChanges();
             if (europeWas != null) europeWas.fireChanges();
@@ -465,7 +462,7 @@ public final class InGameController extends FreeColClientHolder {
 
             // Check that the purchase is funded.
             if (!player.checkGold(market.getBidPrice(type, amount))) {
-                getGUI().showInformationMessage("info.notEnoughGold");
+                getGUI().showInformationMessage(INFO_NOT_ENOUGH_GOLD);
                 return false;
             }
         }
@@ -568,12 +565,7 @@ public final class InGameController extends FreeColClientHolder {
                     if (beforeLastTurnFile.exists()) {
                         beforeLastTurnFile.delete();
                     }
-                    try {
-                        lastTurnFile.renameTo(beforeLastTurnFile);
-                    } catch (SecurityException se) {
-                        logger.log(Level.WARNING, "Could not rename: "
-                            + lastTurnFile.getPath(), se);
-                    }
+                    renameBeforeLastTurnFile(lastTurnFile, beforeLastTurnFile);
                 } catch (SecurityException se) {
                     logger.log(Level.WARNING, "Could not delete: "
                         + beforeLastTurnFile.getPath(), se);
@@ -588,6 +580,15 @@ public final class InGameController extends FreeColClientHolder {
         if (saveGamePeriod >= 1 && turnNumber % saveGamePeriod == 0) {
             String fileName = prefix + "-" + getSaveGameString(game);
             saveGame(FreeColDirectories.getAutosaveFile(fileName));
+        }
+    }
+
+    private void renameBeforeLastTurnFile(File lastTurnFile, File beforeLastTurnFile) {
+        try {
+            lastTurnFile.renameTo(beforeLastTurnFile);
+        } catch (SecurityException se) {
+            logger.log(Level.WARNING, "Could not rename: "
+                + lastTurnFile.getPath(), se);
         }
     }
 
@@ -709,9 +710,9 @@ public final class InGameController extends FreeColClientHolder {
             Runnable uiTask;
             if (endOfTurn) {
                 turnReportMessages.addAll(messages);
-                uiTask = () -> { displayTurnReportMessages(); };
+                uiTask = () ->  displayTurnReportMessages();
             } else {
-                uiTask = () -> { getGUI().showModelMessages(messages); };
+                uiTask = () -> getGUI().showModelMessages(messages);
             }
             getGUI().invokeNowOrWait(uiTask);
         }
@@ -921,9 +922,9 @@ public final class InGameController extends FreeColClientHolder {
             StringTemplate dst = destination.getLocationLabelFor(player);
             StringTemplate template = StringTemplate
                 .template("info.moveToDestinationFailed")
-                .addStringTemplate("%unit%",
+                .addStringTemplate(UNIT,
                     unit.getLabel(Unit.UnitLabelType.NATIONAL))
-                .addStringTemplate("%location%", src)
+                .addStringTemplate(LOCATION, src)
                 .addStringTemplate("%destination%", dst);
             getGUI().showInformationMessage(unit, template);
             changeState(unit, UnitState.SKIPPED);
@@ -1061,104 +1062,100 @@ public final class InGameController extends FreeColClientHolder {
         // Illegal moves
         case MOVE_NO_ACCESS_BEACHED:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessBeached")
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_CONTACT:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessContact")
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_GOODS:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessGoods")
-                    .addStringTemplate("%nation%", nation)
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(NATION, nation)
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             }
             break;
         case MOVE_NO_ACCESS_LAND:
-            if (!moveDisembark(unit, direction)) {
-                if (interactive) {
-                    sound("sound.event.illegalMove");
-                }
-            }
+            if ((!moveDisembark(unit, direction)) && (interactive)) sound(SOUND_EVENT_ILLEGAL_MOVE);
             break;
         case MOVE_NO_ACCESS_MISSION_BAN:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessMissionBan")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL))
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_SETTLEMENT:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessSettlement")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL))
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_SKILL:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessSkill")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             }
             break;
         case MOVE_NO_ACCESS_TRADE:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessTrade")
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_WAR:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 StringTemplate nation = getNationAt(unit.getTile(), direction);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessWar")
-                    .addStringTemplate("%nation%", nation));
+                    .addStringTemplate(NATION, nation));
             }
             break;
         case MOVE_NO_ACCESS_WATER:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAccessWater")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             }
             break;
         case MOVE_NO_ATTACK_MARINE:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noAttackWater")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             }
             break;
@@ -1172,25 +1169,25 @@ public final class InGameController extends FreeColClientHolder {
             break;
         case MOVE_NO_TILE:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 getGUI().showInformationMessage(unit, StringTemplate
                     .template("move.noTile")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             }
             break;
         default:
             if (interactive || destinationImminent) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
             }
             result = false;
             break;
         }
-        if (destinationImminent && !unit.isDisposed()) {
+        if ((destinationImminent && !unit.isDisposed()) && (!askClearGotoOrders(unit))) {
             // The unit either reached the destination or failed at
             // the last step for some reason.  In either case, clear
             // the goto orders because they have failed.
-            if (!askClearGotoOrders(unit)) result = false;
+            result = false;
         }
         return result;
     }
@@ -1205,10 +1202,10 @@ public final class InGameController extends FreeColClientHolder {
     private boolean moveAwayFromEurope(Unit unit, Location destination) {
         // Autoload emigrants.
         List<Unit> ul;
+        ul = transform(unit.getOwner().getEurope().getUnits(), Unit.sentryPred);
         if (getClientOptions().getBoolean(ClientOptions.AUTOLOAD_EMIGRANTS)
             && unit.isInEurope()
-            && !(ul = transform(unit.getOwner().getEurope().getUnits(),
-                                Unit.sentryPred)).isEmpty()) {
+            && !ul.isEmpty()) {
             // Can still proceed even if moves consumed
             moveAutoload(unit, ul);
         }
@@ -1389,7 +1386,7 @@ public final class InGameController extends FreeColClientHolder {
         if (disembarkable.size() == 1) {
             if (getGUI().confirm(tile,
                             StringTemplate.key("disembark.text"),
-                            disembarkable.get(0), "ok", "cancel")) {
+                            disembarkable.get(0), "ok", CANCEL)) {
                 moveDirection(disembarkable.get(0), direction, false);
             }
         } else {
@@ -1558,19 +1555,18 @@ public final class InGameController extends FreeColClientHolder {
             } else if (unit.getUnitChange(UnitChangeType.NATIVES) == null) {
                 getGUI().showInformationMessage(is, StringTemplate
                     .template("info.cantLearnSkill")
-                    .addStringTemplate("%unit%",
+                    .addStringTemplate(UNIT,
                         unit.getLabel(Unit.UnitLabelType.NATIONAL))
                     .addNamed("%skill%", skill));
-            } else if (getGUI().confirm(unit.getTile(), StringTemplate
+            } else if ((getGUI().confirm(unit.getTile(), StringTemplate
                     .template("learnSkill.text")
                     .addNamed("%skill%", skill),
-                    unit, "learnSkill.yes", "learnSkill.no")) {
-                if (askServer().learnSkill(unit, direction)) {
-                    if (unit.isDisposed()) {
-                        getGUI().showInformationMessage(is, "learnSkill.die");
-                    } else if (unit.getType() != skill) {
-                        getGUI().showInformationMessage(is, "learnSkill.leave");
-                    }
+                    unit, "learnSkill.yes", "learnSkill.no"))
+                    && (askServer().learnSkill(unit, direction))) {
+                if (unit.isDisposed()) {
+                    getGUI().showInformationMessage(is, "learnSkill.die");
+                } else if (unit.getType() != skill) {
+                    getGUI().showInformationMessage(is, "learnSkill.leave");
                 }
             }
         }
@@ -1588,14 +1584,14 @@ public final class InGameController extends FreeColClientHolder {
     private boolean moveTile(Unit unit, Direction direction) {
         final ClientOptions options = getClientOptions();
         List<Unit> ul;
-        if (unit.canCarryUnits() && unit.hasSpaceLeft()
-            && options.getBoolean(ClientOptions.AUTOLOAD_SENTRIES)
-            && unit.isInColony()
-            && !(ul = unit.getTile().getUnitList()).isEmpty()) {
-            // Autoload sentries if selected
-            if (!moveAutoload(unit,
-                              transform(ul, Unit.sentryPred))) return false;
-        }
+        ul = unit.getTile().getUnitList();
+        // Autoload sentries if selected
+        if ((unit.canCarryUnits() && unit.hasSpaceLeft()
+                && options.getBoolean(ClientOptions.AUTOLOAD_SENTRIES)
+                && unit.isInColony()
+                && !ul.isEmpty())
+                && (!moveAutoload(unit, transform(ul, Unit.sentryPred))))
+            return false;
 
         // Break up the goto to allow region naming to occur, BR#2707
         final Tile newTile = unit.getTile().getNeighbourOrNull(direction);
@@ -1993,7 +1989,7 @@ public final class InGameController extends FreeColClientHolder {
             ModelMessage m = new ModelMessage(MessageType.GOODS_MOVEMENT,
                                               "tradeRoute.prefix", unit)
                 .addName("%route%", tr.getName())
-                .addStringTemplate("%unit%",
+                .addStringTemplate(UNIT,
                     unit.getLabel(Unit.UnitLabelType.NATIONAL))
                 .addName("%data%", lb.toString());
             if (messages != null) {
@@ -2044,8 +2040,8 @@ public final class InGameController extends FreeColClientHolder {
                 int goodsAmount = g.getAmount();
                 if (ag.getAmount() <= goodsAmount) { // At capacity
                     noLoad.addStringTemplate(StringTemplate
-                        .template("tradeRoute.loadStop.noLoad.carrier")
-                            .addNamed("%goodsType%", ag.getType()));
+                            .template("tradeRoute.loadStop.noLoad.carrier")
+                            .addNamed(GOODS_TYPE, ag.getType()));
                     toLoad.remove(ag);
                 } else {
                     ag.setAmount(ag.getAmount() - goodsAmount);
@@ -2097,7 +2093,7 @@ public final class InGameController extends FreeColClientHolder {
             if (enhancedTradeRoutes && unload == null) {
                 noLoad.addStringTemplate(StringTemplate
                     .template("tradeRoute.loadStop.noLoad.noUnload")
-                        .addNamed("%goodsType%", type));
+                        .addNamed(GOODS_TYPE, type));
                 ag.setAmount(0);
             } else if (present <= 0) { // None present
                 nonePresent.addNamed(type);
@@ -2105,15 +2101,15 @@ public final class InGameController extends FreeColClientHolder {
             } else if (exportAmount <= 0) { // Export blocked
                 noLoad.addStringTemplate(StringTemplate
                     .template("tradeRoute.loadStop.noLoad.export")
-                        .addNamed("%goodsType%", type)
+                        .addNamed(GOODS_TYPE, type)
                         .addAmount("%more%", present));
                 ag.setAmount(0);
             } else if (importAmount <= 0) { // Import blocked
                 noLoad.addStringTemplate(StringTemplate
                     .template("tradeRoute.loadStop.noLoad.import")
-                        .addNamed("%goodsType%", type)
+                        .addNamed(GOODS_TYPE, type)
                         .addAmount("%more%", present)
-                        .addStringTemplate("%location%", unload.getLocation()
+                        .addStringTemplate(LOCATION, unload.getLocation()
                             .getLocationLabelFor(unit.getOwner())));
                 ag.setAmount(0);
             } else if (exportAmount < ag.getAmount() // Export limited
@@ -2129,7 +2125,7 @@ public final class InGameController extends FreeColClientHolder {
                     }
                     noLoad.addStringTemplate(StringTemplate
                         .template("tradeRoute.loadStop.noLoad.already")
-                            .addNamed("%goodsType%", type));
+                            .addNamed(GOODS_TYPE, type));
                     ag.setAmount(0);
                 } else {
                     ag.setAmount(importAmount - already);
@@ -2195,7 +2191,7 @@ public final class InGameController extends FreeColClientHolder {
                     .template("tradeRoute.loadStop.load.import")
                     .addStringTemplate("%goods%", ag.getLabel())
                     .addAmount("%more%", present)
-                    .addStringTemplate("%location%",
+                    .addStringTemplate(LOCATION,
                         why.getLocationLabelFor(unit.getOwner())));
             }
             ret = true;
@@ -2265,7 +2261,7 @@ public final class InGameController extends FreeColClientHolder {
                 case ClientOptions.UNLOAD_OVERFLOW_RESPONSE_ASK:
                     StringTemplate template = StringTemplate
                         .template("traderoute.warehouseCapacity")
-                        .addStringTemplate("%unit%",
+                        .addStringTemplate(UNIT,
                             unit.getLabel(Unit.UnitLabelType.NATIONAL))
                         .addStringTemplate("%colony%", locName)
                         .addAmount("%amount%", present - atStop)
@@ -2304,20 +2300,20 @@ public final class InGameController extends FreeColClientHolder {
             if (present - retained != amount) {
                 unloaded.addStringTemplate(StringTemplate
                     .template("tradeRoute.unloadStop.unload.fail")
-                    .addNamed("%goodsType%", type)
+                    .addNamed(GOODS_TYPE, type)
                     .addAmount("%amount%", amount)
                     .addAmount("%more%", retained));
             } else if (amount > atStop) {
                 if (retained > 0) {
                     unloaded.addStringTemplate(StringTemplate
                         .template("tradeRoute.unloadStop.unload.keep")
-                        .addNamed("%goodsType%", type)
+                        .addNamed(GOODS_TYPE, type)
                         .addAmount("%amount%", atStop)
                         .addAmount("%more%", retained));
                 } else {
                     unloaded.addStringTemplate(StringTemplate
                         .template("tradeRoute.unloadStop.unload.overflow")
-                        .addNamed("%goodsType%", type)
+                        .addNamed(GOODS_TYPE, type)
                         .addAmount("%amount%", atStop)
                         .addAmount("%more%", amount - atStop));
                 }
@@ -2561,7 +2557,7 @@ public final class InGameController extends FreeColClientHolder {
         if (!unit.canBuildColony()) {
             getGUI().showInformationMessage(unit, StringTemplate
                 .template("buildColony.badUnit")
-                .addName("%unit%", unit.getName()));
+                .addName(UNIT, unit.getName()));
             return false;
         }
 
@@ -2642,7 +2638,7 @@ public final class InGameController extends FreeColClientHolder {
         UnitWas unitWas = new UnitWas(carrier);
         boolean ret = askLoadGoods(europe, type, amount, carrier);
         if (ret) {
-            sound("sound.event.loadCargo");
+            sound(SOUND_EVENT_LOAD_CARGO);
             europeWas.fireChanges();
             unitWas.fireChanges();
             updateGUI(null);
@@ -2921,7 +2917,7 @@ public final class InGameController extends FreeColClientHolder {
             && !getGUI().confirm(unit.getTile(), StringTemplate
                 .template("clearOrders.text")
                 .addAmount("%turns%", unit.getWorkTurnsLeft()),
-                unit, "ok", "cancel")) {
+                unit, "ok", CANCEL)) {
             return false;
         }
 
@@ -2951,7 +2947,7 @@ public final class InGameController extends FreeColClientHolder {
         if (newType == null) {
             getGUI().showInformationMessage(unit, StringTemplate
                 .template("clearSpeciality.impossible")
-                .addStringTemplate("%unit%",
+                .addStringTemplate(UNIT,
                     unit.getLabel(Unit.UnitLabelType.NATIONAL)));
             return false;
         }
@@ -2961,8 +2957,8 @@ public final class InGameController extends FreeColClientHolder {
                 .template("clearSpeciality.areYouSure")
                 .addStringTemplate("%oldUnit%",
                     unit.getLabel(Unit.UnitLabelType.NATIONAL))
-                .addNamed("%unit%", newType),
-                unit, "ok", "cancel")) {
+                .addNamed(UNIT, newType),
+                unit, "ok", CANCEL)) {
             return false;
         }
 
@@ -3071,13 +3067,13 @@ public final class InGameController extends FreeColClientHolder {
             ModelMessage mm
                 = new ModelMessage(ModelMessage.MessageType.FOREIGN_DIPLOMACY,
                                    "diplomacy.offerAccepted", otherPlayer)
-                    .addStringTemplate("%nation%", nation);
+                    .addStringTemplate(NATION, nation);
             player.addModelMessage(mm);
             updateGUI(null);
             break;
         case REJECT_TRADE:
             t = StringTemplate.template("diplomacy.offerRejected")
-                .addStringTemplate("%nation%", nation);
+                .addStringTemplate(NATION, nation);
             getGUI().showInformationMessage(t);
             break;
         case PROPOSE_TRADE:
@@ -3112,7 +3108,7 @@ public final class InGameController extends FreeColClientHolder {
             && !getGUI().confirmLeaveColony(unit)) return false;
         final Tile tile = (getGUI().isShowingSubPanel()) ? null : unit.getTile();
         if (!getGUI().confirm(tile, StringTemplate.key("disbandUnit.text"),
-                         unit, "disbandUnit.yes", "cancel"))
+                         unit, "disbandUnit.yes", CANCEL))
             return false;
 
         // Try to disband
@@ -3213,7 +3209,7 @@ public final class InGameController extends FreeColClientHolder {
                         .template("equipUnit.impossible")
                         .addName("%colony%", colony.getName())
                         .addNamed("%equipment%", ag.getType())
-                        .addStringTemplate("%unit%",
+                        .addStringTemplate(UNIT,
                             unit.getLabel(Unit.UnitLabelType.NATIONAL));
                     getGUI().showInformationMessage(unit, template);
                     return false;
@@ -3541,19 +3537,19 @@ public final class InGameController extends FreeColClientHolder {
         if (type == null)
             m = new ModelMessage(MessageType.DEMANDS,
                     "indianDemand.gold.text", colony, unit)
-                    .addName("%nation%", nation)
+                    .addName(NATION, nation)
                     .addName("%colony%", colony.getName())
                     .addAmount("%amount%", amount);
         else if ((type.isFoodType()))
             m = new ModelMessage(MessageType.DEMANDS,
                     "indianDemand.food.text", colony, unit)
-                    .addName("%nation%", nation)
+                    .addName(NATION, nation)
                     .addName("%colony%", colony.getName())
                     .addAmount("%amount%", amount);
         else
             m = new ModelMessage(MessageType.DEMANDS,
                     "indianDemand.other.text", colony, unit)
-                    .addName("%nation%", nation)
+                    .addName(NATION, nation)
                     .addName("%colony%", colony.getName())
                     .addAmount("%amount%", amount)
                     .addNamed("%goods%", type);
@@ -3638,7 +3634,7 @@ public final class InGameController extends FreeColClientHolder {
         boolean ret = askLoadGoods(goods.getLocation(), goods.getType(),
                                    goods.getAmount(), carrier);
         if (ret) {
-            sound("sound.event.loadCargo");
+            sound(SOUND_EVENT_LOAD_CARGO);
             if (colonyWas != null) colonyWas.fireChanges();
             if (sourceWas != null) sourceWas.fireChanges();
             carrierWas.fireChanges();
@@ -3780,7 +3776,7 @@ public final class InGameController extends FreeColClientHolder {
         // Consider the distinct types of destinations.
         if (destination instanceof Europe) {
             if (unit.isInEurope()) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 return false;
             }
             return moveTowardEurope(unit, (Europe)destination);
@@ -3788,13 +3784,13 @@ public final class InGameController extends FreeColClientHolder {
             if (unit.hasTile()
                 // Will we have multiple maps one day?
                 && unit.getTile().getMap() == destination) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 return false;
             }
             return moveAwayFromEurope(unit, destination);
         } else if (destination instanceof Settlement) {
             if (unit.hasTile()) {
-                sound("sound.event.illegalMove");
+                sound(SOUND_EVENT_ILLEGAL_MOVE);
                 return false;
             }
             return moveAwayFromEurope(unit, destination);
@@ -3927,8 +3923,8 @@ public final class InGameController extends FreeColClientHolder {
             act = null;
             prompt = StringTemplate
                 .template("trade.bought")
-                .addNamed("%goodsType%", nt.getItem().getGoods().getType())
-                .addStringTemplate("%nation%", is.getOwner().getNationLabel())
+                .addNamed(GOODS_TYPE, nt.getItem().getGoods().getType())
+                .addStringTemplate(NATION, is.getOwner().getNationLabel())
                 .addName("%settlement%", is.getName());
             break;
         case ACK_SELL:
@@ -3936,8 +3932,8 @@ public final class InGameController extends FreeColClientHolder {
             act = null;
             prompt = StringTemplate
                 .template("trade.sold")
-                .addNamed("%goodsType%", nt.getItem().getGoods().getType())
-                .addStringTemplate("%nation%", is.getOwner().getNationLabel())
+                .addNamed(GOODS_TYPE, nt.getItem().getGoods().getType())
+                .addStringTemplate(NATION, is.getOwner().getNationLabel())
                 .addName("%settlement%", is.getName());
             break;
         case ACK_GIFT:
@@ -3945,8 +3941,8 @@ public final class InGameController extends FreeColClientHolder {
             act = null;
             prompt = StringTemplate
                 .template("trade.gave")
-                .addNamed("%goodsType%", nt.getItem().getGoods().getType())
-                .addStringTemplate("%nation%", is.getOwner().getNationLabel())
+                .addNamed(GOODS_TYPE, nt.getItem().getGoods().getType())
+                .addStringTemplate(NATION, is.getOwner().getNationLabel())
                 .addName("%settlement%", is.getName());
             break;
         case ACK_BUY_HAGGLE:
@@ -3964,7 +3960,7 @@ public final class InGameController extends FreeColClientHolder {
             act = null;
             prompt = StringTemplate
                 .template("trade.noTradeGoods")
-                .addNamed("%goodsType%", nt.getItem().getGoods().getType());
+                .addNamed(GOODS_TYPE, nt.getItem().getGoods().getType());
             break;
         case NAK_HAGGLE:
             invokeLater(() ->
@@ -4011,7 +4007,7 @@ public final class InGameController extends FreeColClientHolder {
         final Unit unit = nt.getUnit();
         final StringTemplate base = StringTemplate
             .template("trade.welcome")
-            .addStringTemplate("%nation%", is.getOwner().getNationLabel())
+            .addStringTemplate(NATION, is.getOwner().getNationLabel())
             .addName("%settlement%", is.getName());
         
         // Col1 only displays at most 3 types of goods for sale.
@@ -4078,7 +4074,7 @@ public final class InGameController extends FreeColClientHolder {
             case GIFT:
                 act = null;
                 nti = getGUI().getChoice(unit.getTile(),
-                    Messages.message("gift.text"), is, "cancel",
+                    Messages.message("gift.text"), is, CANCEL,
                     transform(nt.getUnitToSettlement(), alwaysTrue(),
                               goodsMapper));
                 if (nti != null) {
@@ -4345,7 +4341,7 @@ public final class InGameController extends FreeColClientHolder {
 
         StringTemplate t = StringTemplate.template("payArrears.text")
             .addAmount("%amount%", arrears);
-        if (!getGUI().confirm(null, t, type, "ok", "cancel")) return false;
+        if (!getGUI().confirm(null, t, type, "ok", CANCEL)) return false;
 
         boolean ret = askServer().payArrears(type) && player.canTrade(type);
         if (ret) {
@@ -4373,7 +4369,7 @@ public final class InGameController extends FreeColClientHolder {
         }
 
         if (!colony.canPayToFinishBuilding()) {
-            getGUI().showInformationMessage("info.notEnoughGold");
+            getGUI().showInformationMessage(INFO_NOT_ENOUGH_GOLD);
             return false;
         }
 
@@ -4460,7 +4456,7 @@ public final class InGameController extends FreeColClientHolder {
         if (!player.isColonial()) return false;
 
         if (!player.checkGold(player.getEuropeanRecruitPrice())) {
-            getGUI().showInformationMessage("info.notEnoughGold");
+            getGUI().showInformationMessage(INFO_NOT_ENOUGH_GOLD);
             return false;
         }
 
@@ -4535,7 +4531,7 @@ public final class InGameController extends FreeColClientHolder {
             Colony colony = (Colony) object;
             name = getGUI().getInput(colony.getTile(),
                                 StringTemplate.key("renameColony.text"),
-                                colony.getName(), "rename", "cancel");
+                                colony.getName(), "rename", CANCEL);
             if (name == null) { // User cancelled
                 return false;
             } else if (name.isEmpty()) { // Zero length invalid
@@ -4554,7 +4550,7 @@ public final class InGameController extends FreeColClientHolder {
             Unit unit = (Unit) object;
             name = getGUI().getInput(unit.getTile(),
                                 StringTemplate.key("renameUnit.text"),
-                                unit.getName(), "rename", "cancel");
+                                unit.getName(), "rename", CANCEL);
             if (name == null) return false; // User cancelled
         } else {
             logger.warning("Tried to rename an unsupported Nameable: "
@@ -4602,7 +4598,7 @@ public final class InGameController extends FreeColClientHolder {
         if (!getClientOptions().getBoolean(ClientOptions.CONFIRM_SAVE_OVERWRITE)
             || !file.exists()
             || getGUI().confirm("saveConfirmationDialog.areYouSure.text",
-                                "ok", "cancel")) {
+                                "ok", CANCEL)) {
             FreeColDirectories.setSavegameFile(file.getPath());
             return saveGame(file);
         }
@@ -4629,7 +4625,7 @@ public final class InGameController extends FreeColClientHolder {
             invokeLater(() ->
                 getGUI().showInformationMessage(is, StringTemplate
                     .template("scoutSettlement.expertScout")
-                    .addNamed("%unit%", unit.getType())));
+                    .addNamed(UNIT, unit.getType())));
             break;
         case "tales":
             invokeLater(() ->
@@ -4640,7 +4636,7 @@ public final class InGameController extends FreeColClientHolder {
             invokeLater(() ->
                 getGUI().showInformationMessage(is, StringTemplate
                     .template("scoutSettlement.speakNothing")
-                    .addStringTemplate("%nation%", unit.getOwner().getNationLabel())));
+                    .addStringTemplate(NATION, unit.getOwner().getNationLabel())));
             break;
         default: // result == amount of gold
             invokeLater(() ->
@@ -4951,7 +4947,7 @@ public final class InGameController extends FreeColClientHolder {
         final Player player = getMyPlayer();
         final Europe europe = player.getEurope();
         if (!player.checkGold(europe.getUnitPrice(unitType))) {
-            getGUI().showInformationMessage("info.notEnoughGold");
+            getGUI().showInformationMessage(INFO_NOT_ENOUGH_GOLD);
             return false;
         }
 
