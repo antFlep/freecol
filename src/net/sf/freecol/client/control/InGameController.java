@@ -929,23 +929,26 @@ public final class InGameController extends FreeColClientHolder {
             getGUI().showInformationMessage(unit, template);
             changeState(unit, UnitState.SKIPPED);
             return false;
-        } else {
-            // Clear ordinary destinations if arrived.
-            getGUI().setActiveUnit(unit);
-            if (!movePath(unit, path)) return false;
-        
-            if (unit.isAtLocation(destination)) {
-                if (!askClearGotoOrders(unit)) return false;
+        } else
+            return clearDestinations(unit, destination, path);
+    }
 
-                Colony colony = (unit.hasTile()) ? unit.getTile().getColony()
-                    : null;
-                if (colony != null) {
-                    if (!checkCashInTreasureTrain(unit)) colonyPanel(colony, unit);
-                    return false;
-                }
+    private boolean clearDestinations(Unit unit, Location destination, PathNode path) {
+        // Clear ordinary destinations if arrived.
+        getGUI().setActiveUnit(unit);
+        if (!movePath(unit, path)) return false;
+
+        if (unit.isAtLocation(destination)) {
+            if (!askClearGotoOrders(unit)) return false;
+
+            Colony colony = (unit.hasTile()) ? unit.getTile().getColony()
+                : null;
+            if (colony != null) {
+                if (!checkCashInTreasureTrain(unit)) colonyPanel(colony, unit);
+                return false;
             }
-            return true;
         }
+        return true;
     }
 
     /**
@@ -2356,57 +2359,7 @@ public final class InGameController extends FreeColClientHolder {
         return ret;
     }
 
-    /**
-     * Gets a message describing a goods unloading.
-     *
-     * Normally just state that a certain amount of goods was
-     * unloaded.  Make special mention if the actual unloaded amount
-     * was short (unloaded &lt; amount), or an overflow is happening
-     * (amount &gt; atStop) in which case distinguish dumping (amount
-     * == toUnload) from retaining on board).
-     *
-     * @param unit The {@code Unit} that is unloading.
-     * @param type The {@code GoodsType} the type of goods being unloaded.
-     * @param amount The amount of goods requested to be unloaded.
-     * @param present The amount of goods originally on the unit.
-     * @param atStop The amount of goods space available at the stop.
-     * @param toUnload The amount of goods that should be unloaded according
-     *     to the trade route orders.
-     * @return A summary of the unload.
-     */
-    private String getUnloadGoodsMessage(Unit unit, GoodsType type,
-                                         int amount, int present,
-                                         int atStop, int toUnload) {
-        String key = null;
-        int onBoard = unit.getGoodsCount(type);
-        int unloaded = present - onBoard;
-        int more = 0;
 
-        if (unloaded < amount) {
-            // Tried to unload %amount% %goods%, but %more% was unloaded
-            key = "tradeRoute.unloadStopFail";
-            more = unloaded;
-        } else if (amount > atStop) {
-            if (amount == toUnload) {
-                // Unloaded %amount% %goods% and dumped %more%.
-                key = "tradeRoute.unloadStopImport";
-                more = toUnload - atStop;
-            } else {
-                // Unloaded %amount% %goods% with %more% more retained...
-                key = (amount == 0) ? "tradeRoute.unloadStopNoExport"
-                    : "tradeRoute.unloadStopExport";
-                more = onBoard;
-            }
-        } else {
-            // Unloaded %amount% %goods%
-            key = "tradeRoute.unloadStop";
-        }
-
-        return Messages.message(StringTemplate.template(key)
-            .addAmount("%amount%", amount)
-            .addAmount("%more%", more)
-            .addNamed("%goods%", type));
-    }
 
 
     // Routines from here on are mostly user commands.  That is they
