@@ -2428,54 +2428,10 @@ public final class Specification implements OptionContainer {
                                             52);
         id = GameOptions.INTERVENTION_FORCE;
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH, lb);
-        if (ulo != null) {
-            AbstractUnitOption regulars
-                = new AbstractUnitOption(id + ".regulars", this);
-            regulars.setValue(new AbstractUnit("model.unit.colonialRegular",
-                                               "model.role.soldier", 2));
-            ulo.getValue().add(regulars);
-            AbstractUnitOption dragoons
-                = new AbstractUnitOption(id + ".dragoons", this);
-            dragoons.setValue(new AbstractUnit("model.unit.colonialRegular",
-                                               "model.role.dragoon", 2));
-            ulo.getValue().add(dragoons);
-            AbstractUnitOption artillery
-                = new AbstractUnitOption(id + ".artillery", this);
-            artillery.setValue(new AbstractUnit("model.unit.artillery",
-                                                DEFAULT_ROLE_ID, 2));
-            ulo.getValue().add(artillery);
-            AbstractUnitOption menOfWar
-                = new AbstractUnitOption(id + ".menOfWar", this);
-            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
-                                               DEFAULT_ROLE_ID, 2));
-            ulo.getValue().add(menOfWar);
-            ret = true;
-        }
+        ret = isRet(ret, id, ulo, "model.unit.colonialRegular");
         id = GameOptions.MERCENARY_FORCE;
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH, lb);
-        if (ulo != null) {
-            AbstractUnitOption regulars
-                = new AbstractUnitOption(id + ".regulars", this);
-            regulars.setValue(new AbstractUnit("model.unit.veteranSoldier",
-                                               "model.role.soldier", 2));
-            ulo.getValue().add(regulars);
-            AbstractUnitOption dragoons
-                = new AbstractUnitOption(id + ".dragoons", this);
-            dragoons.setValue(new AbstractUnit("model.unit.veteranSoldier",
-                                               "model.role.dragoon", 2));
-            ulo.getValue().add(dragoons);
-            AbstractUnitOption artillery
-                = new AbstractUnitOption(id + ".artillery", this);
-            artillery.setValue(new AbstractUnit("model.unit.artillery",
-                                                DEFAULT_ROLE_ID, 2));
-            ulo.getValue().add(artillery);
-            AbstractUnitOption menOfWar
-                = new AbstractUnitOption(id + ".menOfWar", this);
-            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
-                                               DEFAULT_ROLE_ID, 2));
-            ulo.getValue().add(menOfWar);
-            ret = true;
-        }
+        ret = isRet(ret, id, ulo, "model.unit.veteranSoldier");
         ret |= checkDifficultyIntegerOption(GameOptions.GOOD_GOVERNMENT_LIMIT,
                                             GameOptions.DIFFICULTY_GOVERNMENT, lb,
                                             50);
@@ -2556,6 +2512,33 @@ public final class Specification implements OptionContainer {
         }
 
         // SAVEGAME_VERSION == 14
+        return ret;
+    }
+
+    private boolean isRet(boolean ret, String id, UnitListOption ulo, String s) {
+        if (ulo != null) {
+            AbstractUnitOption regulars
+                    = new AbstractUnitOption(id + ".regulars", this);
+            regulars.setValue(new AbstractUnit(s,
+                    "model.role.soldier", 2));
+            ulo.getValue().add(regulars);
+            AbstractUnitOption dragoons
+                    = new AbstractUnitOption(id + ".dragoons", this);
+            dragoons.setValue(new AbstractUnit(s,
+                    "model.role.dragoon", 2));
+            ulo.getValue().add(dragoons);
+            AbstractUnitOption artillery
+                    = new AbstractUnitOption(id + ".artillery", this);
+            artillery.setValue(new AbstractUnit("model.unit.artillery",
+                    DEFAULT_ROLE_ID, 2));
+            ulo.getValue().add(artillery);
+            AbstractUnitOption menOfWar
+                    = new AbstractUnitOption(id + ".menOfWar", this);
+            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
+                    DEFAULT_ROLE_ID, 2));
+            ulo.getValue().add(menOfWar);
+            ret = true;
+        }
         return ret;
     }
 

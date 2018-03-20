@@ -111,78 +111,6 @@ public class MissionaryMission extends Mission {
             ? (Colony)settlement
             : null;        
     }
-    
-    /**
-     * Evaluate a potential cashin mission for a given unit and
-     * path.
-     *
-     * @param aiUnit The {@code AIUnit} to do the mission.
-     * @param path A {@code PathNode} to take to the target.
-     * @return A score for the proposed mission.
-     */
-    public static int scorePath(AIUnit aiUnit, PathNode path) {
-        Location loc = extractTarget(aiUnit, path);
-        return (loc instanceof IndianSettlement)
-            ? 1000 / (path.getTotalTurns() + 1)
-            : Integer.MIN_VALUE;
-    }
-
-    /**
-     * Makes a goal decider that checks for potential missions.
-     *
-     * @param aiUnit The {@code AIUnit} to find a mission with.
-     * @param deferOK Enable deferring to a fallback colony.
-     * @return A suitable {@code GoalDecider}.
-     */
-    private static GoalDecider getGoalDecider(final AIUnit aiUnit,
-                                              final boolean deferOK) {
-        GoalDecider gd = new GoalDecider() {
-                private PathNode bestPath = null;
-                private int bestValue = Integer.MIN_VALUE;
-
-                @Override
-                public PathNode getGoal() { return bestPath; }
-                @Override
-                public boolean hasSubGoals() { return true; }
-                @Override
-                public boolean check(Unit u, PathNode path) {
-                    if (path.getLastNode().getLocation().getSettlement()
-                        instanceof IndianSettlement) {
-                        int value = scorePath(aiUnit, path);
-                        if (bestValue < value) {
-                            bestValue = value;
-                            bestPath = path;
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            };
-        return (deferOK) ? GoalDeciders.getComposedGoalDecider(false, gd,
-            GoalDeciders.getOurClosestSettlementGoalDecider())
-            : gd;
-    }
-            
-    /**
-     * Find a suitable mission location for this unit.
-     *
-     * @param aiUnit The {@code AIUnit} to execute this mission.
-     * @param range An upper bound on the number of moves.
-     * @param deferOK Enables deferring to a fallback colony.
-     * @return A path to the new target, or null if none found.
-     */
-    private static PathNode findTargetPath(AIUnit aiUnit, int range,
-                                           boolean deferOK) {
-        if (invalidAIUnitReason(aiUnit) != null) return null;
-        final Unit unit = aiUnit.getUnit();
-        final Location start = unit.getPathStartLocation();
-        final Unit carrier = unit.getCarrier();
-        final GoalDecider gd = getGoalDecider(aiUnit, deferOK);
-        final CostDecider standardCd
-            = CostDeciders.avoidSettlementsAndBlockingUnits();
-        // Is there a valid target available from the starting tile?
-        return unit.search(start, gd, standardCd, range, carrier);
-    }
 
     /**
      * Finds a suitable mission target for the supplied unit.
@@ -195,7 +123,7 @@ public class MissionaryMission extends Mission {
      */
     public static Location findTarget(AIUnit aiUnit, int range,
                                       boolean deferOK) {
-        PathNode path = findTargetPath(aiUnit, range, deferOK);
+        PathNode path = BuildColonyMission.findTargetPath(aiUnit, range, deferOK);
         return (path == null) ? null : extractTarget(aiUnit, path);
     }
 
