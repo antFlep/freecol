@@ -46,19 +46,21 @@ public enum Direction implements Named {
 
     public final static int NUMBER_OF_DIRECTIONS = values().length;
 
-    public static final List<Direction> allDirections
+    private static final List<Direction> allDirections
         = makeUnmodifiableList(Direction.N, Direction.NE,
                                Direction.E, Direction.SE,
                                Direction.S, Direction.SW,
                                Direction.W, Direction.NW);
 
-    public static final List<Direction> longSides
+    private static final List<Direction> longSides
         = makeUnmodifiableList(Direction.NE, Direction.SE,
                                Direction.SW, Direction.NW);
 
-    public static final List<Direction> corners
+    private static final List<Direction> corners
         = makeUnmodifiableList(Direction.N, Direction.E,
                                Direction.S, Direction.W);
+
+
     
     /** The direction increments. */
     private final int oddDX;
@@ -80,6 +82,18 @@ public enum Direction implements Named {
         this.oddDY = oddDY;
         this.evenDX = evenDX;
         this.evenDY = evenDY;
+    }
+
+    public static List<Direction> getAllDirections() {
+        return allDirections;
+    }
+
+    public static List<Direction> getLongSides() {
+        return longSides;
+    }
+
+    public static List<Direction> getCorners() {
+        return corners;
     }
 
 
@@ -176,7 +190,7 @@ public enum Direction implements Named {
      */
     public static Direction[] getRandomDirections(String logMe, Logger logger,
                                                   Random random) {
-        List<Direction> directions = new ArrayList<>(allDirections);
+        List<Direction> directions = new ArrayList<>(getAllDirections());
         randomShuffle(logger, logMe, directions, random);
         return directions.toArray(new Direction[0]);
     }

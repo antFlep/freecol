@@ -548,8 +548,8 @@ public abstract class Mission extends AIObject {
         final Unit unit = aiUnit.getUnit();
         PathNode path = unit.findPath(target);
         Direction d = null;
-        if (path != null && path.next != null) {
-            Tile tile = path.next.getTile();
+        if (path != null && path.getNext() != null) {
+            Tile tile = path.getNext().getTile();
             Settlement settlement = tile.getSettlement();
             Location blocker = (settlement != null) ? settlement
                 : tile.getDefendingUnit(unit);
@@ -799,7 +799,7 @@ public abstract class Mission extends AIObject {
                     // carrier.  This confirms that it is not only
                     // possible to travel to the collection point, it
                     // is also the best plan.
-                    MoveType ret = followMapPath(path.next, lb);
+                    MoveType ret = followMapPath(path.getNext(), lb);
                     if (ret != MoveType.MOVE) return ret;
                     waiting = true; // Arrived for collection.
 
@@ -840,7 +840,7 @@ public abstract class Mission extends AIObject {
             lb.add(", no path to ", target);
             return MoveType.MOVE_NO_TILE;
         }
-        if (path.next == null) {
+        if (path.getNext() == null) {
             // This should not happen, the isAtLocation() test above
             // should have succeeded.
             throw new IllegalStateException("Trivial path found "
@@ -848,7 +848,7 @@ public abstract class Mission extends AIObject {
                 + " from " + unit.getLocation() + " to target " + target
                 + " result=" +  unit.isAtLocation(target));
         }            
-        return followMapPath(path.next, lb);
+        return followMapPath(path.getNext(), lb);
     }
 
     /**
@@ -863,7 +863,7 @@ public abstract class Mission extends AIObject {
         final Unit unit = getUnit();
         final Location target = path.getLastNode().getLocation();
 
-        for (; path != null; path = path.next) {
+        for (; path != null; path = path.getNext()) {
             // Check for immediate failure
             if (unit.isDisposed()) {
                 lb.add(", died going to ", Location.upLoc(path.getLocation()));

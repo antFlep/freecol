@@ -39,8 +39,7 @@ import javax.xml.stream.XMLStreamException;
 
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
-import net.sf.freecol.common.model.Colony;
-import net.sf.freecol.common.model.Direction;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.RandomChoice;
@@ -76,11 +75,9 @@ public final class Tile extends UnitLocation implements Named, Ownable {
      */
     private static class IndianSettlementInternals {
 
-        /** The skill taught at the settlement. */
-        public UnitType skill = null;
+        private UnitType skill = null;
 
-        /** The goods the settlement is interested in. */
-        public List<GoodsType> wantedGoods = null;
+        private List<GoodsType> wantedGoods = null;
 
 
         /**
@@ -99,15 +96,33 @@ public final class Tile extends UnitLocation implements Named, Ownable {
          * @param wanted The wanted goods.
          */
         public void setValues(UnitType skill, List<GoodsType> wanted) {
-            this.skill = skill;
+            this.setSkill(skill);
             if (wanted == null) {
-                this.wantedGoods = null;
-            } else if (this.wantedGoods == null) {
-                this.wantedGoods = new ArrayList<GoodsType>(wanted);
+                this.setWantedGoods(null);
+            } else if (this.getWantedGoods() == null) {
+                this.setWantedGoods(new ArrayList<GoodsType>(wanted));
             } else {
-                this.wantedGoods.clear();
-                this.wantedGoods.addAll(wanted);
+                this.getWantedGoods().clear();
+                this.getWantedGoods().addAll(wanted);
             }
+        }
+
+        /** The skill taught at the settlement. */
+        public UnitType getSkill() {
+            return skill;
+        }
+
+        public void setSkill(UnitType skill) {
+            this.skill = skill;
+        }
+
+        /** The goods the settlement is interested in. */
+        public List<GoodsType> getWantedGoods() {
+            return wantedGoods;
+        }
+
+        public void setWantedGoods(List<GoodsType> wantedGoods) {
+            this.wantedGoods = wantedGoods;
         }
     }
 
@@ -1978,12 +1993,12 @@ public final class Tile extends UnitLocation implements Named, Ownable {
 
     public UnitType getLearnableSkill(Player player) {
         IndianSettlementInternals isi = getPlayerIndianSettlement(player);
-        return (isi == null) ? null : isi.skill;
+        return (isi == null) ? null : isi.getSkill();
     }
 
     public List<GoodsType> getWantedGoods(Player player) {
         IndianSettlementInternals isi = getPlayerIndianSettlement(player);
-        return (isi == null) ? null : isi.wantedGoods;
+        return (isi == null) ? null : isi.getWantedGoods();
     }
 
     /**

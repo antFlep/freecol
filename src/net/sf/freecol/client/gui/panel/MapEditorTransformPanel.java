@@ -318,7 +318,7 @@ public final class MapEditorTransformPanel extends FreeColPanel {
             if (riverType.isTileTypeAllowed(tile.getType())) {
                 if (!tile.hasRiver()) {
                     StringBuilder sb = new StringBuilder(64);
-                    for (Direction direction : Direction.longSides) {
+                    for (Direction direction : Direction.getLongSides()) {
                         Tile t = tile.getNeighbourOrNull(direction);
                         TileImprovement otherRiver = (t == null) ? null
                             : t.getRiver();

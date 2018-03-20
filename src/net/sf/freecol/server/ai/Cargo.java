@@ -84,14 +84,11 @@ public class Cargo {
         private Location cdst;
         private Location tdst;
 
-        /** Expected total duration of this plan when it is initialized. */
-        public int turns;
+        private int turns;
 
-        /** Current state of the plan. */
-        public CargoMode mode;
+        private CargoMode mode;
 
-        /** Is the destination a fallback destination? */
-        public boolean fallback;
+        private boolean fallback;
 
         /**
          * Plan the transport of a transportable with a given carrier.
@@ -126,10 +123,10 @@ public class Cargo {
             // Get the path to the destination, possibly allowing fallback
             // to a destination that at least improves matters.
             PathNode deliver = t.getDeliveryPath(carrier, tdst);
-            fallback = false;
+            setFallback(false);
             if (deliver == null && allowFallback) {
                 deliver = t.getIntermediatePath(carrier, tdst);
-                fallback = true;
+                setFallback(true);
             }
             if (deliver == null) {
                 return "no-deliver " + t
@@ -151,7 +148,7 @@ public class Cargo {
                 // This will be true for units moving directly from land
                 // to a naval carrier, but usually false when collection
                 // occurs in a colony (as for goods).
-                PathNode prev = (pick.previous == null) ? pick : pick.previous;
+                PathNode prev = (pick.getPrevious() == null) ? pick : pick.getPrevious();
                 this.twait = Location.upLoc(prev.getLocation());
             }
 
@@ -168,13 +165,13 @@ public class Cargo {
             // Where is the transportable dropped?  At the drop node,
             // or at its predecessor from the carrier point of view.
             PathNode drop = pick.getTransportDropNode();
-            if (drop == null || drop.previous == null) {
+            if (drop == null || drop.getPrevious() == null) {
                 throw new IllegalStateException("Cargo failure " + t
                     + " " + deliver.fullPathToString()
                     + " " + pick.fullPathToString()
                     + " " + drop);
             }
-            this.cdst = Location.upLoc(drop.previous.getLocation());
+            this.cdst = Location.upLoc(drop.getPrevious().getLocation());
 
             // The transportable ends up at the end of the delivery path.
             this.tdst = Location.upLoc(deliver.getLastNode().getLocation());
@@ -188,18 +185,45 @@ public class Cargo {
             // The mode depends whether the carrier and transportable
             // have the same terminal points.
             if (carrying) {
-                this.turns = deliver.getTotalTurns();
-                this.mode = (this.cdst instanceof Europe
+                this.setTurns(deliver.getTotalTurns());
+                this.setMode((this.cdst instanceof Europe
                     || this.cdst == this.tdst) ? CargoMode.UNLOAD
-                    : CargoMode.DROPOFF;
+                    : CargoMode.DROPOFF);
             } else {
-                this.turns = Math.max(pick.getTurns(), collect.getTotalTurns())
-                    + pick.getTotalTurns();
-                this.mode = (this.cwait instanceof Europe
+                this.setTurns(Math.max(pick.getTurns(), collect.getTotalTurns())
+                    + pick.getTotalTurns());
+                this.setMode((this.cwait instanceof Europe
                     || this.cwait == this.twait) ? CargoMode.LOAD
-                    : CargoMode.PICKUP;
+                    : CargoMode.PICKUP);
             }
             return null;
+        }
+
+        /** Expected total duration of this plan when it is initialized. */
+        public int getTurns() {
+            return turns;
+        }
+
+        public void setTurns(int turns) {
+            this.turns = turns;
+        }
+
+        /** Current state of the plan. */
+        public CargoMode getMode() {
+            return mode;
+        }
+
+        public void setMode(CargoMode mode) {
+            this.mode = mode;
+        }
+
+        /** Is the destination a fallback destination? */
+        public boolean isFallback() {
+            return fallback;
+        }
+
+        public void setFallback(boolean fallback) {
+            this.fallback = fallback;
         }
     }
 
@@ -274,7 +298,7 @@ public class Cargo {
      */
     public String update() {
         return this.plan.initialize(this.transportable, this.carrier, null,
-                                    this.plan.fallback);
+                this.plan.isFallback());
     }
 
     /**
@@ -323,7 +347,7 @@ public class Cargo {
         if (path == null) return "no-trivial-path";
         String reason = initialize(path.getLastNode().getLocation(), false);
         if (reason != null) return reason;
-        this.plan.mode = CargoMode.DUMP;
+        this.plan.setMode(CargoMode.DUMP);
         return null;
     }
 
@@ -353,11 +377,11 @@ public class Cargo {
     }
 
     public boolean isValid() {
-        return plan != null && plan.mode != null;
+        return plan != null && plan.getMode() != null;
     }
 
     public CargoMode getMode() {
-        return plan.mode;
+        return plan.getMode();
     }
 
     public String getModeString() {
@@ -366,11 +390,11 @@ public class Cargo {
     }
 
     public int getTurns() {
-        return plan.turns;
+        return plan.getTurns();
     }
 
     public boolean isFallback() {
-        return plan.fallback;
+        return plan.isFallback();
     }
 
     public Location getTransportTarget() {
@@ -384,7 +408,7 @@ public class Cargo {
     public void clear() {
         this.transportable = null;
         this.carrier = null;
-        this.plan.mode = null;
+        this.plan.setMode(null);
     }
 
     /**
@@ -459,8 +483,8 @@ public class Cargo {
         if (!carrier.hasTile() || plan.cdst == plan.tdst) return null;
         TransportableAIObject t = getTransportable();
         PathNode path = t.getDeliveryPath(getCarrier(), plan.tdst);
-        return (path == null || path.next == null) ? null
-            : path.next.getDirection();
+        return (path == null || path.getNext() == null) ? null
+            : path.getNext().getDirection();
     }
 
     /**
@@ -671,11 +695,11 @@ public class Cargo {
             xw.writeLocationAttribute(TDST_TAG, plan.tdst);
         }
 
-        xw.writeAttribute(TURNS_TAG, plan.turns);
+        xw.writeAttribute(TURNS_TAG, plan.getTurns());
 
-        xw.writeAttribute(MODE_TAG, plan.mode);
+        xw.writeAttribute(MODE_TAG, plan.getMode());
 
-        xw.writeAttribute(FALLBACK_TAG, plan.fallback);
+        xw.writeAttribute(FALLBACK_TAG, plan.isFallback());
 
         xw.writeEndElement();
     }
@@ -721,12 +745,12 @@ public class Cargo {
 
         this.plan.tdst = xr.getLocationAttribute(game, TDST_TAG, false);
             
-        this.plan.turns = xr.getAttribute(TURNS_TAG, -1);
+        this.plan.setTurns(xr.getAttribute(TURNS_TAG, -1));
 
-        this.plan.mode = xr.getAttribute(MODE_TAG, 
-                                         CargoMode.class, (CargoMode)null);
+        this.plan.setMode(xr.getAttribute(MODE_TAG,
+                                         CargoMode.class, (CargoMode)null));
 
-        this.plan.fallback = xr.getAttribute(FALLBACK_TAG, false);
+        this.plan.setFallback(xr.getAttribute(FALLBACK_TAG, false));
 
         xr.closeTag(TAG);
     }
@@ -757,7 +781,7 @@ public class Cargo {
             lb.add("->", plan.cdst.toShortString(),
                 "/", plan.tdst.toShortString());
         }
-        lb.add(" ", plan.fallback, "]");
+        lb.add(" ", plan.isFallback(), "]");
         return lb.toString();
     }            
 }

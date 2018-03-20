@@ -82,19 +82,19 @@ public class ColonyPlan {
     private static class BuildPlan {
 
         public final BuildableType type;
-        public double weight;
-        public double support;
-        public double difficulty;
+        private double weight;
+        private double support;
+        private double difficulty;
 
         public BuildPlan(BuildableType type, double weight, double support) {
             this.type = type;
-            this.weight = weight;
-            this.support = support;
-            this.difficulty = 1.0f;
+            this.setWeight(weight);
+            this.setSupport(support);
+            this.setDifficulty(1.0f);
         }
 
         public double getValue() {
-            return weight * support / difficulty;
+            return getWeight() * getSupport() / getDifficulty();
         }
 
 
@@ -106,8 +106,32 @@ public class ColonyPlan {
         @Override
         public String toString() {
             return String.format("%s (%1.3f * %1.3f / %1.3f = %1.3f)",
-                                 type.getSuffix(), weight, support,
-                                 difficulty, getValue());
+                                 type.getSuffix(), getWeight(), getSupport(),
+                    getDifficulty(), getValue());
+        }
+
+        public double getWeight() {
+            return weight;
+        }
+
+        public void setWeight(double weight) {
+            this.weight = weight;
+        }
+
+        public double getSupport() {
+            return support;
+        }
+
+        public void setSupport(double support) {
+            this.support = support;
+        }
+
+        public double getDifficulty() {
+            return difficulty;
+        }
+
+        public void setDifficulty(double difficulty) {
+            this.difficulty = difficulty;
         }
     }
 
@@ -605,9 +629,9 @@ public class ColonyPlan {
             buildPlans.add(new BuildPlan(type, weight, support));
             return true;
         }
-        if (bp.weight * bp.support < weight * support) {
-            bp.weight = weight;
-            bp.support = support;
+        if (bp.getWeight() * bp.getSupport() < weight * support) {
+            bp.setWeight(weight);
+            bp.setSupport(support);
             return true;
         }
         return false;
@@ -813,7 +837,7 @@ public class ColonyPlan {
                     // made locally.
                         * ((produce.contains(type.getInputType())) ? 1 : 5);
                 });
-            bp.difficulty = Math.max(1.0f, Math.sqrt((double)difficulty));
+            bp.setDifficulty(Math.max(1.0f, Math.sqrt((double)difficulty)));
         }
 
         buildPlans.sort(buildPlanComparator);

@@ -226,14 +226,14 @@ public abstract class WorkLocation extends UnitLocation
             lb.add("\n  ");
             logFreeColObjects(types, lb);
             bestAmount = best.improve(unit, this, bestAmount, types, lb);
-            if (best.workType != null) {
+            if (best.getWorkType() != null) {
                 lb.add("\n  => ", best);
                 break;
             }
         }
-        if (best.workType == null) lb.add("\n  FAILED");
+        if (best.getWorkType() == null) lb.add("\n  FAILED");
         lb.log(logger, Level.WARNING);
-        return (best.workType == null) ? null : best;
+        return (best.getWorkType() == null) ? null : best;
     }
 
     /**
@@ -259,13 +259,13 @@ public abstract class WorkLocation extends UnitLocation
         lb.add("\n  ");
         logFreeColObjects(types, lb);
         int bestAmount = best.improve(unitType, this, 0, types, lb);
-        if (best.workType != null) {
+        if (best.getWorkType() != null) {
             lb.add("\n  => ", best, "/", bestAmount);
         } else {
             lb.add("\n  FAILED");
         }
         lb.log(logger, Level.WARNING);
-        return (best.workType == null) ? null : best;
+        return (best.getWorkType() == null) ? null : best;
     }
         
     /**
@@ -278,7 +278,7 @@ public abstract class WorkLocation extends UnitLocation
      */
     public GoodsType getWorkFor(Unit unit) {
         Occupation occupation = getOccupation(unit, true);
-        return (occupation == null) ? null : occupation.workType;
+        return (occupation == null) ? null : occupation.getWorkType();
     }
 
     /**
@@ -389,7 +389,7 @@ public abstract class WorkLocation extends UnitLocation
         // Check if the existing non-student units can be improved.
         for (Unit u : transform(getUnits(), isNull(Unit::getTeacher))) {
             if ((work = u.getWorkType()) == null) {
-                if (occ != null) work = occ.workType;
+                if (occ != null) work = occ.getWorkType();
             }
             if ((sug = getSuggestion(u, getProductionType(), work)) != null) {
                 result.put(u, sug);
@@ -397,8 +397,8 @@ public abstract class WorkLocation extends UnitLocation
         }
         // Check for a suggestion for an extra worker if there is space.
         if (!isFull() && occ != null
-            && (work = occ.workType) != null
-            && (sug = getSuggestion(null, occ.productionType, work)) != null) {
+            && (work = occ.getWorkType()) != null
+            && (sug = getSuggestion(null, occ.getProductionType(), work)) != null) {
             result.put(null, sug);
         }
         return result;

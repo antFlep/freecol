@@ -186,8 +186,8 @@ public class TileImprovement extends TileItem implements Named {
      * @return An array of relevant directions, or null if none.
      */
     public List<Direction> getConnectionDirections() {
-        return (isRoad()) ? Direction.allDirections
-            : (isRiver()) ? Direction.longSides
+        return (isRoad()) ? Direction.getAllDirections()
+            : (isRiver()) ? Direction.getLongSides()
             : null;
     }
 
@@ -263,7 +263,7 @@ public class TileImprovement extends TileItem implements Named {
      * @return The magnitude of the river branch or 0 if there is none.
      */
     public int getRiverConnection(Direction direction) {
-        int index = Direction.longSides.indexOf(direction);
+        int index = Direction.getLongSides().indexOf(direction);
         if (index == -1 || style == null)
             return 0;
         int mag = Character.digit(style.getString().charAt(index), 10);
@@ -279,7 +279,7 @@ public class TileImprovement extends TileItem implements Named {
      */
     public boolean isConnectedTo(Direction direction) {
         int index = isRoad() ? direction.ordinal()
-            : isRiver() ? Direction.longSides.indexOf(direction) : -1;
+            : isRiver() ? Direction.getLongSides().indexOf(direction) : -1;
         return (index == -1 || style == null) ? false
             : style.getString().charAt(index) != '0';
     }
@@ -407,7 +407,7 @@ public class TileImprovement extends TileItem implements Named {
         final Tile tile = getTile();
         int i = 0;
         int[] counts = {0, 0};
-        for (Direction d : Direction.longSides) {
+        for (Direction d : Direction.getLongSides()) {
             Direction dReverse = d.getReverseDirection();
             Tile t = tile.getNeighbourOrNull(d);
             TileImprovement river = (t == null) ? null : t.getRiver();
@@ -454,7 +454,7 @@ public class TileImprovement extends TileItem implements Named {
         if (!isRiver()) return null;
         final Tile tile = getTile();
         int i = 0;
-        for (Direction d : Direction.longSides) {
+        for (Direction d : Direction.getLongSides()) {
             Direction dReverse = d.getReverseDirection();
             Tile t = tile.getNeighbourOrNull(d);
             TileImprovement river = (t == null) ? null : t.getRiver();
@@ -639,7 +639,7 @@ public class TileImprovement extends TileItem implements Named {
             // These could at least be added using the map editor.
             String conns = style.getString();
             int i = 0;
-            for (Direction d : Direction.longSides) {
+            for (Direction d : Direction.getLongSides()) {
                 Direction dReverse = d.getReverseDirection();
                 Tile t = tile.getNeighbourOrNull(d);
                 TileImprovement river = (t == null) ? null : t.getRiver();

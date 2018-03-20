@@ -28,7 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.freecol.common.model.Modifier.ModifierType;
-import net.sf.freecol.common.model.UnitTypeChange;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.util.LogBuilder;
 import static net.sf.freecol.common.util.RandomUtils.*;
@@ -863,7 +863,7 @@ public class SimpleCombatModel extends CombatModel {
         if (uc != null
             && (winner.hasAbility(Ability.AUTOMATIC_PROMOTION)
                 || (great
-                    && (100 * (r - Math.floor(r)) <= uc.probability)))) {
+                    && (100 * (r - Math.floor(r)) <= uc.getProbability())))) {
             crs.add(CombatResult.PROMOTE_UNIT);
         }
     }

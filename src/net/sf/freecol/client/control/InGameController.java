@@ -955,7 +955,7 @@ public final class InGameController extends FreeColClientHolder {
      * @return True if automatic movement of the unit can proceed.
      */
     private boolean movePath(Unit unit, PathNode path) {
-        for (; path != null; path = path.next) {
+        for (; path != null; path = path.getNext()) {
             if (unit.isAtLocation(path.getLocation())) continue;
 
             if (path.getLocation() instanceof Europe) {
@@ -2948,7 +2948,7 @@ public final class InGameController extends FreeColClientHolder {
 
         UnitType oldType = unit.getType();
         UnitTypeChange uc = unit.getUnitChange(UnitChangeType.CLEAR_SKILL);
-        UnitType newType = (uc == null) ? null : uc.to;
+        UnitType newType = (uc == null) ? null : uc.getTo();
         if (newType == null) {
             getGUI().showInformationMessage(unit, StringTemplate
                 .template("clearSpeciality.impossible")

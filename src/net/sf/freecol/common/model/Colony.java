@@ -540,10 +540,10 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
             bestAmount = best.improve(unit, wl, bestAmount, workTypes, lb);
         }
 
-        if (best.workLocation != null) {
+        if (best.getWorkLocation() != null) {
             lb.add("\n  => ", best, " = ", bestAmount);
         }
-        return (best.workLocation == null) ? null : best;
+        return (best.getWorkLocation() == null) ? null : best;
     }
 
     /**
@@ -842,7 +842,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         if (goodsType == null) return getWorkLocationFor(unit);
         Occupation occupation
                 = getOccupationFor(unit, goodsType.getEquivalentTypes());
-        return (occupation == null) ? null : occupation.workLocation;
+        return (occupation == null) ? null : occupation.getWorkLocation();
     }
 
     /**
@@ -853,7 +853,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
      */
     public WorkLocation getWorkLocationFor(Unit unit) {
         Occupation occupation = getOccupationFor(unit, false);
-        return (occupation == null) ? null : occupation.workLocation;
+        return (occupation == null) ? null : occupation.getWorkLocation();
     }
 
     /**
@@ -2135,29 +2135,48 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         public static final Comparator<TileImprovementSuggestion> descendingAmountComparator
                 = Comparator.comparingInt(TileImprovementSuggestion::getAmount)
                 .reversed()
-                .thenComparing(tis -> (FreeColObject)tis.tile);
+                .thenComparing(tis -> (FreeColObject) tis.getTile());
 
-        /** The tile to explore or improve. */
-        public Tile tile;
-        /** The tile improvement to make, or if null to explore an LCR. */
-        public TileImprovementType tileImprovementType;
-        /** The expected improvement.  INFINITY for LCRs. */
-        public int amount;
-
+        private Tile tile;
+        private TileImprovementType tileImprovementType;
+        private int amount;
 
         public TileImprovementSuggestion(Tile tile, TileImprovementType t,
                                          int amount) {
-            this.tile = tile;
-            this.tileImprovementType = t;
-            this.amount = amount;
+            this.setTile(tile);
+            this.setTileImprovementType(t);
+            this.setAmount(amount);
         }
 
         public boolean isExploration() {
-            return this.tileImprovementType == null;
+            return this.getTileImprovementType() == null;
         }
 
+        /** The expected improvement.  INFINITY for LCRs. */
         public int getAmount() {
             return this.amount;
+        }
+
+        /** The tile to explore or improve. */
+        public Tile getTile() {
+            return tile;
+        }
+
+        public void setTile(Tile tile) {
+            this.tile = tile;
+        }
+
+        /** The tile improvement to make, or if null to explore an LCR. */
+        public TileImprovementType getTileImprovementType() {
+            return tileImprovementType;
+        }
+
+        public void setTileImprovementType(TileImprovementType tileImprovementType) {
+            this.tileImprovementType = tileImprovementType;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
         }
     }
 

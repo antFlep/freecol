@@ -80,22 +80,22 @@ public class REFAIPlayer extends EuropeanAIPlayer {
 
         public final Colony colony;
         public final PathNode path;
-        public double score;
-        public Tile disembarkTile;
-        public Tile entry;
+        private double score;
+        private Tile disembarkTile;
+        private Tile entry;
 
 
         public TargetTuple(Colony colony, PathNode path, double score) {
             this.colony = colony;
             this.path = path;
-            this.score = score;
-            this.disembarkTile = null;
-            this.entry = null;
+            this.setScore(score);
+            this.setDisembarkTile(null);
+            this.setEntry(null);
             if (path != null) {
-                for (PathNode p = path; p != null; p = p.next) {
+                for (PathNode p = path; p != null; p = p.getNext()) {
                     Tile t = p.getTile();
                     if (t != null) {
-                        this.entry = t;
+                        this.setEntry(t);
                         break;
                     }
                 }
@@ -106,7 +106,7 @@ public class REFAIPlayer extends EuropeanAIPlayer {
 
         @Override
         public int compareTo(TargetTuple other) {
-            return Double.compare(score, other.score);
+            return Double.compare(getScore(), other.getScore());
         }
 
 
@@ -131,9 +131,33 @@ public class REFAIPlayer extends EuropeanAIPlayer {
             int hash = super.hashCode();
             hash = 37 * hash + Utils.hashCode(colony);
             hash = 37 * hash + Utils.hashCode(path);
-            hash = 37 * hash + Utils.hashCode(score);
-            hash = 37 * hash + Utils.hashCode(disembarkTile);
-            return 37 * hash + Utils.hashCode(entry);
+            hash = 37 * hash + Utils.hashCode(getScore());
+            hash = 37 * hash + Utils.hashCode(getDisembarkTile());
+            return 37 * hash + Utils.hashCode(getEntry());
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
+
+        public Tile getDisembarkTile() {
+            return disembarkTile;
+        }
+
+        public void setDisembarkTile(Tile disembarkTile) {
+            this.disembarkTile = disembarkTile;
+        }
+
+        public Tile getEntry() {
+            return entry;
+        }
+
+        public void setEntry(Tile entry) {
+            this.entry = entry;
         }
     }
 
@@ -215,17 +239,17 @@ public class REFAIPlayer extends EuropeanAIPlayer {
                     : (ag.getType().isBuildingMaterial()
                         && ag.getType().isRefined()) ? 1.5
                     : 1.0);
-            t.score *= 0.01 * (101 - Math.min(100, t.colony.getSoL()))
+            t.setScore(t.getScore() * 0.01 * (101 - Math.min(100, t.colony.getSoL()))
                 * product(t.colony.getBuildings(), b -> b.getLevel() > 1, bdf)
                 * ((6 - ((!t.colony.hasStockade()) ? 0
                             : t.colony.getStockade().getLevel())) / 6.0)
-                * (1.0 + 0.01 * (twiddle[twidx++] - percentTwiddle));
+                * (1.0 + 0.01 * (twiddle[twidx++] - percentTwiddle)));
         }
         targets.sort(Comparator.naturalOrder());
 
         LogBuilder lb = new LogBuilder(64);
         lb.add("REF found colony targets:");
-        for (TargetTuple t : targets) lb.add(" ", t.colony, "(", t.score, ")");
+        for (TargetTuple t : targets) lb.add(" ", t.colony, "(", t.getScore(), ")");
         lb.log(logger, Level.FINE);
         return targets;
     }
@@ -298,15 +322,15 @@ public class REFAIPlayer extends EuropeanAIPlayer {
             final TargetTuple t = targets.get(i);
             final GoalDecider gd = GoalDeciders
                 .getDisembarkGoalDecider(t.colony.getTile());
-            PathNode path = unit.search(t.entry, gd, null, 10, carrier);
+            PathNode path = unit.search(t.getEntry(), gd, null, 10, carrier);
             if (path == null) {
-                t.disembarkTile = null;
+                t.setDisembarkTile(null);
                 fail++;
             } else {
                 // Step forward to the point the unit is about to
                 // disembark.  This is where the carrier should teleport to.
-                t.disembarkTile = path.getTransportDropNode()
-                    .previous.getTile();
+                t.setDisembarkTile(path.getTransportDropNode()
+                        .getPrevious().getTile());
             }
         }
         if (fail > 0) {
@@ -315,7 +339,7 @@ public class REFAIPlayer extends EuropeanAIPlayer {
                 int i = 0;
                 while (i < targets.size()) {
                     final TargetTuple t = targets.get(i);
-                    if (t.disembarkTile == null) {
+                    if (t.getDisembarkTile() == null) {
                         lb.add(" ", t.colony);
                         targets.remove(i);
                         n--;
@@ -327,8 +351,8 @@ public class REFAIPlayer extends EuropeanAIPlayer {
             } else { // They were all bad, just use the existing simple path
                 for (int i = 0; i < n; i++) {
                     final TargetTuple t = targets.get(i);
-                    t.disembarkTile = t.path.getTransportDropNode()
-                        .previous.getTile();
+                    t.setDisembarkTile(t.path.getTransportDropNode()
+                            .getPrevious().getTile());
                 }
             }
         }
@@ -347,13 +371,13 @@ public class REFAIPlayer extends EuropeanAIPlayer {
                 GoalDeciders.getStealthyGoalDecider(rebel));
             for (int i = 0; i < n; i++) {
                 final TargetTuple t = targets.get(i);
-                if (!rebel.canSee(t.entry)) continue;
-                PathNode path = carrier.search(t.disembarkTile, stealthGD,
+                if (!rebel.canSee(t.getEntry())) continue;
+                PathNode path = carrier.search(t.getDisembarkTile(), stealthGD,
                     CostDeciders.avoidSettlementsAndBlockingUnits(),
                     t.path.getTotalTurns() + 1, null);
                 if (path != null) {
-                    t.entry = path.getLastNode().getTile();
-                    t.score *= 1.5; // Prefer invisible paths
+                    t.setEntry(path.getLastNode().getTile());
+                    t.setScore(t.getScore() * 1.5); // Prefer invisible paths
                 }
             }
             targets.sort(Comparator.naturalOrder()); // Re-sort with new scores
@@ -371,8 +395,8 @@ public class REFAIPlayer extends EuropeanAIPlayer {
         for (int i = 0; i < n; i++) {
             if (!auIterator.hasNext()) break;
             final TargetTuple t = targets.get(i);
-            lb.add("\n  Attack ", t.colony, " from ", t.entry,
-                   " via ", t.disembarkTile, " with ");
+            lb.add("\n  Attack ", t.colony, " from ", t.getEntry(),
+                   " via ", t.getDisembarkTile(), " with ");
             while (auIterator.hasNext()) {
                 AIUnit aiu = auIterator.next();
                 if (!aiu.getUnit().isNaval()) continue;
@@ -382,9 +406,9 @@ public class REFAIPlayer extends EuropeanAIPlayer {
                     continue;
                 }
                 if (teleport) {
-                    ship.setEntryLocation(t.disembarkTile);
+                    ship.setEntryLocation(t.getDisembarkTile());
                 } else {
-                    ship.setEntryLocation(t.entry);
+                    ship.setEntryLocation(t.getEntry());
                 }
                 lb.add("[", ship);
                 lb.mark();
@@ -427,7 +451,7 @@ public class REFAIPlayer extends EuropeanAIPlayer {
                 }
             };
         for (int i = 0; i < n; i++) {
-            carrier.search(targets.get(i).entry, navyGD, null,
+            carrier.search(targets.get(i).getEntry(), navyGD, null,
                            carrier.getInitialMovesLeft() * 2, null);
         }
 

@@ -49,21 +49,23 @@ public class RearrangeColonyMessage extends AttributeMessage {
     /** Container for the unit change information. */
     public static class Arrangement implements Comparable<Arrangement> {
 
-        public Unit unit;
-        public Location loc;
-        public GoodsType work;
-        public Role role;
-        public int roleCount;
+        private Unit unit;
+        private Location loc;
+        private GoodsType work;
+        private Role role;
+        private int roleCount;
+
+
 
         public Arrangement() {} // deliberately empty
 
         public Arrangement(Unit unit, Location loc, GoodsType work,
                           Role role, int roleCount) {
-            this.unit = unit;
-            this.loc = loc;
-            this.work = work;
-            this.role = role;
-            this.roleCount = roleCount;
+            this.setUnit(unit);
+            this.setLoc(loc);
+            this.setWork(work);
+            this.setRole(role);
+            this.setRoleCount(roleCount);
         }
 
         public Arrangement(Game game, String unitId,
@@ -75,15 +77,15 @@ public class RearrangeColonyMessage extends AttributeMessage {
         public final void init(Game game, String unitId, 
                                String locId, String workId, 
                                String roleId, String roleCount) {
-            this.unit = game.getFreeColGameObject(unitId, Unit.class);
-            this.loc = game.findFreeColLocation(locId);
-            this.work = (workId == null || workId.isEmpty()) ? null
-                : game.getSpecification().getGoodsType(workId);
-            this.role = game.getSpecification().getRole(roleId);
+            this.setUnit(game.getFreeColGameObject(unitId, Unit.class));
+            this.setLoc(game.findFreeColLocation(locId));
+            this.setWork((workId == null || workId.isEmpty()) ? null
+                : game.getSpecification().getGoodsType(workId));
+            this.setRole(game.getSpecification().getRole(roleId));
             try {
-                this.roleCount = Integer.parseInt(roleCount);
+                this.setRoleCount(Integer.parseInt(roleCount));
             } catch (NumberFormatException nfe) {
-                this.roleCount = 0;
+                this.setRoleCount(0);
             }
         }
 
@@ -140,8 +142,8 @@ public class RearrangeColonyMessage extends AttributeMessage {
          * {@inheritDoc}
          */
         public int compareTo(Arrangement other) {
-            int cmp = this.role.compareTo(other.role);
-            if (cmp == 0) cmp = this.roleCount - other.roleCount;
+            int cmp = this.getRole().compareTo(other.getRole());
+            if (cmp == 0) cmp = this.getRoleCount() - other.getRoleCount();
             return cmp;
         }
 
@@ -152,9 +154,49 @@ public class RearrangeColonyMessage extends AttributeMessage {
          */
         @Override
         public String toString() {
-            return "[Arrangement " + unit.getId() + " at " + loc.getId()
-                + " " + role.getRoleSuffix() + "." + roleCount
-                + ((work == null) ? "" : " work " + work.getId()) + "]";
+            return "[Arrangement " + getUnit().getId() + " at " + getLoc().getId()
+                + " " + getRole().getRoleSuffix() + "." + getRoleCount()
+                + ((getWork() == null) ? "" : " work " + getWork().getId()) + "]";
+        }
+
+        public Unit getUnit() {
+            return unit;
+        }
+
+        public void setUnit(Unit unit) {
+            this.unit = unit;
+        }
+
+        public Location getLoc() {
+            return loc;
+        }
+
+        public void setLoc(Location loc) {
+            this.loc = loc;
+        }
+
+        public GoodsType getWork() {
+            return work;
+        }
+
+        public void setWork(GoodsType work) {
+            this.work = work;
+        }
+
+        public Role getRole() {
+            return role;
+        }
+
+        public void setRole(Role role) {
+            this.role = role;
+        }
+
+        public int getRoleCount() {
+            return roleCount;
+        }
+
+        public void setRoleCount(int roleCount) {
+            this.roleCount = roleCount;
         }
     }
 
@@ -219,13 +261,13 @@ public class RearrangeColonyMessage extends AttributeMessage {
     private void setArrangementAttributes(List<Arrangement> arrangements) {
         int i = 0;
         for (Arrangement a : arrangements) {
-            setStringAttribute(a.unitKey(i), a.unit.getId());
-            setStringAttribute(a.locKey(i), a.loc.getId());
-            if (a.work != null) {
-                setStringAttribute(a.workKey(i), a.work.getId());
+            setStringAttribute(a.unitKey(i), a.getUnit().getId());
+            setStringAttribute(a.locKey(i), a.getLoc().getId());
+            if (a.getWork() != null) {
+                setStringAttribute(a.workKey(i), a.getWork().getId());
             }
-            setStringAttribute(a.roleKey(i), a.role.toString());
-            setStringAttribute(a.roleCountKey(i), String.valueOf(a.roleCount));
+            setStringAttribute(a.roleKey(i), a.getRole().toString());
+            setStringAttribute(a.roleCountKey(i), String.valueOf(a.getRoleCount()));
             i++;
         }
         setIntegerAttribute(FreeColObject.ARRAY_SIZE_TAG, i);
@@ -269,16 +311,16 @@ public class RearrangeColonyMessage extends AttributeMessage {
         }
         int i = 0;
         for (Arrangement uc : arrangements) {
-            if (uc.unit == null) {
+            if (uc.getUnit() == null) {
                 return serverPlayer.clientError("Invalid unit " + i);
             }
-            if (uc.loc == null) {
+            if (uc.getLoc() == null) {
                 return serverPlayer.clientError("Invalid location " + i);
             }
-            if (uc.role == null) {
+            if (uc.getRole() == null) {
                 return serverPlayer.clientError("Invalid role " + i);
             }
-            if (uc.roleCount < 0) {
+            if (uc.getRoleCount() < 0) {
                 return serverPlayer.clientError("Invalid role count " + i);
             }
         }

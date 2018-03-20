@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Locale;
 
 import junit.framework.TestCase;
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.start.Tools;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColTcFile;
@@ -724,10 +723,10 @@ public class FreeColTestCase extends TestCase {
                                   int probability, int turns) {
         UnitTypeChange utc = new UnitTypeChange(type + "."
             + from.getSuffix() + "-" + to.getSuffix(), spec());
-        utc.from = from;
-        utc.to = to;
-        utc.probability = probability;
-        utc.turns = turns;
+        utc.setFrom(from);
+        utc.setTo(to);
+        utc.setProbability(probability);
+        utc.setTurns(turns);
         UnitChangeType uct = spec().getUnitChangeType(type);
         if (uct == null) {
             uct = new UnitChangeType(type, spec());

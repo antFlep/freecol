@@ -975,8 +975,8 @@ public class Map extends FreeColGameObject implements Location {
                              costDecider, INFINITY, null, null, lb);
             if (path != null) {
                 PathNode last = path.getLastNode();
-                last.next = new PathNode(embarkTo, 0, last.getTurns()+1, true,
-                    last, null);
+                last.setNext(new PathNode(embarkTo, 0, last.getTurns()+1, true,
+                    last, null));
             }
         } else { // Otherwise, there is a connectivity failure.
             path = null;
@@ -1059,8 +1059,8 @@ public class Map extends FreeColGameObject implements Location {
                 : findPath(unit, realStart, closest, carrier, costDecider, lb);
             if (path != null) {
                 PathNode last = path.getLastNode();
-                last.next = new PathNode((Tile)realEnd, 0,
-                    last.getTurns()+1, last.isOnCarrier(), last, null);
+                last.setNext(new PathNode((Tile)realEnd, 0,
+                    last.getTurns()+1, last.isOnCarrier(), last, null));
             }
 
         } else if (realStart instanceof Europe && realEnd instanceof Europe) {
@@ -1105,13 +1105,13 @@ public class Map extends FreeColGameObject implements Location {
                 // the entry location.
             } else {
                 path.addTurns(offMapUnit.getSailTurns());
-                path.previous = new PathNode(realStart, unit.getMovesLeft(),
-                    0, carrier != null, null, path);
-                path = path.previous;
+                path.setPrevious(new PathNode(realStart, unit.getMovesLeft(),
+                    0, carrier != null, null, path));
+                path = path.getPrevious();
                 if (carrier != null && unit.getLocation() != carrier) {
-                    path.previous = new PathNode(realStart, unit.getMovesLeft(),
-                        0, false, null, path);
-                    path = path.previous;
+                    path.setPrevious(new PathNode(realStart, unit.getMovesLeft(),
+                        0, false, null, path));
+                    path = path.getPrevious();
                 }
             }
 
@@ -1130,9 +1130,9 @@ public class Map extends FreeColGameObject implements Location {
 
             } else {
                 PathNode last = p.getLastNode();
-                last.next = new PathNode(realEnd, unit.getInitialMovesLeft(),
+                last.setNext(new PathNode(realEnd, unit.getInitialMovesLeft(),
                     last.getTurns() + offMapUnit.getSailTurns(),
-                    last.isOnCarrier(), last, null);
+                    last.isOnCarrier(), last, null));
                 path = p;
             }
 
@@ -1149,8 +1149,8 @@ public class Map extends FreeColGameObject implements Location {
                                     carrier != null, null, null);
                 int cost = unit.getMoveCost((Tile)realStart, (Tile)realEnd,
                                             unit.getMovesLeft());
-                path.next = new PathNode(realEnd, unit.getMovesLeft() - cost,
-                                         0, false, path, null);
+                path.setNext(new PathNode(realEnd, unit.getMovesLeft() - cost,
+                                         0, false, path, null));
             } else {
                 path = findMapPath(unit, (Tile)realStart, (Tile)realEnd,
                                    carrier, costDecider, lb);
@@ -1263,7 +1263,7 @@ public class Map extends FreeColGameObject implements Location {
     private boolean usedCarrier(PathNode path) {
         while (path != null) {
             if (path.isOnCarrier()) return true;
-            path = path.previous;
+            path = path.getPrevious();
         }
         return false;
     }
@@ -1531,8 +1531,8 @@ ok:     while (!openMap.isEmpty()) {
             for (Tile moveTile : currentTile.getSurroundingTiles(1)) {
                 // If the new tile is the tile we just visited, skip it.
                 if (lb != null) lb.add("\n    ", moveTile);
-                if (currentNode.previous != null
-                    && currentNode.previous.getTile() == moveTile) {
+                if (currentNode.getPrevious() != null
+                    && currentNode.getPrevious().getTile() == moveTile) {
                     if (lb != null) lb.add(" !prev");
                     continue;
                 }
@@ -1747,9 +1747,9 @@ ok:     while (!openMap.isEmpty()) {
         // Relink the path.  We omitted the .next link while constructing it.
         best = goalDecider.getGoal();
         if (best != null) {
-            while (best.previous != null) {
-                best.previous.next = best;
-                best = best.previous;
+            while (best.getPrevious() != null) {
+                best.getPrevious().setNext(best);
+                best = best.getPrevious();
             }
         }
         return best;

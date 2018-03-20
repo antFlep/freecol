@@ -145,7 +145,7 @@ public class River {
         this.random = random;
         this.riverType = map.getSpecification()
             .getTileImprovementType("model.improvement.river");
-        this.direction = getRandomMember(logger, "River", Direction.longSides,
+        this.direction = getRandomMember(logger, "River", Direction.getLongSides(),
                                          random);
         logger.fine("Starting new river flowing " + direction);
     }
@@ -209,7 +209,7 @@ public class River {
             if (found) {
                 section.grow();
             } else if (section.getTile().equals(tile)) {
-                section.setBranch(lastSection.direction.getReverseDirection(),
+                section.setBranch(lastSection.getDirection().getReverseDirection(),
                                   lastSection.getSize());
                 section.grow();
                 found = true;
@@ -218,7 +218,7 @@ public class River {
         drawToMap(sections);
         if (nextRiver != null) {
             RiverSection section = sections.get(sections.size() - 1);
-            Tile neighbor = section.getTile().getNeighbourOrNull(section.direction);
+            Tile neighbor = section.getTile().getNeighbourOrNull(section.getDirection());
             nextRiver.grow(section, neighbor);
         }
     }
@@ -230,7 +230,7 @@ public class River {
      * @return true if the given tile is next to this river.
      */
     public boolean isNextToSelf(Tile tile) {
-        return any(Direction.longSides,
+        return any(Direction.getLongSides(),
             d -> this.contains(tile.getNeighbourOrNull(d)));
     }
 
@@ -241,7 +241,7 @@ public class River {
      * @return true if the given tile is next to a river, lake or sea.
      */
     public boolean isNextToWater(Tile tile) {
-        return any(Direction.longSides,
+        return any(Direction.getLongSides(),
             d -> {
                 Tile t = tile.getNeighbourOrNull(d);
                 return t != null && (!t.isLand() || t.hasRiver());
@@ -411,7 +411,7 @@ public class River {
         for (RiverSection section : sections) {
             riverMap.put(section.getTile(), this);
             if (oldSection != null) {
-                section.setBranch(oldSection.direction.getReverseDirection(),
+                section.setBranch(oldSection.getDirection().getReverseDirection(),
                                   oldSection.getSize());
             }
             Tile tile = section.getTile();

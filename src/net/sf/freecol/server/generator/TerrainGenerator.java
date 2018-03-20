@@ -683,7 +683,7 @@ public class TerrainGenerator {
                     // but this routine can be called from Map.readChildren
                     // before game.getMap() works.  When that use goes away,
                     // use the above code.
-                    for (Direction d : Direction.allDirections) {
+                    for (Direction d : Direction.getAllDirections()) {
                         Tile t0 = map.getAdjacentTile(t, d);
                         if (t0 != null) todo.add(t0);
                     }
@@ -790,12 +790,12 @@ public class TerrainGenerator {
             = new EnumMap<>(Direction.class);
 
         // corners
-        for (Direction d : Direction.corners) {
+        for (Direction d : Direction.getCorners()) {
             Tile t = tile.getNeighbourOrNull(d);
             connections.put(d, t != null && t.isLand());
         }
         // edges
-        for (Direction d : Direction.longSides) {
+        for (Direction d : Direction.getLongSides()) {
             Tile t = tile.getNeighbourOrNull(d);
             if (t != null && t.isLand()) {
                 connections.put(d, Boolean.TRUE);
@@ -808,11 +808,11 @@ public class TerrainGenerator {
         }
         int result = 0;
         int index = 0;
-        for (Direction d : Direction.corners) {
+        for (Direction d : Direction.getCorners()) {
             if (connections.get(d)) result += (int)Math.pow(2, index);
             index++;
         }
-        for (Direction d : Direction.longSides) {
+        for (Direction d : Direction.getLongSides()) {
             if (connections.get(d)) result += (int)Math.pow(2, index);
             index++;
         }

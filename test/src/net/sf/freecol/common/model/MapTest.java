@@ -26,9 +26,6 @@ import java.util.Random;
 import java.util.Set;
 
 import net.sf.freecol.common.FreeColException;
-import net.sf.freecol.common.model.FreeColObject;
-import net.sf.freecol.common.model.Direction;
-import net.sf.freecol.common.model.Stance;
 import net.sf.freecol.common.model.pathfinding.CostDecider;
 import net.sf.freecol.common.model.pathfinding.CostDeciders;
 import net.sf.freecol.common.model.pathfinding.GoalDecider;
@@ -487,7 +484,7 @@ public class MapTest extends FreeColTestCase {
         path = map.findPath(colonist, settlementTile,
                             settlementTile, null, null, null);
         assertNotNull("Trivial path should exist.", path);
-        assertNull("Trivial path should be trivial.", path.next);
+        assertNull("Trivial path should be trivial.", path.getNext());
         assertEquals("Trivial path should start at settlement.",
             settlementTile, path.getTile());
 
@@ -524,7 +521,7 @@ public class MapTest extends FreeColTestCase {
             path.getTile());
         assertEquals("Sea path should end at sea tile.", seaTile,
             path.getLastNode().getTile());
-        while (!path.isOnCarrier()) path = path.next;
+        while (!path.isOnCarrier()) path = path.getNext();
         assertEquals("Sea path should include pickup at settlement.",
             settlementTile, path.getTile());
 

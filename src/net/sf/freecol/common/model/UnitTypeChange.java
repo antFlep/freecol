@@ -32,17 +32,13 @@ public class UnitTypeChange extends FreeColSpecObjectType {
 
     public static final String TAG = "unit-type-change";
     
-    /** The unit type to change from. */
-    public UnitType from;
+    private UnitType from;
 
-    /** The unit type to change to. */
-    public UnitType to;
+    private UnitType to;
 
-    /** The percentage chance of the change occurring. */
-    public int probability;
+    private int probability;
 
-    /** The number of turns for the change to take, if not immediate. */
-    public int turns;
+    private int turns;
 
     // @compat 0.11.6
     static int fakeIdIndex = 1;
@@ -82,7 +78,7 @@ public class UnitTypeChange extends FreeColSpecObjectType {
      * @return True if the player can use the to-unit-type.
      */
     public boolean isAvailableTo(Player player) {
-        return this.to.isAvailableTo(player);
+        return this.getTo().isAvailableTo(player);
     }
 
 
@@ -95,10 +91,10 @@ public class UnitTypeChange extends FreeColSpecObjectType {
     public <T extends FreeColObject> boolean copyIn(T other) {
         UnitTypeChange o = copyInCast(other, UnitTypeChange.class);
         if (o == null || !super.copyIn(o)) return false;
-        this.from = o.from;
-        this.to = o.to;
-        this.probability = o.probability;
-        this.turns = o.turns;
+        this.setFrom(o.getFrom());
+        this.setTo(o.getTo());
+        this.setProbability(o.getProbability());
+        this.setTurns(o.getTurns());
         return true;
     }
 
@@ -118,13 +114,13 @@ public class UnitTypeChange extends FreeColSpecObjectType {
     protected void writeAttributes(FreeColXMLWriter xw) throws XMLStreamException {
         super.writeAttributes(xw);
         
-        xw.writeAttribute(FROM_TAG, this.from);
+        xw.writeAttribute(FROM_TAG, this.getFrom());
 
-        xw.writeAttribute(TO_TAG, this.to);
+        xw.writeAttribute(TO_TAG, this.getTo());
 
-        xw.writeAttribute(PROBABILITY_TAG, this.probability);
+        xw.writeAttribute(PROBABILITY_TAG, this.getProbability());
 
-        if (this.turns > 0) xw.writeAttribute(TURNS_TAG, this.turns);
+        if (this.getTurns() > 0) xw.writeAttribute(TURNS_TAG, this.getTurns());
     }
 
     /**
@@ -136,13 +132,13 @@ public class UnitTypeChange extends FreeColSpecObjectType {
         
         super.readAttributes(xr);
     
-        this.from = xr.getType(spec, FROM_TAG, UnitType.class, (UnitType)null);
+        this.setFrom(xr.getType(spec, FROM_TAG, UnitType.class, (UnitType)null));
 
-        this.to = xr.getType(spec, TO_TAG, UnitType.class, (UnitType)null);
+        this.setTo(xr.getType(spec, TO_TAG, UnitType.class, (UnitType)null));
 
-        this.probability = xr.getAttribute(PROBABILITY_TAG, 0);
+        this.setProbability(xr.getAttribute(PROBABILITY_TAG, 0));
 
-        this.turns = xr.getAttribute(TURNS_TAG, -1);
+        this.setTurns(xr.getAttribute(TURNS_TAG, -1));
 
         // @compat 0.11.6
 
@@ -173,10 +169,46 @@ public class UnitTypeChange extends FreeColSpecObjectType {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(32);
-        sb.append(this.from.getSuffix())
-            .append("->").append(this.to.getSuffix())
-            .append('/').append(this.probability);
-        if (this.turns > 0) sb.append('/').append(this.turns);
+        sb.append(this.getFrom().getSuffix())
+            .append("->").append(this.getTo().getSuffix())
+            .append('/').append(this.getProbability());
+        if (this.getTurns() > 0) sb.append('/').append(this.getTurns());
         return sb.toString();
-    }            
+    }
+
+    /** The unit type to change from. */
+    public UnitType getFrom() {
+        return from;
+    }
+
+    public void setFrom(UnitType from) {
+        this.from = from;
+    }
+
+    /** The unit type to change to. */
+    public UnitType getTo() {
+        return to;
+    }
+
+    public void setTo(UnitType to) {
+        this.to = to;
+    }
+
+    /** The percentage chance of the change occurring. */
+    public int getProbability() {
+        return probability;
+    }
+
+    public void setProbability(int probability) {
+        this.probability = probability;
+    }
+
+    /** The number of turns for the change to take, if not immediate. */
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
+    }
 }

@@ -1984,7 +1984,7 @@ outer:  for (Effect effect : effects) {
             for (Unit u : getUnitList()) {
                 for (UnitTypeChange uc : uct.getUnitChanges(u.getType())) {
                     if (!uc.appliesTo(u)) continue;
-                    u.changeType(uc.to);//-vis(this)
+                    u.changeType(uc.getTo());//-vis(this)
                     visibilityChange = true;
                     cs.add(See.perhaps(), u);
                     break;
@@ -3178,12 +3178,12 @@ outer:  for (Effect effect : effects) {
         String key;
         
         UnitTypeChange uc = loser.getUnitChange(UnitChangeType.DEMOTION);
-        if (uc == null || uc.to == loser.getType()) {
+        if (uc == null || uc.getTo() == loser.getType()) {
             logger.warning("Demotion failed, type="
-                + ((uc == null) ? "null" : "same type: " + uc.to));
+                + ((uc == null) ? "null" : "same type: " + uc.getTo()));
             return;
         }
-        loser.changeType(uc.to);//-vis(loserPlayer)
+        loser.changeType(uc.getTo());//-vis(loserPlayer)
         loserPlayer.invalidateCanSeeTiles();//+vis(loserPlayer)
 
         key = "combat.unitDemoted.enemy." + suffix;
@@ -3765,12 +3765,12 @@ outer:  for (Effect effect : effects) {
         StringTemplate winnerLabel = winner.getLabel();
 
         UnitTypeChange uc = winner.getUnitChange(UnitChangeType.PROMOTION);
-        if (uc == null || uc.to == winner.getType()) {
+        if (uc == null || uc.getTo() == winner.getType()) {
             logger.warning("Promotion failed, type="
-                + ((uc == null) ? "null" : "same type: " + uc.to));
+                + ((uc == null) ? "null" : "same type: " + uc.getTo()));
             return;
         }
-        winner.changeType(uc.to);//-vis(winnerPlayer)
+        winner.changeType(uc.getTo());//-vis(winnerPlayer)
         winnerPlayer.invalidateCanSeeTiles();//+vis(winnerPlayer)
 
         cs.addMessage(winnerPlayer,
@@ -4305,7 +4305,7 @@ outer:  for (Effect effect : effects) {
             if ((uc = unit.getUnitChange(change, null, newOwner)) == null) {
                 // mainType is unchanged
             } else if (uc.isAvailableTo(newOwner)) {
-                mainType = uc.to;
+                mainType = uc.getTo();
             } else { // Can not have this unit.
                 logger.warning("Change type/owner failed for " + unit
                     + " -> " + newOwner + "(" + change + "/" +  uc + ")");
@@ -4318,9 +4318,9 @@ outer:  for (Effect effect : effects) {
                 if ((uc = u.getUnitChange(change, null, newOwner)) == null) {
                     // no change for this passenger
                 } else if (uc.isAvailableTo(newOwner)) {
-                    if (uc.to != u.getType() && !u.changeType(uc.to)) {
+                    if (uc.getTo() != u.getType() && !u.changeType(uc.getTo())) {
                         logger.warning("Type change failure: " + u
-                            + " -> " + uc.to);
+                            + " -> " + uc.getTo());
                     }
                 } else {
                     logger.warning("Change type/owner failed for cargo " + u

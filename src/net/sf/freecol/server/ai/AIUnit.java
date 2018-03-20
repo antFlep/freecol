@@ -642,7 +642,7 @@ public class AIUnit extends TransportableAIObject {
             }
             PathNode path = unit.findPath(target); // Not using carrier!
             if (path != null
-                && (direction = tile.getDirection(path.next.getTile())) != null) {
+                && (direction = tile.getDirection(path.getNext().getTile())) != null) {
                 try {
                     return leaveTransport(direction);
                 } catch (Exception e) {

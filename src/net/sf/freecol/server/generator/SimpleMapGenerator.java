@@ -95,24 +95,24 @@ public class SimpleMapGenerator implements MapGenerator {
 
    
     private static class Territory {
-        public ServerRegion region;
-        public Tile tile;
+        private ServerRegion region;
+        private Tile tile;
         public final Player player;
-        public int numberOfSettlements;
+        private int numberOfSettlements;
 
         public Territory(Player player, Tile tile) {
             this.player = player;
-            this.tile = tile;
+            this.setTile(tile);
         }
 
         public Territory(Player player, ServerRegion region) {
             this.player = player;
-            this.region = region;
+            this.setRegion(region);
         }
 
         public Tile getCenterTile(Map map) {
-            if (tile != null) return tile;
-            int[] xy = region.getCenter();
+            if (getTile() != null) return getTile();
+            int[] xy = getRegion().getCenter();
             return map.getTile(xy[0], xy[1]);
         }
 
@@ -124,7 +124,31 @@ public class SimpleMapGenerator implements MapGenerator {
          */
         @Override
         public String toString() {
-            return player + " territory at " + region;
+            return player + " territory at " + getRegion();
+        }
+
+        public ServerRegion getRegion() {
+            return region;
+        }
+
+        public void setRegion(ServerRegion region) {
+            this.region = region;
+        }
+
+        public Tile getTile() {
+            return tile;
+        }
+
+        public void setTile(Tile tile) {
+            this.tile = tile;
+        }
+
+        public int getNumberOfSettlements() {
+            return numberOfSettlements;
+        }
+
+        public void setNumberOfSettlements(int numberOfSettlements) {
+            this.numberOfSettlements = numberOfSettlements;
         }
     }
 
@@ -363,8 +387,8 @@ public class SimpleMapGenerator implements MapGenerator {
                         for (String otherKey : ((IndianNationType) otherTerritory.player.getNationType())
                                  .getRegions()) {
                             if (territoryMap.get(otherKey) == null) {
-                                ServerRegion foundRegion = otherTerritory.region;
-                                otherTerritory.region = (ServerRegion)map.getRegionByKey(otherKey);
+                                ServerRegion foundRegion = otherTerritory.getRegion();
+                                otherTerritory.setRegion((ServerRegion)map.getRegionByKey(otherKey));
                                 territoryMap.put(otherKey, otherTerritory);
                                 territory = new Territory(player, foundRegion);
                                 territoryMap.put(key, territory);
@@ -419,13 +443,13 @@ public class SimpleMapGenerator implements MapGenerator {
         for (Territory territory : territories) {
             switch (territory.player.getNationType().getNumberOfSettlements()) {
             case HIGH:
-                territory.numberOfSettlements = Math.round(4 * share);
+                territory.setNumberOfSettlements(Math.round(4 * share));
                 break;
             case AVERAGE:
-                territory.numberOfSettlements = Math.round(3 * share);
+                territory.setNumberOfSettlements(Math.round(3 * share));
                 break;
             case LOW:
-                territory.numberOfSettlements = Math.round(2 * share);
+                territory.setNumberOfSettlements(Math.round(2 * share));
                 break;
             }
             int radius = territory.player.getNationType().getCapitalType()
@@ -453,16 +477,16 @@ public class SimpleMapGenerator implements MapGenerator {
             // Insist that the settlement can not be linear
             if (territory.player.getClaimableTiles(tile, radius).size()
                 > 2 * radius + 1) {
-                String name = (territory.region == null) ? "default region"
-                    : territory.region.toString();
+                String name = (territory.getRegion() == null) ? "default region"
+                    : territory.getRegion().toString();
                 lb.add("Placing a ", territory.player,
                     " camp in region: ", name,
                     " at tile: ", tile, "\n");
                 settlements.add(placeIndianSettlement(territory.player,
                                                       false, tile, map, lb));
                 settlementsPlaced++;
-                territory.numberOfSettlements--;
-                if (territory.numberOfSettlements <= 0) {
+                territory.setNumberOfSettlements(territory.getNumberOfSettlements() - 1);
+                if (territory.getNumberOfSettlements() <= 0) {
                     territories.remove(territory);
                 }
 
@@ -648,14 +672,14 @@ public class SimpleMapGenerator implements MapGenerator {
         Tile t = first(transform(tiles, terrPred, Function.identity(), comp));
         if (t == null) return null;
 
-        String name = (territory.region == null) ? "default region"
-            : territory.region.toString();
+        String name = (territory.getRegion() == null) ? "default region"
+            : territory.getRegion().toString();
         lb.add("Placing the ", territory.player,
             " capital in region: ", name, " at tile: ", t, "\n");
         IndianSettlement is = placeIndianSettlement(territory.player,
                                                     true, t, map, lb);
-        territory.numberOfSettlements--;
-        territory.tile = t;
+        territory.setNumberOfSettlements(territory.getNumberOfSettlements() - 1);
+        territory.setTile(t);
         return is;
     }
 

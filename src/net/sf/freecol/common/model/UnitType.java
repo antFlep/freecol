@@ -31,7 +31,7 @@ import javax.xml.stream.XMLStreamException;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.model.Colony.NoBuildReason;
-import net.sf.freecol.common.model.UnitTypeChange;
+
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
 
@@ -471,8 +471,8 @@ public final class UnitType extends BuildableType implements Consumer {
         // changes that do not reach the taught type level.
         List<UnitType> todo = new ArrayList<>();
         for (UnitTypeChange uc : spec.getUnitChanges(UnitChangeType.EDUCATION, this)) {
-            if (uc.to == taught) return taught;
-            if (uc.to.getSkill() < taughtLevel) todo.add(uc.to);
+            if (uc.getTo() == taught) return taught;
+            if (uc.getTo().getSkill() < taughtLevel) todo.add(uc.getTo());
         }
         // Can the teacher teach any of the intermediate changes?  If so,
         // that change is valid.  Otherwise, education is not possible.

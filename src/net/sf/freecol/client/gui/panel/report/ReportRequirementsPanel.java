@@ -191,14 +191,14 @@ public final class ReportRequirementsPanel extends ReportPanel {
         List<TileImprovementSuggestion> tileSuggestions
             = colony.getTileImprovementSuggestions();
         for (TileImprovementSuggestion tis : tileSuggestions) {
-            if (tis.tileImprovementType == null) {
+            if (tis.getTileImprovementType() == null) {
                 addTileWarning(doc, colony, "report.requirements.exploreTile",
-                               tis.tile);
+                        tis.getTile());
             } else {
                 String key = "report.requirements.tile."
-                    + tis.tileImprovementType.getSuffix();
+                    + tis.getTileImprovementType().getSuffix();
                 if (Messages.containsKey(key)) {
-                    addTileWarning(doc, colony, key, tis.tile);
+                    addTileWarning(doc, colony, key, tis.getTile());
                 }
             }
         }

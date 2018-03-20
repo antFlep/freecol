@@ -25,7 +25,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import net.sf.freecol.common.model.Direction;
 import net.sf.freecol.common.model.Map.Position;
 import net.sf.freecol.common.option.MapGeneratorOptions;
 import net.sf.freecol.common.option.OptionGroup;
@@ -180,7 +179,7 @@ public class LandMap {
         if (!setLand(x, y)) return;
 
         Position p = new Position(x, y);
-        for (Direction direction : Direction.longSides) {
+        for (Direction direction : Direction.getLongSides()) {
             Position n = new Position(p, direction);
             if (n.isValid(getWidth(), getHeight())) {
                 growLand(n.getX(), n.getY(), distanceToEdge, random);
@@ -335,7 +334,7 @@ public class LandMap {
                 && p.getX() < getWidth() - distanceToEdge);
         final Function<Direction, Position> positionMapper = d ->
             new Position(position, d);
-        return transform(map(Direction.longSides, positionMapper), landPred);
+        return transform(map(Direction.getLongSides(), positionMapper), landPred);
     }
 
     /**

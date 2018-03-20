@@ -152,7 +152,7 @@ public class UnitChangeType extends FreeColSpecObjectType {
      * @param uc The {@code UnitTypeChange} to add.
      */
     public void addUnitTypeChange(UnitTypeChange uc) {
-        appendToMapList(this.changes, uc.from, uc);
+        appendToMapList(this.changes, uc.getFrom(), uc);
     }
 
     /**
@@ -178,7 +178,7 @@ public class UnitChangeType extends FreeColSpecObjectType {
     public UnitTypeChange getUnitChange(UnitType fromType,
                                         final UnitType toType) {
         return find(getUnitChanges(fromType),
-            ((toType == null) ? alwaysTrue() : uc -> uc.to == toType));
+            ((toType == null) ? alwaysTrue() : uc -> uc.getTo() == toType));
     }
 
     // @compat 0.11.6

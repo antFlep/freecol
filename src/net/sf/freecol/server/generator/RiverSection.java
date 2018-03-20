@@ -50,10 +50,7 @@ public class RiverSection {
      */
     private int size = TileImprovement.SMALL_RIVER;
 
-    /**
-     * Direction the river is flowing toward, at the current section
-     */
-    public Direction direction;
+    private Direction direction;
 
     /**
      * Tile of the current river section
@@ -79,7 +76,7 @@ public class RiverSection {
      */
     public RiverSection(Tile tile, Direction direction) {
         this.tile = tile;
-        this.direction = direction;
+        this.setDirection(direction);
         setBranch(direction, TileImprovement.SMALL_RIVER);
     }
 
@@ -154,15 +151,26 @@ public class RiverSection {
      */
     public void grow() {
         this.size++;
-        setBranch(direction, TileImprovement.LARGE_RIVER);
+        setBranch(getDirection(), TileImprovement.LARGE_RIVER);
     }
 
 
     public String encodeStyle() {
         StringBuilder sb = new StringBuilder();
-        for (Direction direction : Direction.longSides) {
+        for (Direction direction : Direction.getLongSides()) {
             sb.append(Integer.toString(getBranch(direction), Character.MAX_RADIX));
         }
         return sb.toString();
+    }
+
+    /**
+     * Direction the river is flowing toward, at the current section
+     */
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

@@ -612,27 +612,27 @@ public final class ReportCompactColonyPanel extends ReportPanel
             n = 0;
             boolean center = false; 
             for (TileImprovementSuggestion tis : s.tileSuggestions) {
-                if (tis.tileImprovementType == ti) {
+                if (tis.getTileImprovementType() == ti) {
                     n++;
-                    if (tis.tile == s.colony.getTile()) center = true;
+                    if (tis.getTile() == s.colony.getTile()) center = true;
                 }
             }
             if (n > 0) {
                 c = cAlarm;
                 if (n == 1) {
                     TileImprovementSuggestion tis = first(s.tileSuggestions);
-                    if (any(tis.tile.getUnits(),
+                    if (any(tis.getTile().getUnits(),
                             u -> (u.getState() == Unit.UnitState.IMPROVING
                                 && u.getWorkImprovement() != null
                                 && u.getWorkImprovement().getType()
-                                    == tis.tileImprovementType))) {
+                                    == tis.getTileImprovementType()))) {
                         c = cWarn; // Work is underway
                     }
                     t = stpld("report.colony.tile." + ti.getSuffix()
                               + ".specific")
                         .addName("%colony%", s.colony.getName())
                         .addStringTemplate("%location%",
-                            tis.tile.getColonyTileLocationLabel(s.colony));
+                            tis.getTile().getColonyTileLocationLabel(s.colony));
                 } else {
                     t = stpld("report.colony.tile." + ti.getSuffix())
                         .addName("%colony%", s.colony.getName())
@@ -972,7 +972,7 @@ public final class ReportCompactColonyPanel extends ReportPanel
         // Colour: cAlarm
         Set<Tile> tiles = transform(rTileSuggestions,
                                     TileImprovementSuggestion::isExploration,
-                                    ts -> ts.tile, Collectors.toSet());
+                                    ts -> ts.getTile(), Collectors.toSet());
         reportPanel.add((tiles.isEmpty()) ? new JLabel()
             : newLabel(Integer.toString(tiles.size()), null, cAlarm,
                        stpld("report.colony.exploring.summary")));
@@ -984,8 +984,8 @@ public final class ReportCompactColonyPanel extends ReportPanel
             if (ti.isNatural()) continue;
             tiles.clear();
             tiles.addAll(transform(rTileSuggestions,
-                                   matchKey(ti, ts -> ts.tileImprovementType),
-                                   ts -> ts.tile, Collectors.toSet()));
+                                   matchKey(ti, ts -> ts.getTileImprovementType()),
+                                   ts -> ts.getTile(), Collectors.toSet()));
             reportPanel.add((tiles.isEmpty()) ? new JLabel()
                 : newLabel(Integer.toString(tiles.size()), null, cAlarm,
                            stpld("report.colony.tile." + ti.getSuffix()

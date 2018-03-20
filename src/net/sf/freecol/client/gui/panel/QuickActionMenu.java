@@ -464,7 +464,7 @@ public final class QuickActionMenu extends JPopupMenu {
                                                    expertType);
             if (uc != null) {
                 int maxExperience = unit.getType().getMaximumExperience();
-                double probability = uc.probability * experience
+                double probability = uc.getProbability() * experience
                     / (double)maxExperience;
                 String jobName = Messages.message(goods.getWorkingAsKey());
                 JPanel experiencePanel = new MigPanel();
@@ -695,12 +695,12 @@ public final class QuickActionMenu extends JPopupMenu {
         if (uc != null) {
             if (separatorNeeded) this.addSeparator();
             JMenuItem menuItem = Utility.localizedMenuItem("quickActionMenu.clearSpeciality",
-                new ImageIcon(gui.getImageLibrary().getTinyUnitTypeImage(uc.to)));
+                new ImageIcon(gui.getImageLibrary().getTinyUnitTypeImage(uc.getTo())));
             menuItem.setActionCommand(UnitAction.CLEAR_SPECIALITY.toString());
             menuItem.addActionListener(unitLabel);
             this.add(menuItem);
             if (unit.getLocation() instanceof Building
-                && !((Building)unit.getLocation()).canAddType(uc.to)) {
+                && !((Building)unit.getLocation()).canAddType(uc.getTo())) {
                 menuItem.setEnabled(false);
             }
             separatorNeeded = true;

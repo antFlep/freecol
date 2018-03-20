@@ -131,7 +131,7 @@ public final class RoadPainter {
                 && (r = borderingTile.getRoad()) != null
                 && r.isComplete();
         };
-        List<Direction> directions = transform(Direction.allDirections, borderPred);
+        List<Direction> directions = transform(Direction.getAllDirections(), borderPred);
         List<Point2D.Float> points = transform(directions, alwaysTrue(),
                                                d -> corners.get(d));
         GeneralPath path = new GeneralPath();

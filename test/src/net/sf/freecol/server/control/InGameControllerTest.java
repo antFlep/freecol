@@ -58,7 +58,6 @@ import net.sf.freecol.common.model.TileImprovementType;
 import net.sf.freecol.common.model.TileType;
 import net.sf.freecol.common.model.Unit;
 import net.sf.freecol.common.model.UnitChangeType;
-import net.sf.freecol.common.model.UnitTypeChange;
 import net.sf.freecol.common.model.UnitType;
 import net.sf.freecol.common.model.WorkLocation;
 import static net.sf.freecol.common.util.CollectionUtils.*;
@@ -1059,20 +1058,20 @@ public class InGameControllerTest extends FreeColTestCase {
         // UnitType promotion
         assertEquals("Criminals should promote to servants",
                      indenturedServantType,
-                     spec().getUnitChange(UnitChangeType.PROMOTION,
-                                          pettyCriminalType).to);
+                spec().getUnitChange(UnitChangeType.PROMOTION,
+                        pettyCriminalType).getTo());
         assertEquals("Servants should promote to colonists",
                      colonistType,
-                     spec().getUnitChange(UnitChangeType.PROMOTION,
-                                          indenturedServantType).to);
+                spec().getUnitChange(UnitChangeType.PROMOTION,
+                        indenturedServantType).getTo());
         assertEquals("Colonists should promote to Veterans",
                      veteranType,
-                     spec().getUnitChange(UnitChangeType.PROMOTION,
-                                          colonistType).to);
+                spec().getUnitChange(UnitChangeType.PROMOTION,
+                        colonistType).getTo());
         assertEquals("Veterans should promote to Colonials",
                      colonialType,
-                     spec().getUnitChange(UnitChangeType.PROMOTION,
-                                          veteranType).to);
+                spec().getUnitChange(UnitChangeType.PROMOTION,
+                        veteranType).getTo());
         // Only independent players can own colonial regulars
         assertNull("Colonials should not be promotable",
                    spec().getUnitChange(UnitChangeType.PROMOTION,
@@ -1143,8 +1142,8 @@ public class InGameControllerTest extends FreeColTestCase {
                    colonialType.isAvailableTo(dutch));
         assertEquals("Veterans should promote to Colonial Regulars",
                      colonialType,
-                     spec().getUnitChange(UnitChangeType.PROMOTION,
-                         veteranType).to);
+                spec().getUnitChange(UnitChangeType.PROMOTION,
+                        veteranType).getTo());
 
         // Veteran -> Colonial Regular
         soldier.changeRole(soldierRole, 1);
@@ -1471,8 +1470,8 @@ public class InGameControllerTest extends FreeColTestCase {
                                        colonistType, soldierRole);
         assertEquals("Veterans should become colonists on capture",
                      colonistType,
-                     spec().getUnitChange(UnitChangeType.CAPTURE,
-                                          veteranType).to);
+                spec().getUnitChange(UnitChangeType.CAPTURE,
+                        veteranType).getTo());
  
         // Soldier loses and loses equipment
         List<CombatResult> crs
@@ -1523,7 +1522,7 @@ public class InGameControllerTest extends FreeColTestCase {
         Unit soldier = new ServerUnit(game, tile2, french, colonistType, soldierRole);
         assertEquals("Artillery should demote to damaged artillery",
                      damagedArtilleryType,
-                     artillery.getUnitChange(UnitChangeType.DEMOTION).to);
+                artillery.getUnitChange(UnitChangeType.DEMOTION).getTo());
 
         // Artillery loses and is demoted
         List<CombatResult> crs
@@ -2094,7 +2093,7 @@ public class InGameControllerTest extends FreeColTestCase {
                           100, -1);
 
         assertEquals(farmerType,
-            spec().getUnitChange(UnitChangeType.ENTER_COLONY, gardenerType).to);
+                spec().getUnitChange(UnitChangeType.ENTER_COLONY, gardenerType).getTo());
         Unit gardener = new ServerUnit(game, null, dutch, gardenerType);
         assertEquals(gardenerType, gardener.getType());
         WorkLocation loc = colony.getWorkLocationFor(gardener);

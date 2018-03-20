@@ -1340,7 +1340,7 @@ public final class Specification implements OptionContainer {
             throw new RuntimeException("Can not learn: teacher=" + typeTeacher
                 + " student=" + typeStudent);
         }
-        return getUnitChange(UnitChangeType.EDUCATION, typeStudent, learn).turns;
+        return getUnitChange(UnitChangeType.EDUCATION, typeStudent, learn).getTurns();
     }
 
 

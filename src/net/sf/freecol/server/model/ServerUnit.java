@@ -189,7 +189,7 @@ public class ServerUnit extends Unit implements TurnTaker {
 
         // Check for creation change
         UnitTypeChange uc = getUnitChange(UnitChangeType.CREATION);
-        if (uc != null) this.type = uc.to;
+        if (uc != null) this.type = uc.getTo();
 
         if (this.type.hasAbility(Ability.PERSON)) {
             this.nationality = owner.getNationId();
@@ -529,7 +529,7 @@ public class ServerUnit extends Unit implements TurnTaker {
             UnitTypeChange uc = getRandomMember(logger, "Choose learn",
                 spec.getUnitChanges(UnitChangeType.LOST_CITY, getType()),
                 random);
-            changeType(uc.to);//-vis(serverPlayer)
+            changeType(uc.getTo());//-vis(serverPlayer)
             serverPlayer.invalidateCanSeeTiles();//+vis(serverPlayer)
             cs.addMessage(serverPlayer,
                 new ModelMessage(ModelMessage.MessageType.LOST_CITY_RUMOUR,
@@ -953,7 +953,7 @@ public class ServerUnit extends Unit implements TurnTaker {
             && learn != getType()
             && (uc = getUnitChange(UnitChangeType.EXPERIENCE,learn)) != null) {
             int maximumExperience = getType().getMaximumExperience();
-            int maxValue = (100 * maximumExperience) / uc.probability;
+            int maxValue = (100 * maximumExperience) / uc.getProbability();
             if (maxValue > 0
                 && randomInt(logger, "Experience", random, maxValue)
                 < Math.min(getExperience(), maximumExperience)) {

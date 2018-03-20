@@ -1872,7 +1872,7 @@ public final class MapViewer extends FreeColClientHolder {
         final boolean debug = FreeColDebugger
             .isInDebugMode(FreeColDebugger.DebugMode.PATHS);
 
-        for (PathNode p = path; p != null; p = p.next) {
+        for (PathNode p = path; p != null; p = p.getNext()) {
             Tile tile = p.getTile();
             if (tile == null) continue;
             Point point = calculateTilePosition(tile);
@@ -2027,9 +2027,9 @@ public final class MapViewer extends FreeColClientHolder {
                                  (opaque) ? 255 : 100);
             g.setColor(newColor);
             GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
-            path.moveTo(borderPoints.get(Direction.longSides.get(0)).x,
-                        borderPoints.get(Direction.longSides.get(0)).y);
-            for (Direction d : Direction.longSides) {
+            path.moveTo(borderPoints.get(Direction.getLongSides().get(0)).x,
+                        borderPoints.get(Direction.getLongSides().get(0)).y);
+            for (Direction d : Direction.getLongSides()) {
                 Tile otherTile = tile.getNeighbourOrNull(d);
                 Direction next = d.getNextDirection();
                 Direction next2 = next.getNextDirection();

@@ -1337,7 +1337,7 @@ public final class InGameController extends Controller {
         }
 
         // Valid, change type.
-        unit.changeType(uc.to);//-vis: safe in colony
+        unit.changeType(uc.getTo());//-vis: safe in colony
 
         // Update just the unit, others can not see it as this only happens
         // in-colony.
@@ -1491,7 +1491,7 @@ public final class InGameController extends Controller {
                 int n = 0;
                 UnitType fromType = entry.getKey();
                 UnitType toType = spec.getUnitChange(UnitChangeType.INDEPENDENCE,
-                                                     fromType).to;
+                        fromType).getTo();
                 List<Unit> units = entry.getValue();
                 while (!units.isEmpty() && n < limit) {
                     Unit unit = units.remove(0);
@@ -3350,46 +3350,46 @@ public final class InGameController extends Controller {
 
         // Move everyone out of the way and stockpile their equipment.
         for (Arrangement a : arrangements) {
-            a.unit.setLocation(tile);//-til
-            if (!a.unit.hasDefaultRole()) {
-                colony.equipForRole(a.unit, defaultRole, 0);
+            a.getUnit().setLocation(tile);//-til
+            if (!a.getUnit().hasDefaultRole()) {
+                colony.equipForRole(a.getUnit(), defaultRole, 0);
             }
         }
 
         List<Arrangement> todo = new ArrayList<>(arrangements);
         while (!todo.isEmpty()) {
             Arrangement a = todo.remove(0);
-            if (a.loc == tile) continue;
-            WorkLocation wl = (WorkLocation)a.loc;
+            if (a.getLoc() == tile) continue;
+            WorkLocation wl = (WorkLocation) a.getLoc();
             // Adding to wl can fail, and in the worst case there
             // might be a circular dependency.  If the move can
             // succeed, do it, but if not, retry.
-            switch (wl.getNoAddReason(a.unit)) {
+            switch (wl.getNoAddReason(a.getUnit())) {
             case NONE:
-                a.unit.setLocation(wl);
+                a.getUnit().setLocation(wl);
                 // Fall through
             case ALREADY_PRESENT:
-                if (a.unit.getWorkType() != a.work) {
-                    a.unit.changeWorkType(a.work);
+                if (a.getUnit().getWorkType() != a.getWork()) {
+                    a.getUnit().changeWorkType(a.getWork());
                 }
                 break;
             case CAPACITY_EXCEEDED:
                 todo.add(todo.size(), a);
                 break;
             default:
-                logger.warning("Bad move for " + a.unit + " to " + wl);
+                logger.warning("Bad move for " + a.getUnit() + " to " + wl);
                 break;
             }
         }
 
         // Collect roles that cause a change, ordered by simplest change
         for (Arrangement a : transform(arrangements,
-                a -> a.role != a.unit.getRole() && a.role != defaultRole,
+                a -> a.getRole() != a.getUnit().getRole() && a.getRole() != defaultRole,
                 Function.identity(),
                 Comparator.<Arrangement>reverseOrder())) {
-            if (!colony.equipForRole(a.unit, a.role, a.roleCount)) {
+            if (!colony.equipForRole(a.getUnit(), a.getRole(), a.getRoleCount())) {
                 return serverPlayer.clientError("Failed to equip "
-                    + a.unit.getId() + " for role " + a.role
+                    + a.getUnit().getId() + " for role " + a.getRole()
                     + " at " + colony);
             }
         }
@@ -3921,7 +3921,7 @@ public final class InGameController extends Controller {
         // Check for upgrade.
         UnitTypeChange uc = unit.getUnitChange(UnitChangeType.ENTER_COLONY);
         if (uc != null && uc.appliesTo(unit)) {
-            unit.changeType(uc.to);//-vis: safe in colony
+            unit.changeType(uc.getTo());//-vis: safe in colony
         }
 
         // Change the location.
