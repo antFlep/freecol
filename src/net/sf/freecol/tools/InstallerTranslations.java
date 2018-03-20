@@ -27,6 +27,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.scenario.effect.Merge;
 import net.sf.freecol.common.util.Utils;
 
 
@@ -120,7 +121,7 @@ public class InstallerTranslations {
         for (String[] mapping : IZPACK_CODES) {
             languageMappings.put(mapping[0], mapping[1]);
         }
-        Map<String, String> mainProperties = readFile(MAIN_FILE);
+        Map<String, String> mainProperties = MergeTranslations.readFile(MAIN_FILE);
         //Set<String> languages = new HashSet<String>();
 
         String[] sourceFiles = SOURCE_DIRECTORY.list(new FilenameFilter() {
@@ -156,7 +157,7 @@ public class InstallerTranslations {
             System.out.println("Processing source file: " + name);
 
             File sourceFile = new File(SOURCE_DIRECTORY, name);
-            Map<String, String> sourceProperties = readFile(sourceFile);
+            Map<String, String> sourceProperties = MergeTranslations.readFile(sourceFile);
             StringBuilder output = new StringBuilder();
             output.append("<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>\n");
             output.append("<!-- ATTENTION: Do not modify this file directly,\n");
@@ -185,46 +186,5 @@ public class InstallerTranslations {
         }
 
     }
-
-    private static Map<String, String> readFile(File file) {
-        Map<String, String> result = new HashMap<>();
-        try (
-            Reader reader = Utils.getFileUTF8Reader(file);
-            BufferedReader bufferedReader = new BufferedReader(reader)
-        ) {
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                int index = line.indexOf('=');
-                if (index >= 0) {
-                    result.put(line.substring(0, index), line.substring(index + 1));
-                }
-                line = bufferedReader.readLine();
-            }
-        } catch (Exception e) {
-            // forget it
-        }
-        return result;
-    }
-    /*
-    private static Map<String, String> readLanguageMappings(File file) {
-        Map<String, String> result = new HashMap<>();
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
-            String[] fields;
-            while (line != null) {
-                fields = line.split(":");
-                if (fields[1].length() > 0) {
-                    result.put(fields[1], fields[0].substring(0, 3));
-                }
-                line = bufferedReader.readLine();
-            }
-        } catch(Exception e) {
-            // forget it
-        }
-        return result;
-    }
-    */
 }
 

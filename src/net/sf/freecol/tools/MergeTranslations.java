@@ -105,7 +105,7 @@ public class MergeTranslations {
         }
     }
 
-    private static Map<String, String> readFile(File file) {
+    protected static Map<String, String> readFile(File file) {
         Map<String, String> result = new HashMap<>();
         try (
             Reader reader = Utils.getFileUTF8Reader(file);
