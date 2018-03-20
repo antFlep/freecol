@@ -136,7 +136,6 @@ public class AddPlayerMessage extends ObjectMessage {
      */
     @Override
     public void clientHandler(FreeColClient freeColClient) {
-        List<Player> players = getPlayers();
         
         if (freeColClient.isInGame()) {
             igc(freeColClient).addPlayerHandler(getPlayers());

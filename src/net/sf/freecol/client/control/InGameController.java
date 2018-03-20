@@ -2946,7 +2946,6 @@ public final class InGameController extends FreeColClientHolder {
     public boolean clearSpeciality(Unit unit) {
         if (!requireOurTurn() || unit == null) return false;
 
-        UnitType oldType = unit.getType();
         UnitTypeChange uc = unit.getUnitChange(UnitChangeType.CLEAR_SKILL);
         UnitType newType = (uc == null) ? null : uc.getTo();
         if (newType == null) {
@@ -4429,7 +4428,6 @@ public final class InGameController extends FreeColClientHolder {
      */
     public void reconnect() {
         final FreeColClient fcc = getFreeColClient();
-        final Player player = getMyPlayer();
         if (getGUI().confirm("reconnect.text", "reconnect.no", "reconnect.yes")) {
             logger.finest("Reconnect quit.");
             fcc.getConnectController().requestLogout(LogoutReason.QUIT);
@@ -5059,7 +5057,6 @@ public final class InGameController extends FreeColClientHolder {
     public void updateHandler(List<FreeColObject> objects) {
         final Game game = getGame();
         final Player player = getMyPlayer();
-        final Unit active = getGUI().getActiveUnit();
 
         for (FreeColObject fco : objects) {
             FreeColGameObject fcgo = game.getFreeColGameObject(fco.getId());
@@ -5135,7 +5132,6 @@ public final class InGameController extends FreeColClientHolder {
         if (!requireOurTurn() || unit == null
             || workLocation == null) return false;
 
-        StringTemplate template;
         if (unit.getStudent() != null
             && !getGUI().confirmAbandonEducation(unit, false)) return false;
 

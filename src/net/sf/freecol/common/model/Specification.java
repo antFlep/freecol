@@ -2315,7 +2315,6 @@ public final class Specification implements OptionContainer {
     private boolean fixDifficultyOptions() {
         boolean ret = false;
         String id;
-        AbstractOption op;
         OptionGroup og;
         UnitListOption ulo;
 

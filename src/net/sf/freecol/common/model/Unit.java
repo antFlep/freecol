@@ -357,7 +357,6 @@ public class Unit extends GoodsLocation
                     extra = StringTemplate.template("goldAmount")
                         .addAmount("%amount%", getTreasureAmount());
                 } else {
-                    boolean noEquipment = false;
                     // unequipped expert has no-equipment label
                     List<Role> expertRoles = type.getExpertRoles();
                     for (Role someRole : expertRoles) {
@@ -4480,8 +4479,7 @@ public class Unit extends GoodsLocation
         if (xr.shouldIntern()) game.checkOwners(this, oldOwner);
 
         UnitType oldUnitType = this.type;
-        this.type = xr.getType(spec, UNIT_TYPE_TAG,
-                               UnitType.class, (UnitType)null);
+        this.type = xr.getType(spec, UNIT_TYPE_TAG, UnitType.class, (UnitType)null);
 
         state = xr.getAttribute(STATE_TAG, UnitState.class, UnitState.ACTIVE);
 
@@ -4556,7 +4554,6 @@ public class Unit extends GoodsLocation
      */
     @Override
     protected void readChild(FreeColXMLReader xr) throws XMLStreamException {
-        final Specification spec = getSpecification();
         final Game game = getGame();
         final String tag = xr.getLocalName();
 

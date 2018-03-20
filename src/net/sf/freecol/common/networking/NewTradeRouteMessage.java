@@ -125,7 +125,6 @@ public class NewTradeRouteMessage extends ObjectMessage {
      */
     @Override
     public void clientHandler(FreeColClient freeColClient) {
-        final Game game = freeColClient.getGame();
         final TradeRoute tr = getTradeRoute();
 
         if (tr == null) return;
