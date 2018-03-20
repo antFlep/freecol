@@ -2027,27 +2027,9 @@ public final class InGameController extends FreeColClientHolder {
         StringTemplate left = StringTemplate.label(", ");
         StringTemplate loaded = StringTemplate.label(", ");
         StringTemplate nonePresent = StringTemplate.label(", ");
-        
-        // Check the goods already on board.  If it is not expected to
-        // be loaded at this stop then complain (unload must have
-        // failed somewhere).  If it is expected to load, reduce the
-        // loading amount by what is already on board.
-        for (Goods g : unit.getCompactGoodsList()) {
-            AbstractGoods ag = find(toLoad, AbstractGoods.matches(g.getType()));
-            if (ag == null) { // Excess goods on board, failed unload?
-                unexpected.addStringTemplate(g.getLabel());
-            } else {
-                int goodsAmount = g.getAmount();
-                if (ag.getAmount() <= goodsAmount) { // At capacity
-                    noLoad.addStringTemplate(StringTemplate
-                            .template("tradeRoute.loadStop.noLoad.carrier")
-                            .addNamed(GOODS_TYPE, ag.getType()));
-                    toLoad.remove(ag);
-                } else {
-                    ag.setAmount(ag.getAmount() - goodsAmount);
-                }
-            }
-        }
+
+        checkGoods(unit, toLoad, unexpected, noLoad);
+
 
         // Adjust toLoad with the actual amount to load.
         // Drop goods that are:
@@ -2155,6 +2137,45 @@ public final class InGameController extends FreeColClientHolder {
         }
         
         // Load the goods.
+        return loadGoods(unit, lb, stop, ret, toLoad, unexpected,
+                noLoad, left, loaded, nonePresent, limit);
+    }
+
+    private void checkGoods(Unit unit, List<AbstractGoods> toLoad, StringTemplate unexpected, StringTemplate noLoad) {
+        // Check the goods already on board.  If it is not expected to
+        // be loaded at this stop then complain (unload must have
+        // failed somewhere).  If it is expected to load, reduce the
+        // loading amount by what is already on board.
+        for (Goods g : unit.getCompactGoodsList()) {
+            AbstractGoods ag = find(toLoad, AbstractGoods.matches(g.getType()));
+            if (ag == null) { // Excess goods on board, failed unload?
+                unexpected.addStringTemplate(g.getLabel());
+            } else {
+                int goodsAmount = g.getAmount();
+                if (ag.getAmount() <= goodsAmount) { // At capacity
+                    noLoad.addStringTemplate(StringTemplate
+                            .template("tradeRoute.loadStop.noLoad.carrier")
+                            .addNamed(GOODS_TYPE, ag.getType()));
+                    toLoad.remove(ag);
+                } else {
+                    ag.setAmount(ag.getAmount() - goodsAmount);
+                }
+            }
+        }
+    }
+
+    private boolean loadGoods(Unit unit,
+                              LogBuilder lb,
+                              TradeRouteStop stop,
+                              boolean ret,
+                              List<AbstractGoods> toLoad,
+                              StringTemplate unexpected,
+                              StringTemplate noLoad,
+                              StringTemplate left,
+                              StringTemplate loaded,
+                              StringTemplate nonePresent,
+                              java.util.Map<GoodsType, Location> limit) {
+
         boolean done = false;
         for (AbstractGoods ag : toLoad) {
             final GoodsType type = ag.getType();
@@ -4250,7 +4271,7 @@ public final class InGameController extends FreeColClientHolder {
             player.addModelMessage(new ModelMessage(MessageType.WARNING,
                                                     "twoTurnsPerYear", player)
                 .addStringTemplate("%year%", currTurn.getLabel())
-                .addAmount("%amount%", currTurn.getSeasonNumber()));
+                .addAmount("%amount%", Turn.getSeasonNumber()));
         }
         player.clearNationCache();
         return true;
@@ -5138,9 +5159,8 @@ public final class InGameController extends FreeColClientHolder {
                 getGUI().showInformationMessage("tileHasRumour");
                 return false;
             }
-            if (!unit.getOwner().owns(tile)) {
-                if (!claimTile(tile, colony)) return false;
-            }
+            if ((!unit.getOwner().owns(tile)) && (!claimTile(tile, colony)))
+                return false;
         }
 
         // Try to change the work location.
