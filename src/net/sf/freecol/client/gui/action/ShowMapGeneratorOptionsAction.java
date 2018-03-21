@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class ShowMapGeneratorOptionsAction extends FreeColAction {
 
-    public static final String id = "mapGeneratorOptionsAction";
+    public static final String ID = "mapGeneratorOptionsAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class ShowMapGeneratorOptionsAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ShowMapGeneratorOptionsAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

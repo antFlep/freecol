@@ -91,8 +91,8 @@ public abstract class MapControls extends FreeColClientHolder {
         final Game game = getGame();
         if (game != null) {
             unitButtons.add(new UnitButton(am, WaitAction.id));
-            unitButtons.add(new UnitButton(am, SkipUnitAction.id));
-            unitButtons.add(new UnitButton(am, SentryAction.id));
+            unitButtons.add(new UnitButton(am, SkipUnitAction.ID));
+            unitButtons.add(new UnitButton(am, SentryAction.ID));
             unitButtons.add(new UnitButton(am, FortifyAction.ID));
             
             final Specification spec = game.getSpecification();

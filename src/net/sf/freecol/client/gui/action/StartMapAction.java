@@ -34,7 +34,7 @@ import net.sf.freecol.common.option.OptionGroup;
  */
 public class StartMapAction extends FreeColAction {
 
-    public static final String id = "startMapAction";
+    public static final String ID = "startMapAction";
 
 
     /**
@@ -43,7 +43,7 @@ public class StartMapAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public StartMapAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

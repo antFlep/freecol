@@ -30,7 +30,7 @@ import net.sf.freecol.common.model.Unit;
  */
 public class SentryAction extends UnitAction {
 
-    public static final String id = "sentryAction";
+    public static final String ID = "sentryAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class SentryAction extends UnitAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public SentryAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
 
         addImageIcons("sentry");
     }

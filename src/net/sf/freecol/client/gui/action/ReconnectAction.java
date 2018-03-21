@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class ReconnectAction extends FreeColAction {
 
-    public static final String id = "reconnectAction";
+    public static final String ID = "reconnectAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class ReconnectAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ReconnectAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

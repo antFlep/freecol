@@ -61,17 +61,17 @@ public final class MainPanel extends FreeColPanel {
             .getLastSaveGameFile() != null;
 
         ActionManager am = getFreeColClient().getActionManager();
-        JButton newButton = new JButton(am.getFreeColAction(NewAction.id));
-        JButton openButton = new JButton(am.getFreeColAction(OpenAction.id));
+        JButton newButton = new JButton(am.getFreeColAction(NewAction.ID));
+        JButton openButton = new JButton(am.getFreeColAction(OpenAction.ID));
         JButton mapEditorButton = new JButton(am.getFreeColAction(MapEditorAction.ID));
-        JButton optionsButton = new JButton(am.getFreeColAction(PreferencesAction.id));
+        JButton optionsButton = new JButton(am.getFreeColAction(PreferencesAction.ID));
         JButton aboutButton = new JButton(am.getFreeColAction(AboutAction.ID));
-        JButton quitButton = new JButton(am.getFreeColAction(QuitAction.id));
+        JButton quitButton = new JButton(am.getFreeColAction(QuitAction.ID));
 
         setCancelComponent(quitButton);
         okButton.setAction(am.getFreeColAction((canContinue)
                 ? ContinueAction.ID
-                : NewAction.id));
+                : NewAction.ID));
 
         Image tempImage = ResourceManager.getImage("image.flavor.Title");
         JLabel logoLabel = new JLabel(new ImageIcon(tempImage));

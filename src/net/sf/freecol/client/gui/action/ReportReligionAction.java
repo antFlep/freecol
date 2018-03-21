@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class ReportReligionAction extends FreeColAction {
 
-    public static final String id = "reportReligionAction";
+    public static final String ID = "reportReligionAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class ReportReligionAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ReportReligionAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

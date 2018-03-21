@@ -100,23 +100,23 @@ public class MapEditorMenuBar extends FreeColMenuBar {
         menu.setOpaque(false);
         menu.setMnemonic(KeyEvent.VK_G);
 
-        menu.add(getMenuItem(NewAction.id));
-        menu.add(getMenuItem(NewEmptyMapAction.id));
+        menu.add(getMenuItem(NewAction.ID));
+        menu.add(getMenuItem(NewEmptyMapAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(OpenAction.id));
-        menu.add(getMenuItem(SaveAction.id));
-        menu.add(getMenuItem(StartMapAction.id));
+        menu.add(getMenuItem(OpenAction.ID));
+        menu.add(getMenuItem(SaveAction.ID));
+        menu.add(getMenuItem(StartMapAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(PreferencesAction.id));
+        menu.add(getMenuItem(PreferencesAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(ShowMainAction.id));
-        menu.add(getMenuItem(QuitAction.id));
+        menu.add(getMenuItem(ShowMainAction.ID));
+        menu.add(getMenuItem(QuitAction.ID));
 
         add(menu);
     }
@@ -151,7 +151,7 @@ public class MapEditorMenuBar extends FreeColMenuBar {
         menu.setOpaque(false);
         menu.setMnemonic(KeyEvent.VK_T);
 
-        menu.add(getMenuItem(ScaleMapAction.id));
+        menu.add(getMenuItem(ScaleMapAction.ID));
         menu.add(getMenuItem(DetermineHighSeasAction.ID));
 
         add(menu);
