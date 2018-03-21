@@ -86,6 +86,13 @@ import net.sf.freecol.start.Tools;
 public class GUI extends FreeColClientHolder {
 
     protected static final Logger logger = Logger.getLogger(GUI.class.getName());
+    private static final String UNIT = "%unit%";
+    private static final String COLONY = "%colony%";
+    private static final String BUILDING = "%building%";
+    private static final String NATION = "%nation%";
+    private static final String CANCEL = "cancel";
+    private static final String SETTLEMENT = "%settlement%";
+    private static final String GOODS = "%goods%";
 
     /**
      * Error handler class to display a message with this GUI.
@@ -138,7 +145,7 @@ public class GUI extends FreeColClientHolder {
     }
 
     /** Warning levels. */
-    private static final String levels[] = {
+    private static final String[] levels = {
         "low", "normal", "high"
     };
 
@@ -642,19 +649,19 @@ public class GUI extends FreeColClientHolder {
         StringTemplate template;
         if (leaveColony) if (teacher) template = StringTemplate
                 .template("abandonEducation.text")
-                .addStringTemplate("%unit%", label)
-                .addName("%colony%", school.getColony().getName())
+                .addStringTemplate(UNIT, label)
+                .addName(COLONY, school.getColony().getName())
                 .addNamed("%building%", school)
                 .addStringTemplate("%action%", StringTemplate.key("abandonEducation.action.teaching"));
         else template = StringTemplate
                     .template("abandonEducation.text")
-                    .addStringTemplate("%unit%", label)
-                    .addName("%colony%", school.getColony().getName())
+                    .addStringTemplate(UNIT, label)
+                    .addName(COLONY, school.getColony().getName())
                     .addNamed("%building%", school)
                     .addStringTemplate("%action%", StringTemplate.key("abandonEducation.action.studying"));
         else if (teacher) template = StringTemplate.template("abandonTeaching.text")
-                .addStringTemplate("%unit%", label)
-                .addNamed("%building%", school);
+                .addStringTemplate(UNIT, label)
+                .addNamed(BUILDING, school);
         else template = null;
         return template == null
             || confirm(unit.getTile(), template, unit,
@@ -673,7 +680,7 @@ public class GUI extends FreeColClientHolder {
         if (tr == null) return true;
         StringTemplate template = StringTemplate
             .template("clearTradeRoute.text")
-            .addStringTemplate("%unit%",
+            .addStringTemplate(UNIT,
                 unit.getLabel(Unit.UnitLabelType.NATIONAL))
             .addName("%route%", tr.getName());
         return confirm(unit.getTile(), template, unit, "yes", "no");
@@ -711,7 +718,7 @@ public class GUI extends FreeColClientHolder {
         int gold = (ns == null) ? 0 : ns.getGold();
         if (gold == 0) {
             t = StringTemplate.template("confirmTribute.broke")
-                .addStringTemplate("%nation%", other.getNationLabel());
+                .addStringTemplate(NATION, other.getNationLabel());
             showInformationMessage(t);
             return -1;
         }
@@ -720,7 +727,7 @@ public class GUI extends FreeColClientHolder {
         if (gold <= 1000) fin = (gold <= 100) ? 0 : 1;
         else fin = (gold <= 100) ? 0 : 2;
         t = StringTemplate.template("confirmTribute.european")
-            .addStringTemplate("%nation%", other.getNationLabel())
+            .addStringTemplate(NATION, other.getNationLabel())
             .addStringTemplate("%danger%",
                 StringTemplate.template("danger." + levels[mil]))
             .addStringTemplate("%finance%",
@@ -779,8 +786,8 @@ public class GUI extends FreeColClientHolder {
         }
         return confirm(attacker.getTile(), StringTemplate
             .template(messageId)
-            .addStringTemplate("%nation%", enemy.getNationLabel()),
-            attacker, "confirmHostile.yes", "cancel");
+            .addStringTemplate(NATION, enemy.getNationLabel()),
+            attacker, "confirmHostile.yes", CANCEL);
     }
 
     /**
@@ -820,8 +827,8 @@ public class GUI extends FreeColClientHolder {
         else if (is.getAlarm(player).getLevel() == Tension.Level.HAPPY) messageId = "confirmTribute.happy";
         else messageId = "confirmTribute.normal";
         return (confirm(is.getTile(), StringTemplate.template(messageId)
-                .addName("%settlement%", is.getName())
-                .addStringTemplate("%nation%", other.getNationLabel()),
+                .addName(SETTLEMENT, is.getName())
+                .addStringTemplate(NATION, other.getNationLabel()),
                 attacker, "confirmTribute.yes", "confirmTribute.no"))
             ? 1 : -1;
     }
@@ -889,7 +896,7 @@ public class GUI extends FreeColClientHolder {
         int arrears = europe.getOwner().getArrears(goods.getType());
         StringTemplate template = StringTemplate
             .template("boycottedGoods.text")
-            .addNamed("%goods%", goods)
+            .addNamed(GOODS, goods)
             .addNamed("%europe%", europe)
             .addAmount("%amount%", arrears);
 
@@ -918,8 +925,8 @@ public class GUI extends FreeColClientHolder {
         //Get Buy price on Europe Market for comparison
         int euroPrice = unit.getOwner().getMarket().getBidPrice(goods.getType(), goods.getAmount());
         StringTemplate template = StringTemplate.template("buy.text")
-            .addStringTemplate("%nation%", settlement.getOwner().getNationLabel())
-            .addStringTemplate("%goods%", goods.getLabel(true))
+            .addStringTemplate(NATION, settlement.getOwner().getNationLabel())
+            .addStringTemplate(GOODS, goods.getLabel(true))
             .addAmount("%gold%", gold)
             .addAmount("%euprice%", euroPrice);
 
@@ -1020,7 +1027,7 @@ public class GUI extends FreeColClientHolder {
             .addStringTemplate(is.getAlarmLevelLabel(unit.getOwner()))
             .addStringTemplate(StringTemplate
                 .template("missionarySettlement.question")
-                .addName("%settlement%", is.getName()));
+                .addName(SETTLEMENT, is.getName()));
 
         List<ChoiceItem<MissionaryAction>> choices = new ArrayList<>();
         if (canEstablish) {
@@ -1080,8 +1087,8 @@ public class GUI extends FreeColClientHolder {
                                                          Unit unit,
                                                          boolean neg) {
         StringTemplate template = StringTemplate.template("scoutColony.text")
-            .addStringTemplate("%unit%", unit.getLabel(Unit.UnitLabelType.NATIONAL))
-            .addName("%colony%", colony.getName());
+            .addStringTemplate(UNIT, unit.getLabel(Unit.UnitLabelType.NATIONAL))
+            .addName(COLONY, colony.getName());
 
         List<ChoiceItem<ScoutColonyAction>> choices = new ArrayList<>();
         choices.add(new ChoiceItem<>(Messages.message("scoutColony.negotiate"),
@@ -1114,8 +1121,8 @@ public class GUI extends FreeColClientHolder {
             .addName("\n\n")
             .addStringTemplate(StringTemplate
                 .template("scoutSettlement.greetings")
-                .addStringTemplate("%nation%", owner.getNationLabel())
-                .addName("%settlement%", is.getName())
+                .addStringTemplate(NATION, owner.getNationLabel())
+                .addName(SETTLEMENT, is.getName())
                 .addName("%number%", numberString)
                 .add("%settlementType%",
                     ((IndianNationType)owner.getNationType()).getSettlementTypeKey(true)))
@@ -1165,8 +1172,8 @@ public class GUI extends FreeColClientHolder {
         int euroPrice = unit.getOwner().getMarket().getSalePrice(goods.getType(), goods.getAmount());
         StringTemplate goodsTemplate = goods.getLabel(true);
         StringTemplate template = StringTemplate.template("sell.text")
-            .addStringTemplate("%nation%", settlement.getOwner().getNationLabel())
-            .addStringTemplate("%goods%", goodsTemplate)
+            .addStringTemplate(NATION, settlement.getOwner().getNationLabel())
+            .addStringTemplate(GOODS, goodsTemplate)
             .addAmount("%gold%", gold)
             .addAmount("%euprice%", euroPrice);
 
@@ -1177,7 +1184,7 @@ public class GUI extends FreeColClientHolder {
                                      TradeSellAction.HAGGLE));
         choices.add(new ChoiceItem<>(Messages.message(StringTemplate
                     .template("sell.gift")
-                    .addStringTemplate("%goods%", goodsTemplate)),
+                    .addStringTemplate(GOODS, goodsTemplate)),
                 TradeSellAction.GIFT));
 
         return getChoice(unit.getTile(), template,
