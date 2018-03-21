@@ -99,7 +99,7 @@ public final class InfoPanel extends FreeColPanel {
             }
 
             JButton button = new JButton(getFreeColClient().getActionManager()
-                .getFreeColAction(EndTurnAction.id));
+                .getFreeColAction(EndTurnAction.ID));
             button.setFont(font);
             add(button);
             setOpaque(false);

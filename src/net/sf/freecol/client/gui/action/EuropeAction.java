@@ -30,7 +30,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class EuropeAction extends MapboardAction {
 
-    public static final String id = "europeAction";
+    public static final String ID = "europeAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class EuropeAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public EuropeAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

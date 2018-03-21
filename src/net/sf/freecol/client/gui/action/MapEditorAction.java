@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class MapEditorAction extends FreeColAction {
 
-    public static final String id = "mapEditorAction";
+    public static final String ID = "mapEditorAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class MapEditorAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public MapEditorAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

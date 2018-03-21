@@ -30,7 +30,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class MiniMapToggleViewAction extends MapboardAction {
     
-    public static final String id = "miniMapToggleBordersAction";
+    public static final String ID = "miniMapToggleBordersAction";
     
     
     /**
@@ -39,7 +39,7 @@ public class MiniMapToggleViewAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public MiniMapToggleViewAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
 
         addImageIcons("toggle_view_politics");
     }
@@ -51,7 +51,7 @@ public class MiniMapToggleViewAction extends MapboardAction {
      * @param b a {@code boolean} value
      */
     public MiniMapToggleViewAction(FreeColClient freeColClient, boolean b) {
-        super(freeColClient, id + ".secondary");
+        super(freeColClient, ID + ".secondary");
  
         addImageIcons("toggle_view_politics");
     }

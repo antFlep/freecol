@@ -30,7 +30,7 @@ import net.sf.freecol.common.model.Unit;
  */
 public class AssignTradeRouteAction extends UnitAction {
 
-    public static final String id = "assignTradeRouteAction";
+    public static final String ID = "assignTradeRouteAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class AssignTradeRouteAction extends UnitAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public AssignTradeRouteAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

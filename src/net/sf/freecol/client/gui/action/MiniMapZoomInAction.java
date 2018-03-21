@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class MiniMapZoomInAction extends MapboardAction {
 
-    public static final String id = "miniMapZoomInAction";
+    public static final String ID = "miniMapZoomInAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class MiniMapZoomInAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public MiniMapZoomInAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
 
         addImageIcons("zoom_in");
     }
@@ -50,7 +50,7 @@ public class MiniMapZoomInAction extends MapboardAction {
      * @param b a {@code boolean} value
      */
     public MiniMapZoomInAction(FreeColClient freeColClient, boolean b) {
-        super(freeColClient, id + ".secondary");
+        super(freeColClient, ID + ".secondary");
  
         addImageIcons("zoom_in");
     }
@@ -76,7 +76,7 @@ public class MiniMapZoomInAction extends MapboardAction {
     public void actionPerformed(ActionEvent ae) {
         getGUI().zoomInMapControls();
         update();
-        getActionManager().getFreeColAction(MiniMapZoomOutAction.id).update();
-        getActionManager().getFreeColAction(MiniMapZoomOutAction.id + ".secondary").update();
+        getActionManager().getFreeColAction(MiniMapZoomOutAction.ID).update();
+        getActionManager().getFreeColAction(MiniMapZoomOutAction.ID + ".secondary").update();
     }
 }

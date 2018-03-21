@@ -30,7 +30,7 @@ import net.sf.freecol.client.gui.GUI;
  */
 public class ChangeWindowedModeAction extends SelectableAction {
 
-    public static final String id = "changeWindowedModeAction";
+    public static final String ID = "changeWindowedModeAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class ChangeWindowedModeAction extends SelectableAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ChangeWindowedModeAction(FreeColClient freeColClient) {
-        super(freeColClient, id, null);
+        super(freeColClient, ID, null);
     }
 
 

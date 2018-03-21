@@ -63,14 +63,14 @@ public final class MainPanel extends FreeColPanel {
         ActionManager am = getFreeColClient().getActionManager();
         JButton newButton = new JButton(am.getFreeColAction(NewAction.id));
         JButton openButton = new JButton(am.getFreeColAction(OpenAction.id));
-        JButton mapEditorButton = new JButton(am.getFreeColAction(MapEditorAction.id));
+        JButton mapEditorButton = new JButton(am.getFreeColAction(MapEditorAction.ID));
         JButton optionsButton = new JButton(am.getFreeColAction(PreferencesAction.id));
-        JButton aboutButton = new JButton(am.getFreeColAction(AboutAction.id));
+        JButton aboutButton = new JButton(am.getFreeColAction(AboutAction.ID));
         JButton quitButton = new JButton(am.getFreeColAction(QuitAction.id));
 
         setCancelComponent(quitButton);
         okButton.setAction(am.getFreeColAction((canContinue)
-                ? ContinueAction.id
+                ? ContinueAction.ID
                 : NewAction.id));
 
         Image tempImage = ResourceManager.getImage("image.flavor.Title");

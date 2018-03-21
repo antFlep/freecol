@@ -185,9 +185,9 @@ public class InGameMenuBar extends FreeColMenuBar {
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(ChatAction.id));
-        menu.add(getMenuItem(DeclareIndependenceAction.id));
-        menu.add(getMenuItem(EndTurnAction.id));
+        menu.add(getMenuItem(ChatAction.ID));
+        menu.add(getMenuItem(DeclareIndependenceAction.ID));
+        menu.add(getMenuItem(EndTurnAction.ID));
 
         menu.addSeparator();
 
@@ -206,30 +206,30 @@ public class InGameMenuBar extends FreeColMenuBar {
         menu.setOpaque(false);
         menu.setMnemonic(KeyEvent.VK_V);
 
-        menu.add(getCheckBoxMenuItem(MapControlsAction.id));
-        menu.add(getCheckBoxMenuItem(DisplayGridAction.id));
-        menu.add(getCheckBoxMenuItem(DisplayBordersAction.id));
+        menu.add(getCheckBoxMenuItem(MapControlsAction.ID));
+        menu.add(getCheckBoxMenuItem(DisplayGridAction.ID));
+        menu.add(getCheckBoxMenuItem(DisplayBordersAction.ID));
         menu.add(getMenuItem(ToggleViewModeAction.id));
-        menu.add(getCheckBoxMenuItem(ChangeWindowedModeAction.id));
+        menu.add(getCheckBoxMenuItem(ChangeWindowedModeAction.ID));
 
         menu.addSeparator();
         ButtonGroup group = new ButtonGroup();
         for (DisplayText type : DisplayText.values()) {
-            menu.add(getRadioButtonMenuItem(DisplayTileTextAction.id
+            menu.add(getRadioButtonMenuItem(DisplayTileTextAction.ID
                     + type.getKey(), group));
         }
 
         menu.addSeparator();
         menu.add(getMenuItem(ZoomInAction.id));
         menu.add(getMenuItem(ZoomOutAction.id));
-        menu.add(getMenuItem(CenterAction.id));
+        menu.add(getMenuItem(CenterAction.ID));
         menu.add(getMenuItem(TilePopupAction.id));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(EuropeAction.id));
+        menu.add(getMenuItem(EuropeAction.ID));
         menu.add(getMenuItem(TradeRouteAction.id));
-        menu.add(getMenuItem(FindSettlementAction.id));
+        menu.add(getMenuItem(FindSettlementAction.ID));
 
         add(menu);
     }
@@ -241,18 +241,18 @@ public class InGameMenuBar extends FreeColMenuBar {
         menu.setMnemonic(KeyEvent.VK_O);
 
         menu.add(getMenuItem(SentryAction.id));
-        menu.add(getMenuItem(FortifyAction.id));
+        menu.add(getMenuItem(FortifyAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(GotoAction.id));
-        menu.add(getMenuItem(GotoTileAction.id));
-        menu.add(getMenuItem(ExecuteGotoOrdersAction.id));
-        menu.add(getMenuItem(AssignTradeRouteAction.id));
+        menu.add(getMenuItem(GotoAction.ID));
+        menu.add(getMenuItem(GotoTileAction.ID));
+        menu.add(getMenuItem(ExecuteGotoOrdersAction.ID));
+        menu.add(getMenuItem(AssignTradeRouteAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(BuildColonyAction.id));
+        menu.add(getMenuItem(BuildColonyAction.ID));
         // Insert all Improvements here:
         for (TileImprovementType type : freeColClient.getGame().getSpecification()
                  .getTileImprovementTypeList()) {
@@ -262,20 +262,20 @@ public class InGameMenuBar extends FreeColMenuBar {
         }
         menu.addSeparator();
 
-        menu.add(getMenuItem(LoadAction.id));
+        menu.add(getMenuItem(LoadAction.ID));
         menu.add(getMenuItem(UnloadAction.id));
 
         menu.addSeparator();
 
         menu.add(getMenuItem(WaitAction.id));
         menu.add(getMenuItem(SkipUnitAction.id));
-        menu.add(getMenuItem(ChangeAction.id));
+        menu.add(getMenuItem(ChangeAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(ClearOrdersAction.id));
+        menu.add(getMenuItem(ClearOrdersAction.ID));
         menu.add(getMenuItem(RenameAction.id));
-        menu.add(getMenuItem(DisbandUnitAction.id));
+        menu.add(getMenuItem(DisbandUnitAction.ID));
 
         add(menu);
     }

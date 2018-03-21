@@ -36,7 +36,7 @@ import static net.sf.freecol.common.util.StringUtils.*;
  */
 public class DisplayTileTextAction extends SelectableAction {
 
-    public static final String id = "displayTileTextAction.";
+    public static final String ID = "displayTileTextAction.";
 
     // FIXME: make ClientOptions use enum
     public static enum DisplayText {
@@ -65,7 +65,7 @@ public class DisplayTileTextAction extends SelectableAction {
      */
     public DisplayTileTextAction(FreeColClient freeColClient,
                                  DisplayText type) {
-        super(freeColClient, id + type.getKey(),
+        super(freeColClient, ID + type.getKey(),
               ClientOptions.DISPLAY_TILE_TEXT);
         display = type;
         setAccelerator(KeyStroke.getKeyStroke(accelerators[type.ordinal()],

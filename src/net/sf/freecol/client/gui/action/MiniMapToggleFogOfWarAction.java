@@ -30,7 +30,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class MiniMapToggleFogOfWarAction extends MapboardAction {
 
-    public static final String id = "miniMapToggleFogOfWarAction";
+    public static final String ID = "miniMapToggleFogOfWarAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class MiniMapToggleFogOfWarAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public MiniMapToggleFogOfWarAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
         
         addImageIcons("toggle_fog_of_war");
     }
@@ -51,7 +51,7 @@ public class MiniMapToggleFogOfWarAction extends MapboardAction {
      * @param b a {@code boolean} value
      */
     public MiniMapToggleFogOfWarAction(FreeColClient freeColClient, boolean b) {
-        super(freeColClient, id + ".secondary");
+        super(freeColClient, ID + ".secondary");
 
         addImageIcons("toggle_fog_of_war");
     }

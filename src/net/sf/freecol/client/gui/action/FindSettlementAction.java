@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class FindSettlementAction extends MapboardAction {
 
-    public static final String id = "findSettlementAction";
+    public static final String ID = "findSettlementAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class FindSettlementAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public FindSettlementAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

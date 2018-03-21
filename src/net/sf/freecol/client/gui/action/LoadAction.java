@@ -34,7 +34,7 @@ import net.sf.freecol.common.model.Unit;
  */
 public class LoadAction extends MapboardAction {
 
-    public static final String id = "loadAction";
+    public static final String ID = "loadAction";
 
 
     /**
@@ -43,7 +43,7 @@ public class LoadAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public LoadAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

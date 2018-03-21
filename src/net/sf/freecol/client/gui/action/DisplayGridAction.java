@@ -32,7 +32,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class DisplayGridAction extends SelectableAction {
 
-    public static final String id = "displayGridAction";
+    public static final String ID = "displayGridAction";
 
 
     /**
@@ -41,7 +41,7 @@ public class DisplayGridAction extends SelectableAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public DisplayGridAction(FreeColClient freeColClient) {
-        super(freeColClient, id, ClientOptions.DISPLAY_GRID);
+        super(freeColClient, ID, ClientOptions.DISPLAY_GRID);
     }
 
 

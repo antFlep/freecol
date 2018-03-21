@@ -38,7 +38,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public class ChangeAction extends UnitAction {
 
-    public static final String id = "changeAction";
+    public static final String ID = "changeAction";
 
 
     /**
@@ -47,7 +47,7 @@ public class ChangeAction extends UnitAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ChangeAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
 
         update();
     }

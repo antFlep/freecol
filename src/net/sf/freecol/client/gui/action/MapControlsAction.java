@@ -32,7 +32,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class MapControlsAction extends SelectableAction {
 
-    public static final String id = "mapControlsAction";
+    public static final String ID = "mapControlsAction";
 
 
     /**
@@ -41,7 +41,7 @@ public class MapControlsAction extends SelectableAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public MapControlsAction(FreeColClient freeColClient) {
-        super(freeColClient, id, ClientOptions.DISPLAY_MAP_CONTROLS);
+        super(freeColClient, ID, ClientOptions.DISPLAY_MAP_CONTROLS);
     }
 
 

@@ -137,21 +137,21 @@ public final class Utility {
     public static final Insets EMPTY_MARGIN = new Insets(0, 0, 0, 0);
 
     /** A style context to use for panels and dialogs. */
-    private static StyleContext STYLE_CONTEXT = null;
+    private static StyleContext styleContext = null;
 
     public static void initStyleContext(Font font) {
         Style defaultStyle = StyleContext.getDefaultStyleContext()
             .getStyle(StyleContext.DEFAULT_STYLE);
 
-        STYLE_CONTEXT = new StyleContext();
-        Style regular = STYLE_CONTEXT.addStyle("regular", defaultStyle);
+        styleContext = new StyleContext();
+        Style regular = styleContext.addStyle("regular", defaultStyle);
         StyleConstants.setFontFamily(regular, font.getFamily());
         StyleConstants.setFontSize(regular, font.getSize());
 
-        Style buttonStyle = STYLE_CONTEXT.addStyle("button", regular);
+        Style buttonStyle = styleContext.addStyle("button", regular);
         StyleConstants.setForeground(buttonStyle, LINK_COLOR);
 
-        Style right = STYLE_CONTEXT.addStyle("right", regular);
+        Style right = styleContext.addStyle("right", regular);
         StyleConstants.setAlignment(right, StyleConstants.ALIGN_RIGHT);
     }
 
@@ -281,12 +281,12 @@ public final class Utility {
      */
     public static JTextPane getDefaultTextPane() {
         DefaultStyledDocument document
-            = new DefaultStyledDocument(STYLE_CONTEXT);
+            = new DefaultStyledDocument(styleContext);
 
         JTextPane textPane = new JTextPane(document);
         textPane.setOpaque(false);
         textPane.setEditable(false);
-        textPane.setLogicalStyle(STYLE_CONTEXT.getStyle("regular"));
+        textPane.setLogicalStyle(styleContext.getStyle("regular"));
         return textPane;
     }
 

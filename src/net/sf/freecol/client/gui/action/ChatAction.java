@@ -31,7 +31,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class ChatAction extends FreeColAction {
 
-    public static final String id = "chatAction";
+    public static final String ID = "chatAction";
 
 
     /**
@@ -40,7 +40,7 @@ public class ChatAction extends FreeColAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ChatAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

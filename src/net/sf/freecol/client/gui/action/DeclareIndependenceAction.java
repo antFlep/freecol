@@ -31,7 +31,7 @@ import net.sf.freecol.common.model.Player.PlayerType;
  */
 public class DeclareIndependenceAction extends MapboardAction {
 
-    public static final String id = "declareIndependenceAction";
+    public static final String ID = "declareIndependenceAction";
 
 
     /**
@@ -40,7 +40,7 @@ public class DeclareIndependenceAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public DeclareIndependenceAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 
