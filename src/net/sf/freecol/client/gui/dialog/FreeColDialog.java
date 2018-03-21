@@ -371,7 +371,7 @@ public class FreeColDialog<T> extends JDialog implements PropertyChangeListener 
      *
      * @return The pane value.
      */
-    protected synchronized Object getValue() {
+    protected Object getValue() {
         Object value = pane.getValue();
         dispose(); // Pane will now be null following removeNotify().
         return value;

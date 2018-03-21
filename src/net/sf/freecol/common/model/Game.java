@@ -1153,7 +1153,7 @@ public class Game extends FreeColGameObject {
      *
      * @param newMap The new {@code Map} to use.
      */
-    public synchronized void setMap(Map newMap) {
+    public void setMap(Map newMap) {
         Map oldMap;
         synchronized (this) {
             oldMap = this.map;
