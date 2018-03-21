@@ -44,9 +44,9 @@ public class ParametersDialog extends FreeColDialog<Parameters> {
     
     private static final int COLUMNS = 5;
 
-    private static final int DEFAULT_distToLandFromHighSeas = 4;
+    private static final int DEFAULT_DIST_TO_LAND_FROM_HIGH_SEAS = 4;
 
-    private static final int DEFAULT_maxDistanceToEdge = 12;
+    private static final int DEFAULT_MAX_DISTANCE_TO_EDGE = 12;
 
     private final JTextField inputD;
 
@@ -74,9 +74,9 @@ public class ParametersDialog extends FreeColDialog<Parameters> {
         JPanel heightPanel = new JPanel(new FlowLayout());
         String str;
         
-        str = Integer.toString(DEFAULT_distToLandFromHighSeas);
+        str = Integer.toString(DEFAULT_DIST_TO_LAND_FROM_HIGH_SEAS);
         inputD = new JTextField(str, COLUMNS);
-        str = Integer.toString(DEFAULT_maxDistanceToEdge);
+        str = Integer.toString(DEFAULT_MAX_DISTANCE_TO_EDGE);
         inputM = new JTextField(str, COLUMNS);
 
         str = Messages.message("parametersDialog.determineHighSeas.distToLandFromHighSeas");
@@ -120,13 +120,13 @@ public class ParametersDialog extends FreeColDialog<Parameters> {
             int d = Integer.parseInt(inputD.getText());
             if (d <= 0) throw new NumberFormatException();
         } catch (NumberFormatException nfe) {
-            inputD.setText(Integer.toString(DEFAULT_distToLandFromHighSeas));
+            inputD.setText(Integer.toString(DEFAULT_DIST_TO_LAND_FROM_HIGH_SEAS));
         }
         try {
             int m = Integer.parseInt(inputM.getText());
             if (m <= 0) throw new NumberFormatException();
         } catch (NumberFormatException nfe) {
-            inputM.setText(Integer.toString(DEFAULT_maxDistanceToEdge));
+            inputM.setText(Integer.toString(DEFAULT_MAX_DISTANCE_TO_EDGE));
         }
     }
 

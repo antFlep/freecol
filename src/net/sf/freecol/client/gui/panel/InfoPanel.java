@@ -451,15 +451,11 @@ public final class InfoPanel extends FreeColPanel {
      * @return The panel mode.
      */
     private InfoPanelMode getMode() {
-        return (getFreeColClient().isMapEditor())
-            ? InfoPanelMode.MAP
-            : (getGUI().getViewMode() == GUI.VIEW_TERRAIN_MODE)
-            ? InfoPanelMode.TILE
-            : (unitInfoPanel.hasUnit())
-            ? InfoPanelMode.UNIT
-            : (getFreeColClient().getMyPlayer() == null)
-            ? InfoPanelMode.NONE
-            : InfoPanelMode.END;
+        if (getFreeColClient().isMapEditor()) return InfoPanelMode.MAP;
+        else if (getGUI().getViewMode() == GUI.VIEW_TERRAIN_MODE) return InfoPanelMode.TILE;
+        else if (unitInfoPanel.hasUnit()) return InfoPanelMode.UNIT;
+        else if (getFreeColClient().getMyPlayer() == null) return InfoPanelMode.NONE;
+        else return InfoPanelMode.END;
     }
 
     /**

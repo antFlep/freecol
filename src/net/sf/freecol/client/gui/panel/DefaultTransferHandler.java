@@ -259,11 +259,10 @@ public final class DefaultTransferHandler extends TransferHandler {
 
 
     public JComponent getDropTarget(JComponent component) {
-        return (component instanceof DropTarget)
-            ? component
-            : (component.getParent() instanceof JComponent)
-            ? getDropTarget((JComponent)component.getParent())
-            : null;
+        if (component instanceof DropTarget) return component;
+        else if (component.getParent() instanceof JComponent)
+            return getDropTarget((JComponent) component.getParent());
+        else return null;
     }
 
     private void restoreSelection(UnitLabel oldSelectedUnit) {
@@ -565,15 +564,11 @@ public final class DefaultTransferHandler extends TransferHandler {
                 }
             }
 
-            ret = (data.getParent() == comp)
-                ? importFail(comp, "data-already-present")
-                : (data instanceof GoodsLabel)
-                ? importGoods(comp, (GoodsLabel)data, oldSelectedUnit)
-                : (data instanceof MarketLabel)
-                ? importMarket(comp, (MarketLabel)data)
-                : (data instanceof UnitLabel)
-                ? importUnit(comp, (UnitLabel)data, oldSelectedUnit)
-                : importFail(comp, data.toString());
+            if (data.getParent() == comp) ret = importFail(comp, "data-already-present");
+            else if (data instanceof GoodsLabel) ret = importGoods(comp, (GoodsLabel) data, oldSelectedUnit);
+            else if (data instanceof MarketLabel) ret = importMarket(comp, (MarketLabel) data);
+            else if (data instanceof UnitLabel) ret = importUnit(comp, (UnitLabel) data, oldSelectedUnit);
+            else ret = importFail(comp, data.toString());
         } catch (Exception e) { // FIXME: Suggest a reconnect?
             logger.log(Level.WARNING, "Import fail", e);
             ret = importFail(comp, "crash: " + e.toString());

@@ -1223,10 +1223,11 @@ public final class ColonyPanel extends PortPanel
             popLabel.setFont(font);
             add(popLabel, "split 2, flowy");
 
-            String growth = (grow == 0) ? ""
-                : '(' + ((grow >= Colony.CHANGE_UPPER_BOUND)
-                    ? Messages.message("many")
-                    : String.valueOf(grow)) + ')';
+            String growth;
+            if (grow == 0) growth = "";
+            else if (grow >= Colony.CHANGE_UPPER_BOUND)
+                growth = '(' + Messages.message("many") + ')';
+            else growth = '(' + String.valueOf(grow) + ')';
             t = StringTemplate.template("colonyPanel.bonusLabel")
                               .addAmount("%number%", bonus)
                               .addName("%extra%", growth);

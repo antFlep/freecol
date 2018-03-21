@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class TradeRouteAction extends MapboardAction {
 
-    public static final String id = "tradeRouteAction";
+    public static final String ID = "tradeRouteAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class TradeRouteAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public TradeRouteAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

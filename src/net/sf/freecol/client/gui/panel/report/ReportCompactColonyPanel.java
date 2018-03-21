@@ -374,11 +374,11 @@ public final class ReportCompactColonyPanel extends ReportPanel
     private static final Predicate<GoodsType> reportGoodsPred = gt ->
         gt.isStorable() && !gt.isTradeGoods();
     private static final String BUILDQUEUE = "buildQueue.";
-    private static final String cAlarmKey = "color.report.colony.alarm";
-    private static final String cWarnKey = "color.report.colony.warning";
-    private static final String cPlainKey = "color.report.colony.plain";
-    private static final String cExportKey = "color.report.colony.export";
-    private static final String cGoodKey = "color.report.colony.good";
+    private static final String C_ALARM_KEY = "color.report.colony.alarm";
+    private static final String C_WARN_KEY = "color.report.colony.warning";
+    private static final String C_PLAIN_KEY = "color.report.colony.plain";
+    private static final String C_EXPORT_KEY = "color.report.colony.export";
+    private static final String C_GOOD_KEY = "color.report.colony.good";
     private static Color cAlarm = null;
     private static Color cWarn;
     private static Color cPlain;
@@ -431,11 +431,11 @@ public final class ReportCompactColonyPanel extends ReportPanel
     private synchronized void loadResources() {
         if (cAlarm != null) return;
 
-        cAlarm = ImageLibrary.getColor(cAlarmKey, Color.RED);
-        cWarn = ImageLibrary.getColor(cWarnKey, Color.MAGENTA);
-        cPlain = ImageLibrary.getColor(cPlainKey, Color.DARK_GRAY);
-        cExport = ImageLibrary.getColor(cExportKey, Color.GREEN);
-        cGood = ImageLibrary.getColor(cGoodKey, Color.BLUE);
+        cAlarm = ImageLibrary.getColor(C_ALARM_KEY, Color.RED);
+        cWarn = ImageLibrary.getColor(C_WARN_KEY, Color.MAGENTA);
+        cPlain = ImageLibrary.getColor(C_PLAIN_KEY, Color.DARK_GRAY);
+        cExport = ImageLibrary.getColor(C_EXPORT_KEY, Color.GREEN);
+        cGood = ImageLibrary.getColor(C_GOOD_KEY, Color.BLUE);
     }
 
     private static StringTemplate stpl(String messageId) {

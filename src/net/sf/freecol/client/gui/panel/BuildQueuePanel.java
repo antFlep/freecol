@@ -587,12 +587,14 @@ public class BuildQueuePanel extends FreeColPanel implements ItemListener {
                         = BuildQueuePanel.this.buildQueueList;
                     DefaultListModel<BuildableType> model
                         = (DefaultListModel<BuildableType>)bql.getModel();
-                    JList<? extends BuildableType> btl
-                        = (ae.getSource() == BuildQueuePanel.this.unitList)
-                        ? BuildQueuePanel.this.unitList
-                        : (ae.getSource() == BuildQueuePanel.this.buildingList)
-                        ? BuildQueuePanel.this.buildingList
-                        : null;
+                    JList<? extends BuildableType> btl;
+
+                    if (ae.getSource() == BuildQueuePanel.this.unitList)
+                        btl = BuildQueuePanel.this.unitList;
+                    else if (ae.getSource() == BuildQueuePanel.this.buildingList)
+                        btl = BuildQueuePanel.this.buildingList;
+                    else btl = null;
+
                     if (btl != null) {
                         for (BuildableType bt : btl.getSelectedValuesList()) {
                             model.addElement(bt);
@@ -878,23 +880,24 @@ public class BuildQueuePanel extends FreeColPanel implements ItemListener {
             if (!this.featureContainer.hasAbility(Ability.BUILD, ut, null)
                 && !this.colony.hasAbility(Ability.BUILD, ut, turn)) {
                 Ability buildAbility = find(spec.getAbilities(Ability.BUILD),
-                    a -> (a.appliesTo(ut)
-                        && a.getValue()
-                        && a.getSource() != null
-                        && !unbuildableTypes.contains(a.getSource())));
-                reasons.add((buildAbility != null)
-                    ? ((buildAbility.getSource() instanceof Named)
-                        ? Messages.getName((Named)buildAbility.getSource())
-                        : Messages.getName(buildAbility))
-                    : Messages.getName(ut));
+                        a -> (a.appliesTo(ut)
+                                && a.getValue()
+                                && a.getSource() != null
+                                && !unbuildableTypes.contains(a.getSource())));
+                if (buildAbility != null)
+                    if (buildAbility.getSource() instanceof Named)
+                        reasons.add(Messages.getName((Named) buildAbility.getSource()));
+                    else reasons.add(Messages.getName(buildAbility));
+                else reasons.add(Messages.getName(ut));
             }
 
             lockReasons.put(ut, (reasons.isEmpty()) ? null
                 : Messages.message(StringTemplate
                     .template("buildQueuePanel.requires")
                     .addName("%string%", join("/", reasons))));
-            if (reasons.isEmpty()
-                || showAllBox.isSelected()) units.addElement(ut);
+
+            if (reasons.isEmpty() || showAllBox.isSelected())
+                units.addElement(ut);
         }
     }
 

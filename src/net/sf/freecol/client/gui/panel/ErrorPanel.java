@@ -47,7 +47,7 @@ public final class ErrorPanel extends FreeColPanel {
     /**
      * The width of em-width of the textboxes in this panel
      */
-    private static final int columnWidth = 40;
+    private static final int COLUMN_WIDTH = 40;
 
 
     /**
@@ -65,7 +65,7 @@ public final class ErrorPanel extends FreeColPanel {
         showButton.setActionCommand(SHOW);
         showButton.addActionListener(this);
 
-        add(Utility.getDefaultTextArea(message, columnWidth), "wrap 20");
+        add(Utility.getDefaultTextArea(message, COLUMN_WIDTH), "wrap 20");
         add(okButton, "split 2, tag ok");
         add(showButton);
     }
@@ -81,7 +81,7 @@ public final class ErrorPanel extends FreeColPanel {
         String message = FreeColDirectories.getLogFileContents();
         if (message == null) message = Messages.message("errorPanel.loadError");
 
-        JTextArea textArea = Utility.getDefaultTextArea(message, columnWidth);
+        JTextArea textArea = Utility.getDefaultTextArea(message, COLUMN_WIDTH);
         textArea.setFocusable(true);
         textArea.setEditable(false);
         

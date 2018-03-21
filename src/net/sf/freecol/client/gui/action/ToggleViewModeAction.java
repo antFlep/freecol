@@ -30,7 +30,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class ToggleViewModeAction extends MapboardAction {
 
-    public static final String id = "toggleViewModeAction";
+    public static final String ID = "toggleViewModeAction";
 
 
     /**
@@ -39,7 +39,7 @@ public class ToggleViewModeAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public ToggleViewModeAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

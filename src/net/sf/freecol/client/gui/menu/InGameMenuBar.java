@@ -209,7 +209,7 @@ public class InGameMenuBar extends FreeColMenuBar {
         menu.add(getCheckBoxMenuItem(MapControlsAction.ID));
         menu.add(getCheckBoxMenuItem(DisplayGridAction.ID));
         menu.add(getCheckBoxMenuItem(DisplayBordersAction.ID));
-        menu.add(getMenuItem(ToggleViewModeAction.id));
+        menu.add(getMenuItem(ToggleViewModeAction.ID));
         menu.add(getCheckBoxMenuItem(ChangeWindowedModeAction.ID));
 
         menu.addSeparator();
@@ -220,15 +220,15 @@ public class InGameMenuBar extends FreeColMenuBar {
         }
 
         menu.addSeparator();
-        menu.add(getMenuItem(ZoomInAction.id));
-        menu.add(getMenuItem(ZoomOutAction.id));
+        menu.add(getMenuItem(ZoomInAction.ID));
+        menu.add(getMenuItem(ZoomOutAction.ID));
         menu.add(getMenuItem(CenterAction.ID));
-        menu.add(getMenuItem(TilePopupAction.id));
+        menu.add(getMenuItem(TilePopupAction.ID));
 
         menu.addSeparator();
 
         menu.add(getMenuItem(EuropeAction.ID));
-        menu.add(getMenuItem(TradeRouteAction.id));
+        menu.add(getMenuItem(TradeRouteAction.ID));
         menu.add(getMenuItem(FindSettlementAction.ID));
 
         add(menu);
@@ -263,11 +263,11 @@ public class InGameMenuBar extends FreeColMenuBar {
         menu.addSeparator();
 
         menu.add(getMenuItem(LoadAction.ID));
-        menu.add(getMenuItem(UnloadAction.id));
+        menu.add(getMenuItem(UnloadAction.ID));
 
         menu.addSeparator();
 
-        menu.add(getMenuItem(WaitAction.id));
+        menu.add(getMenuItem(WaitAction.ID));
         menu.add(getMenuItem(SkipUnitAction.ID));
         menu.add(getMenuItem(ChangeAction.ID));
 

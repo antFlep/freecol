@@ -31,7 +31,7 @@ import net.sf.freecol.common.model.Unit;
  */
 public class UnloadAction extends MapboardAction {
 
-    public static final String id = "unloadAction";
+    public static final String ID = "unloadAction";
 
     private Unit unit = null;
 
@@ -55,7 +55,7 @@ public class UnloadAction extends MapboardAction {
      * @see net.sf.freecol.client.gui.MapViewer#getActiveUnit()
      */
     public UnloadAction(FreeColClient freeColClient, Unit unit) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
 
         this.unit = unit;
     }

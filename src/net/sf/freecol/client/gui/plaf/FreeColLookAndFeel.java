@@ -41,9 +41,9 @@ public class FreeColLookAndFeel extends MetalLookAndFeel {
 
     private static final Logger logger = Logger.getLogger(FreeColLookAndFeel.class.getName());
 
-    private static final String brightPanelUI
+    private static final String BRIGHT_PANEL_UI
         = "net.sf.freecol.client.gui.plaf.FreeColBrightPanelUI";
-    private static final String transparentPanelUI
+    private static final String TRANSPARENT_PANEL_UI
         = "net.sf.freecol.client.gui.plaf.FreeColTransparentPanelUI";
 
     private static final Class uiClasses[] = {
@@ -138,34 +138,34 @@ public class FreeColLookAndFeel extends MetalLookAndFeel {
 
         // Sharing FreeColBrightPanelUI:
         try {
-            u.put(brightPanelUI, Class.forName(brightPanelUI));
-            u.put("InPortPanelUI", brightPanelUI);
-            u.put("CargoPanelUI", brightPanelUI);
-            u.put("BuildingsPanelUI", brightPanelUI);
-            u.put("OutsideColonyPanelUI", brightPanelUI);
-            u.put("WarehousePanelUI", brightPanelUI);
-            u.put("ConstructionPanelUI", brightPanelUI);
-            u.put("PopulationPanelUI", brightPanelUI);
-            u.put("WarehouseGoodsPanelUI", brightPanelUI);
-            u.put("ReportPanelUI", brightPanelUI);
-            u.put("ColopediaPanelUI", brightPanelUI);
-            u.put("TilePanelUI", brightPanelUI);
-            u.put("OptionGroupUI", brightPanelUI);
+            u.put(BRIGHT_PANEL_UI, Class.forName(BRIGHT_PANEL_UI));
+            u.put("InPortPanelUI", BRIGHT_PANEL_UI);
+            u.put("CargoPanelUI", BRIGHT_PANEL_UI);
+            u.put("BuildingsPanelUI", BRIGHT_PANEL_UI);
+            u.put("OutsideColonyPanelUI", BRIGHT_PANEL_UI);
+            u.put("WarehousePanelUI", BRIGHT_PANEL_UI);
+            u.put("ConstructionPanelUI", BRIGHT_PANEL_UI);
+            u.put("PopulationPanelUI", BRIGHT_PANEL_UI);
+            u.put("WarehouseGoodsPanelUI", BRIGHT_PANEL_UI);
+            u.put("ReportPanelUI", BRIGHT_PANEL_UI);
+            u.put("ColopediaPanelUI", BRIGHT_PANEL_UI);
+            u.put("TilePanelUI", BRIGHT_PANEL_UI);
+            u.put("OptionGroupUI", BRIGHT_PANEL_UI);
         } catch (ClassNotFoundException cnfe) {
-            logger.log(Level.WARNING, "Could not load " + brightPanelUI, cnfe);
+            logger.log(Level.WARNING, "Could not load " + BRIGHT_PANEL_UI, cnfe);
         }
 
         // Sharing FreeColTransparentPanelUI:
         try {
-            u.put(transparentPanelUI, Class.forName(transparentPanelUI));
-            u.put("MarketPanelUI", transparentPanelUI);
-            u.put("EuropeCargoPanelUI", transparentPanelUI);
-            u.put("ToAmericaPanelUI", transparentPanelUI);
-            u.put("ToEuropePanelUI", transparentPanelUI);
-            u.put("EuropeInPortPanelUI", transparentPanelUI);
-            u.put("DocksPanelUI", transparentPanelUI);
+            u.put(TRANSPARENT_PANEL_UI, Class.forName(TRANSPARENT_PANEL_UI));
+            u.put("MarketPanelUI", TRANSPARENT_PANEL_UI);
+            u.put("EuropeCargoPanelUI", TRANSPARENT_PANEL_UI);
+            u.put("ToAmericaPanelUI", TRANSPARENT_PANEL_UI);
+            u.put("ToEuropePanelUI", TRANSPARENT_PANEL_UI);
+            u.put("EuropeInPortPanelUI", TRANSPARENT_PANEL_UI);
+            u.put("DocksPanelUI", TRANSPARENT_PANEL_UI);
         } catch (ClassNotFoundException cnfe) {
-            logger.log(Level.WARNING, "Could not load " + transparentPanelUI, cnfe);
+            logger.log(Level.WARNING, "Could not load " + TRANSPARENT_PANEL_UI, cnfe);
         }
 
         // ColorButton

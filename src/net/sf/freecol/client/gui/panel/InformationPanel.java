@@ -191,16 +191,14 @@ public class InformationPanel extends FreeColPanel {
      * @return A {@code StringTemplate} label, or null if nothing found.
      */
     private StringTemplate displayLabel(FreeColObject fco) {
-        return (fco instanceof Tile && ((Tile)fco).hasSettlement())
-            ? displayLabel(((Tile)fco).getSettlement())
-
-            : (fco instanceof Unit)
-            ? displayLabel((FreeColObject)((Unit)fco).getLocation())
-
-            : (fco instanceof Location)
-            ? ((Location)fco).getLocationLabelFor(getMyPlayer())
-
-            : null;
+        if (fco instanceof Tile && ((Tile) fco).hasSettlement())
+            return displayLabel(((Tile) fco).getSettlement());
+        else if (fco instanceof Unit)
+            return displayLabel((FreeColObject) ((Unit) fco).getLocation());
+        else if (fco instanceof Location)
+            return ((Location) fco).getLocationLabelFor(getMyPlayer());
+        else
+            return null;
     }
 
 

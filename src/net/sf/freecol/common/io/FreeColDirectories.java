@@ -263,11 +263,11 @@ public class FreeColDirectories {
      * @return Null on success, an error message key on failure.
      */
     public static String checkDir(File dir) {
-        return (dir == null || !dir.exists()) ? "cli.error.home.notExists"
-            : (!dir.isDirectory()) ? "cli.error.home.notDir"
-            : (!dir.canRead()) ? "cli.error.home.noRead"
-            : (!dir.canWrite()) ? "cli.error.home.noWrite"
-            : null;
+        if (dir == null || !dir.exists()) return "cli.error.home.notExists";
+        else if (!dir.isDirectory()) return "cli.error.home.notDir";
+        else if (!dir.canRead()) return "cli.error.home.noRead";
+        else if (!dir.canWrite()) return "cli.error.home.noWrite";
+        else return null;
     }
 
     /**

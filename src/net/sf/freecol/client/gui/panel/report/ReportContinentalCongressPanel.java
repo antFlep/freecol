@@ -51,8 +51,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public final class ReportContinentalCongressPanel extends ReportPanel {
 
-    private static final String none
-        = Messages.message("report.continentalCongress.none");
+    private static final String NONE = Messages.message("report.continentalCongress.none");
 
 
     /**
@@ -72,7 +71,7 @@ public final class ReportContinentalCongressPanel extends ReportPanel {
         JPanel recruitingPanel = new MigPanel();
         recruitingPanel.setLayout(new MigLayout("center, wrap 1", "center"));
         if (currentFather == null) {
-            recruitingPanel.add(new JLabel(none), "wrap 20");
+            recruitingPanel.add(new JLabel(NONE), "wrap 20");
         } else {
             String name = Messages.getName(currentFather);
             JButton button = Utility.getLinkButton(name, null,

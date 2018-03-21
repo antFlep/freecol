@@ -75,12 +75,12 @@ public class FreeColOptionPaneUI extends BasicOptionPaneUI {
      * @return A suitable number of columns.
      */
     private int getColumns(int nButtons) {
-        return (nButtons > 21) ? 4
-            :  ((nButtons % 4) == 0 && nButtons > 12) ? 4
-            :  ((nButtons % 3) == 0 && nButtons > 6)  ? 3
-            :  ((nButtons % 2) == 0 && nButtons > 4)  ? 2
-            :  (nButtons > 5)  ? 2
-            :  1;
+        if (nButtons > 21) return 4;
+        else if ((nButtons % 4) == 0 && nButtons > 12) return 4;
+        else if ((nButtons % 3) == 0 && nButtons > 6) return 3;
+        else if ((nButtons % 2) == 0 && nButtons > 4) return 2;
+        else if (nButtons > 5) return 2;
+        else return 1;
     }
 
     /**

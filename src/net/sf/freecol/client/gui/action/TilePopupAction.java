@@ -29,7 +29,7 @@ import net.sf.freecol.client.FreeColClient;
  */
 public class TilePopupAction extends MapboardAction {
 
-    public static final String id = "tilePopupAction";
+    public static final String ID = "tilePopupAction";
 
 
     /**
@@ -38,7 +38,7 @@ public class TilePopupAction extends MapboardAction {
      * @param freeColClient The {@code FreeColClient} for the game.
      */
     public TilePopupAction(FreeColClient freeColClient) {
-        super(freeColClient, id);
+        super(freeColClient, ID);
     }
 
 

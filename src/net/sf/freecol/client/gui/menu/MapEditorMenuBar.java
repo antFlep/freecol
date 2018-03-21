@@ -139,8 +139,8 @@ public class MapEditorMenuBar extends FreeColMenuBar {
         }
 
         menu.addSeparator();
-        menu.add(getMenuItem(ZoomInAction.id));
-        menu.add(getMenuItem(ZoomOutAction.id));
+        menu.add(getMenuItem(ZoomInAction.ID));
+        menu.add(getMenuItem(ZoomOutAction.ID));
 
         add(menu);
     }

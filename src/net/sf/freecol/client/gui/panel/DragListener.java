@@ -49,17 +49,17 @@ public final class DragListener extends MouseAdapter {
      * The maximum numbers of pixels of the user's screen height
      * before triggering the small flag.
      */
-    private static final int maxWindowHeight = 768;
+    private static final int MAX_WINDOW_HEIGHT = 768;
 
     /** The user's screen height. */
-    private static final int windowHeight
+    private static final int WINDOW_HEIGHT
         = (int)Math.floor(Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 
     /**
      * Whether the user's screen height is smaller than the maximum
      * height allowed
      */
-    private static final boolean small = windowHeight < maxWindowHeight;
+    private static final boolean SMALL = WINDOW_HEIGHT < MAX_WINDOW_HEIGHT;
 
     /** Enable windows workaround. */
     private final boolean windows = OSUtils.onWindows();
@@ -119,7 +119,7 @@ public final class DragListener extends MouseAdapter {
             */
             final GUI gui = this.freeColClient.getGUI();
             if ((gui.isWindowed() && windows)
-                || (!gui.isWindowed() && small)) {
+                || (!gui.isWindowed() && SMALL)) {
                 menu.show(gui.getCanvas(), menu.getLocation().x, 0);
             } else {
                 menu.show(comp, e.getX(), e.getY());
