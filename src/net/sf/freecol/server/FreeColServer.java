@@ -89,7 +89,7 @@ import net.sf.freecol.server.model.ServerPlayer;
 import net.sf.freecol.server.model.Session;
 import net.sf.freecol.server.networking.DummyConnection;
 import net.sf.freecol.server.networking.Server;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Tools;
 
 
@@ -246,7 +246,7 @@ public final class FreeColServer {
         addresses.add(InetAddress.getLoopbackAddress());
         int tryMax = 1;
         if (firstPort < 0) {
-            firstPort = ConfigPara.getServerPort();
+            firstPort = Parameters.getServerPort();
             tryMax = 10;
         }
         IOException ex = null;
@@ -620,7 +620,7 @@ public final class FreeColServer {
      */
     public void addNewUserConnection(Socket socket) throws IOException {
         final String name = socket.getInetAddress() + ":" + socket.getPort();
-        Connection c = new Connection(socket, ConfigPara.SERVER_THREAD + name)
+        Connection c = new Connection(socket, Parameters.SERVER_THREAD + name)
             .setMessageHandler(this.userConnectionHandler);
         getServer().addConnection(c);
         // Short delay here improves reliability
@@ -856,7 +856,7 @@ public final class FreeColServer {
 
                 // Add the attributes:
                 xw.writeAttribute(OWNER_TAG,
-                                  (owner != null) ? owner : ConfigPara.getName());
+                                  (owner != null) ? owner : Parameters.getName());
 
                 xw.writeAttribute(PUBLIC_SERVER_TAG, this.publicServer);
 
@@ -1323,7 +1323,7 @@ public final class FreeColServer {
                               null, -1, // Missing these at this point
                               slots, players,
                               this.serverState == ServerState.IN_GAME,
-                              ConfigPara.getVersion(),
+                              Parameters.getVersion(),
                               getServerState().ordinal());
     }
 

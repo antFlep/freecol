@@ -101,7 +101,7 @@ import net.sf.freecol.common.option.GameOptions;
 import net.sf.freecol.common.option.IntegerOption;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.RandomChoice;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.RandomUtils.*;
@@ -4228,7 +4228,7 @@ outer:  for (Effect effect : effects) {
             // accepts the tile offer, we can verify that the offer
             // was made.
             DiplomacySession ds = new DiplomacySession(tile.getFirstUnit(),
-                tile.getOwningSettlement(), ConfigPara.getTimeout(false));
+                tile.getOwningSettlement(), Parameters.getTimeout(false));
             ds.setAgreement(DiplomaticTrade
                 .makePeaceTreaty(DiplomaticTrade.TradeContext.CONTACT,
                                  this, other));
@@ -4266,8 +4266,8 @@ outer:  for (Effect effect : effects) {
         DiplomaticTrade agreement = DiplomaticTrade
             .makePeaceTreaty(DiplomaticTrade.TradeContext.CONTACT, this, other);
         DiplomacySession session = (settlement == null)
-            ? new DiplomacySession(unit, otherUnit, ConfigPara.getTimeout(false))
-            : new DiplomacySession(unit, settlement, ConfigPara.getTimeout(false));
+            ? new DiplomacySession(unit, otherUnit, Parameters.getTimeout(false))
+            : new DiplomacySession(unit, settlement, Parameters.getTimeout(false));
         session.setAgreement(agreement);
         cs.add(See.only(this), session.getMessage(this));
         unit.setMovesLeft(0);

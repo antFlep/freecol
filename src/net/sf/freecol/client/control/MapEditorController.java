@@ -47,7 +47,7 @@ import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.generator.MapGenerator;
 import net.sf.freecol.server.model.ServerGame;
 import net.sf.freecol.server.model.ServerPlayer;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Tools;
 
 
@@ -152,8 +152,8 @@ public final class MapEditorController extends FreeColClientHolder {
      * @throws IOException on failure to find the spec.
      */
     public Specification getDefaultSpecification() throws IOException {
-        return Tools.loadSpecification(ConfigPara.getTCFile(),
-            ConfigPara.getAdvantages(), ConfigPara.getDifficulty());
+        return Tools.loadSpecification(Parameters.getTCFile(),
+            Parameters.getAdvantages(), Parameters.getDifficulty());
     }
         
     /**
@@ -237,7 +237,7 @@ public final class MapEditorController extends FreeColClientHolder {
         map.resetLayers();
 
         gui.showStatusPanel(Messages.message("status.savingGame"));
-        new Thread(ConfigPara.CLIENT_THREAD + "-Saving-Map") {
+        new Thread(Parameters.CLIENT_THREAD + "-Saving-Map") {
             @Override
             public void run() {
                 try {
@@ -265,7 +265,7 @@ public final class MapEditorController extends FreeColClientHolder {
     public void loadGame() {
         File file = getGUI()
             .showLoadSaveFileDialog(FreeColDirectories.getUserMapsDirectory(),
-                                    ConfigPara.FREECOL_MAP_EXTENSION);
+                                    Parameters.FREECOL_MAP_EXTENSION);
         if (file != null) loadGame(file);
     }
 
@@ -282,7 +282,7 @@ public final class MapEditorController extends FreeColClientHolder {
         gui.showStatusPanel(Messages.message("status.loadingGame"));
 
         final File theFile = file;
-        new Thread(ConfigPara.CLIENT_THREAD + "Loading-Map") {
+        new Thread(Parameters.CLIENT_THREAD + "Loading-Map") {
             @Override
             public void run() {
                 final FreeColServer freeColServer = getFreeColServer();

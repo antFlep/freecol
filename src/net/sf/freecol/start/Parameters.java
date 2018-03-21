@@ -45,9 +45,9 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  * @see net.sf.freecol.client.FreeColClient FreeColClient
  * @see net.sf.freecol.server.FreeColServer FreeColServer
  */
-public final class ConfigPara {
+public final class Parameters {
 
-    private static final Logger logger = Logger.getLogger(ConfigPara.class.getName());
+    private static final Logger logger = Logger.getLogger(Parameters.class.getName());
 
     /** The FreeCol release version number. */
     public static final String FREECOL_VERSION = "0.11.6";
@@ -230,7 +230,7 @@ public final class ConfigPara {
      * @param advantages The new {@code Advantages} type.
      */
     public static void setAdvantages(Advantages advantages) {
-        ConfigPara.advantages = advantages;
+        Parameters.advantages = advantages;
     }
 
     /**
@@ -302,7 +302,7 @@ public final class ConfigPara {
      * @param difficulty The new difficulty.
      */
     public static void setDifficulty(String difficulty) {
-        ConfigPara.difficulty = difficulty;
+        Parameters.difficulty = difficulty;
     }
 
     /**
@@ -459,7 +459,7 @@ public final class ConfigPara {
      * @param name The new user name.
      */
     public static void setName(String name) {
-        ConfigPara.name = name;
+        Parameters.name = name;
         logger.info("Set FreeCol.name = " + name);
     }
 
@@ -469,7 +469,7 @@ public final class ConfigPara {
      * @return The {@code Locale} currently in use.
      */
     public static Locale getLocale() {
-        return (ConfigPara.locale == null) ? Locale.getDefault() : ConfigPara.locale;
+        return (Parameters.locale == null) ? Locale.getDefault() : Parameters.locale;
     }
 
     /**
@@ -488,8 +488,8 @@ public final class ConfigPara {
             if (index > 0) localeArg = localeArg.substring(0, index);
             newLocale = Messages.getLocale(localeArg);
         }
-        if (newLocale != ConfigPara.locale) {
-            ConfigPara.locale = newLocale;
+        if (newLocale != Parameters.locale) {
+            Parameters.locale = newLocale;
             return true;
         }
         return false;
@@ -555,7 +555,7 @@ public final class ConfigPara {
      * @param tc The name of the new total conversion.
      */
     public static void setTC(String tc) {
-        ConfigPara.tc = tc;
+        Parameters.tc = tc;
     }
 
     /**
@@ -593,7 +593,7 @@ public final class ConfigPara {
         try {
             long result = Long.parseLong(timeout);
             if (TIMEOUT_MIN <= result && result <= TIMEOUT_MAX) {
-                ConfigPara.timeout = result;
+                Parameters.timeout = result;
                 return true;
             }
         } catch (NumberFormatException nfe) {}
@@ -641,7 +641,7 @@ public final class ConfigPara {
     }
 
     public static void setFreeColRevision(String freeColRevision) {
-        ConfigPara.freeColRevision = freeColRevision;
+        Parameters.freeColRevision = freeColRevision;
     }
 
     public static boolean isStandAloneServer() {
@@ -653,6 +653,6 @@ public final class ConfigPara {
     }
 
     public static void setSplashStream(InputStream splashStream) {
-        ConfigPara.splashStream = splashStream;
+        Parameters.splashStream = splashStream;
     }
 }

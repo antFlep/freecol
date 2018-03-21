@@ -30,7 +30,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -199,7 +199,7 @@ public class FSGConverter {
                 out = new File(args[2]);
             } else {
                 String filename = in.getName()
-                    .replaceAll("." + ConfigPara.FREECOL_SAVE_EXTENSION, ".xml");
+                    .replaceAll("." + Parameters.FREECOL_SAVE_EXTENSION, ".xml");
                 if (filename.equals(in.getName())) {
                     filename += ".xml";
                 }

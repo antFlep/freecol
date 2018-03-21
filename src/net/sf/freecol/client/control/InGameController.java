@@ -112,7 +112,7 @@ import net.sf.freecol.common.util.Introspector;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.Utils;
 import net.sf.freecol.server.FreeColServer;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Logging;
 import net.sf.freecol.start.Tools;
 
@@ -532,7 +532,7 @@ public final class InGameController extends FreeColClientHolder {
         return (/* player.getName() + "_" */ gid
             + "_" + Messages.message(player.getNationLabel())
             + "_" + turn.getSaveGameSuffix()
-            + "." + ConfigPara.FREECOL_SAVE_EXTENSION)
+            + "." + Parameters.FREECOL_SAVE_EXTENSION)
             .replaceAll(" ", "_");
     }
 
@@ -550,10 +550,10 @@ public final class InGameController extends FreeColClientHolder {
         final String prefix = options.getText(ClientOptions.AUTO_SAVE_PREFIX);
         final String lastTurnName = prefix + "-"
             + options.getText(ClientOptions.LAST_TURN_NAME)
-            + "." + ConfigPara.FREECOL_SAVE_EXTENSION;
+            + "." + Parameters.FREECOL_SAVE_EXTENSION;
         final String beforeLastTurnName = prefix + "-"
             + options.getText(ClientOptions.BEFORE_LAST_TURN_NAME)
-            + "." + ConfigPara.FREECOL_SAVE_EXTENSION;
+            + "." + Parameters.FREECOL_SAVE_EXTENSION;
        
         File lastTurnFile = FreeColDirectories.getAutosaveFile(lastTurnName);
         File beforeLastTurnFile
@@ -3627,7 +3627,7 @@ public final class InGameController extends FreeColClientHolder {
      */
     public void loadGame() {
         File file = getGUI()
-            .showLoadSaveFileDialog(FreeColDirectories.getSaveDirectory(), ConfigPara.FREECOL_SAVE_EXTENSION);
+            .showLoadSaveFileDialog(FreeColDirectories.getSaveDirectory(), Parameters.FREECOL_SAVE_EXTENSION);
         if (file == null) return;
         if (getFreeColClient().isInGame() && !getGUI().confirmStopGame()) return;
 

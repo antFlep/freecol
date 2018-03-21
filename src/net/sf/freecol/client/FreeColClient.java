@@ -63,7 +63,7 @@ import net.sf.freecol.common.resources.ResourceManager;
 import net.sf.freecol.common.resources.ResourceMapping;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.FreeColServer.ServerState;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Logging;
 import net.sf.freecol.start.Tools;
 
@@ -141,7 +141,7 @@ public final class FreeColClient {
     
     public FreeColClient(final InputStream splashStream,
                          final String fontName) {
-        this(splashStream, fontName, ConfigPara.GUI_SCALE_DEFAULT, true);
+        this(splashStream, fontName, Parameters.GUI_SCALE_DEFAULT, true);
     }
 
     /**
@@ -326,7 +326,7 @@ public final class FreeColClient {
             invokeMainPanel(userMsg).run();
         }
 
-        String quit = ConfigPara.CLIENT_THREAD + "Quit Game";
+        String quit = Parameters.CLIENT_THREAD + "Quit Game";
         Runtime.getRuntime().addShutdownHook(new Thread(quit) {
                 @Override
                 public void run() {

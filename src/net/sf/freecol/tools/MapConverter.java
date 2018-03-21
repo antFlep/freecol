@@ -32,7 +32,7 @@ import net.sf.freecol.common.io.FreeColSavegameFile;
 import net.sf.freecol.common.io.FreeColTcFile;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.server.FreeColServer;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -63,7 +63,7 @@ public class MapConverter {
                     }
                     FreeColServer server
                         = new FreeColServer(savegame, specification,
-                                            ConfigPara.getServerPort(),
+                                            Parameters.getServerPort(),
                                             "mapTransformer");
                     System.out.println("Started server.");
                     server.saveMapEditorGame(out, thumbnail);

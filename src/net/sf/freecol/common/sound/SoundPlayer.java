@@ -38,7 +38,7 @@ import javax.sound.sampled.SourceDataLine;
 import net.sf.freecol.common.option.AudioMixerOption;
 import net.sf.freecol.common.option.AudioMixerOption.MixerWrapper;
 import net.sf.freecol.common.option.PercentageOption;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -169,7 +169,7 @@ public class SoundPlayer {
 
 
         public SoundPlayerThread() {
-            super(ConfigPara.CLIENT_THREAD + "SoundPlayer");
+            super(Parameters.CLIENT_THREAD + "SoundPlayer");
         }
 
         private synchronized void awaken() {

@@ -33,7 +33,7 @@ import net.miginfocom.swing.MigLayout;
 import net.sf.freecol.client.FreeColClient;
 import net.sf.freecol.client.control.ConnectController;
 import net.sf.freecol.common.metaserver.ServerInfo;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
@@ -134,7 +134,7 @@ public final class ServerListPanel extends FreeColPanel {
         // FIXME: This should be added as a filtering rule:
         // Remove servers with an incorrect version from the list:
         removeInPlace(servers,
-                      si -> !si.getVersion().equals(ConfigPara.getVersion()));
+                      si -> !si.getVersion().equals(Parameters.getVersion()));
 
         tableModel.setItems(servers);
         setEnabled(true);

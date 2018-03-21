@@ -56,7 +56,7 @@ import net.sf.freecol.common.option.TextOption;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.Utils;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -670,7 +670,7 @@ public class ClientOptions extends OptionGroup {
             if (colonyNameComparator == null) {
                 // Can not be done statically, must wait for CLI parsing
                 colonyNameComparator = Comparator.comparing(Colony::getName,
-                    Collator.getInstance(ConfigPara.getLocale()));
+                    Collator.getInstance(Parameters.getLocale()));
             }
             return colonyNameComparator;
         default:

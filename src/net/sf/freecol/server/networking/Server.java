@@ -32,7 +32,7 @@ import net.sf.freecol.common.networking.Message;
 import net.sf.freecol.common.networking.MessageHandler;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.server.FreeColServer;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -90,7 +90,7 @@ public final class Server extends Thread {
      */
     public Server(FreeColServer freeColServer, String host, int port)
         throws IOException {
-        super(ConfigPara.SERVER_THREAD + "Server");
+        super(Parameters.SERVER_THREAD + "Server");
 
         this.freeColServer = freeColServer;
         this.host = host;

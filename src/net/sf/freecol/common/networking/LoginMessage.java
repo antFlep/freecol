@@ -36,7 +36,7 @@ import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.FreeColServer.ServerState;
 import net.sf.freecol.server.model.ServerGame;
 import net.sf.freecol.server.model.ServerPlayer;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -392,11 +392,11 @@ public class LoginMessage extends ObjectMessage {
             ret = ChangeSet.clientError((ServerPlayer)null,
                 StringTemplate.template("server.missingVersion"));
 
-        } else if (!version.equals(ConfigPara.getVersion())) {
+        } else if (!version.equals(Parameters.getVersion())) {
             ret = ChangeSet.clientError((ServerPlayer)null,
                 StringTemplate.template("server.wrongFreeColVersion")
                     .addName("%clientVersion%", version)
-                    .addName("%serverVersion%", ConfigPara.getVersion()));
+                    .addName("%serverVersion%", Parameters.getVersion()));
 
         } else switch (freeColServer.getServerState()) {
         case PRE_GAME:

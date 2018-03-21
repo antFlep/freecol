@@ -289,8 +289,7 @@ public class PioneeringMission extends Mission {
         final Location start = unit.getPathStartLocation();
         final Unit carrier = unit.getCarrier();
         final GoalDecider gd = getGoalDecider(aiUnit, deferOK);
-        final CostDecider standardCd
-            = CostDeciders.avoidSettlementsAndBlockingUnits();
+        final CostDecider standardCd = CostDeciders.avoidSettlementsAndBlockingUnits();
 
         // Try for something sensible nearby.
         return unit.search(start, gd, standardCd, range, carrier);

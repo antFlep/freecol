@@ -50,7 +50,7 @@ import net.sf.freecol.common.metaserver.ServerInfo;
 import net.sf.freecol.common.model.NationOptions.Advantages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.common.option.OptionGroup;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -179,7 +179,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
         JRadioButton join = new JRadioButton(Messages.message("newPanel.joinMultiPlayerGame"), false);
         JRadioButton start = new JRadioButton(Messages.message("newPanel.startMultiplayerGame"), false);
         JRadioButton meta = new JRadioButton(Messages.message("newPanel.getServerList")
-                + " (" + ConfigPara.getMetaServerAddress() + ")", false);
+                + " (" + Parameters.getMetaServerAddress() + ")", false);
         this.buttonGroup.add(single);
         single.setActionCommand(String.valueOf(NewPanelAction.SINGLE));
         single.addActionListener(ae -> enableComponents());
@@ -195,7 +195,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
         single.setSelected(true);
 
         String name = getClientOptions().getText(ClientOptions.NAME);
-        if (name == null || name.isEmpty()) name = ConfigPara.getName();
+        if (name == null || name.isEmpty()) name = Parameters.getName();
         this.nameBox = new JTextField(name, 20);
 
         this.advantagesLabel
@@ -210,7 +210,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
 
         this.serverPortLabel = Utility.localizedLabel("newPanel.startServerOnPort");
         this.serverPortField
-            = new JTextField(Integer.toString(ConfigPara.getServerPort()));
+            = new JTextField(Integer.toString(Parameters.getServerPort()));
         this.serverPortField.addActionListener((ActionEvent ae) -> {
                 getSelectedPort(NewPanel.this.serverPortField);
             });
@@ -219,7 +219,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
         this.rulesBox = new JComboBox<>();
         String selectTC;
         if (this.fixedSpecification == null) { // Allow TC selection
-            selectTC = ConfigPara.getTC();
+            selectTC = Parameters.getTC();
             for (FreeColTcFile tc : FreeColTcFile.getRulesList()) {
                 this.rulesBox.addItem(tc);
                 if (selectTC.equals(tc.getId())) {
@@ -263,10 +263,10 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
             });
 
         this.joinNameLabel = Utility.localizedLabel("host");
-        this.joinNameField = new JTextField(ConfigPara.getServerHost());
+        this.joinNameField = new JTextField(Parameters.getServerHost());
         this.joinPortLabel = Utility.localizedLabel("port");
         this.joinPortField
-            = new JTextField(Integer.toString(ConfigPara.getServerPort()));
+            = new JTextField(Integer.toString(Parameters.getServerPort()));
         this.joinPortField.addActionListener((ActionEvent ae) -> {
                 getSelectedPort(NewPanel.this.joinPortField);
             });
@@ -330,7 +330,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
             throw new RuntimeException("No specification found");
         }
         this.difficulty = this.specification
-            .getDifficultyOptionGroup(ConfigPara.getDifficulty());
+            .getDifficultyOptionGroup(Parameters.getDifficulty());
         updateDifficultyBox();
         if (this.difficulty == null) {
             int index = this.difficultyBox.getItemCount() / 2;
@@ -527,7 +527,7 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
     @Override
     public Specification getSpecification() {
         if (this.fixedSpecification != null) return this.fixedSpecification;
-        return ConfigPara.loadSpecification(getSelectedTC(), null, null);
+        return Parameters.loadSpecification(getSelectedTC(), null, null);
     }
 
 
@@ -544,9 +544,9 @@ public final class NewPanel extends FreeColPanel implements ItemListener {
 
         switch (Enum.valueOf(NewPanelAction.class, command)) {
         case OK:
-            ConfigPara.setName(getSelectedName());
-            ConfigPara.setAdvantages(getSelectedAdvantages());
-            ConfigPara.setTC(getSelectedTC().getId());
+            Parameters.setName(getSelectedName());
+            Parameters.setAdvantages(getSelectedAdvantages());
+            Parameters.setTC(getSelectedTC().getId());
 
             NewPanelAction action = Enum.valueOf(NewPanelAction.class,
                 buttonGroup.getSelection().getActionCommand());

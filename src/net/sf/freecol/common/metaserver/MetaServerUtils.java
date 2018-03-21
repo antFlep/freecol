@@ -43,7 +43,7 @@ import net.sf.freecol.common.networking.RegisterServerMessage;
 import net.sf.freecol.common.networking.RemoveServerMessage;
 import net.sf.freecol.common.networking.ServerListMessage;
 import net.sf.freecol.common.networking.UpdateServerMessage;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
@@ -215,8 +215,8 @@ public class MetaServerUtils {
             };
         }
 
-        String host = ConfigPara.getMetaServerAddress();
-        int port = ConfigPara.getMetaServerPort();
+        String host = Parameters.getMetaServerAddress();
+        int port = Parameters.getMetaServerPort();
         try {
             return new Connection(host, port, "MetaServer")
                 .setMessageHandler(new MetaInputHandler(consumer));
@@ -254,8 +254,8 @@ public class MetaServerUtils {
             }
         } catch (Exception ex) {
             logger.log(Level.WARNING, "Meta-server " + type.toString()
-                + " failed: " + ConfigPara.getMetaServerAddress()
-                + ":" +  ConfigPara.getMetaServerPort(), ex);
+                + " failed: " + Parameters.getMetaServerAddress()
+                + ":" +  Parameters.getMetaServerPort(), ex);
         }
         return false;
     }

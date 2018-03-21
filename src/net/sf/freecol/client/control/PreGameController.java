@@ -32,7 +32,6 @@ import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColDirectories;
-import net.sf.freecol.common.model.FreeColGameObject;
 import net.sf.freecol.common.model.FreeColObject;
 import net.sf.freecol.common.model.Game;
 import net.sf.freecol.common.model.Game.LogoutReason;
@@ -45,7 +44,7 @@ import net.sf.freecol.common.option.GameOptions;
 import net.sf.freecol.common.option.MapGeneratorOptions;
 import net.sf.freecol.common.option.OptionGroup;
 import net.sf.freecol.common.util.Utils;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -246,7 +245,7 @@ public final class PreGameController extends FreeColClientHolder {
      */
     public void startGameHandler() {
         final FreeColClient fcc = getFreeColClient();
-        new Thread(ConfigPara.CLIENT_THREAD + "Starting game") {
+        new Thread(Parameters.CLIENT_THREAD + "Starting game") {
                 @Override
                 public void run() {
                     logger.info("Client starting game");

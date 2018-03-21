@@ -47,15 +47,15 @@ import net.sf.freecol.common.model.StringTemplate;
 public final class Tools {
 
     public static void systemCheck() {
-        if (ConfigPara.javaCheck && ConfigPara.JAVA_VERSION_MIN.compareTo(ConfigPara.JAVA_VERSION) > 0) {
+        if (Parameters.javaCheck && Parameters.JAVA_VERSION_MIN.compareTo(Parameters.JAVA_VERSION) > 0) {
             Logging.fatal(StringTemplate.template("main.javaVersion")
-                    .addName("%version%", ConfigPara.JAVA_VERSION)
-                    .addName("%minVersion%", ConfigPara.JAVA_VERSION_MIN));
+                    .addName("%version%", Parameters.JAVA_VERSION)
+                    .addName("%minVersion%", Parameters.JAVA_VERSION_MIN));
         }
-        if (ConfigPara.memoryCheck && ConfigPara.MEMORY_MAX < ConfigPara.MEMORY_MIN * 1000000) {
+        if (Parameters.memoryCheck && Parameters.MEMORY_MAX < Parameters.MEMORY_MIN * 1000000) {
             Logging.fatal(StringTemplate.template("main.memory")
-                    .addAmount("%memory%", ConfigPara.MEMORY_MAX)
-                    .addAmount("%minMemory%", ConfigPara.MEMORY_MIN));
+                    .addAmount("%memory%", Parameters.MEMORY_MAX)
+                    .addAmount("%minMemory%", Parameters.MEMORY_MIN));
         }
     }
 
@@ -97,7 +97,7 @@ public final class Tools {
      */
     public static InputStream getDefaultSplashStream(JarURLConnection juc) throws IOException {
         JarFile jf = juc.getJarFile();
-        ZipEntry ze = jf.getEntry(ConfigPara.SPLASH_DEFAULT);
+        ZipEntry ze = jf.getEntry(Parameters.SPLASH_DEFAULT);
         return jf.getInputStream(ze);
     }
 
@@ -180,10 +180,10 @@ public final class Tools {
         File userMods = FreeColDirectories.getUserModsDirectory();
         StringBuilder sb = new StringBuilder(256);
         sb.append("Configuration:")
-                .append("\n  version     ").append(ConfigPara.getRevision())
-                .append("\n  java:       ").append(ConfigPara.JAVA_VERSION)
-                .append("\n  memory:     ").append(ConfigPara.MEMORY_MAX)
-                .append("\n  locale:     ").append(ConfigPara.getLocale())
+                .append("\n  version     ").append(Parameters.getRevision())
+                .append("\n  java:       ").append(Parameters.JAVA_VERSION)
+                .append("\n  memory:     ").append(Parameters.MEMORY_MAX)
+                .append("\n  locale:     ").append(Parameters.getLocale())
                 .append("\n  data:       ")
                 .append(FreeColDirectories.getDataDirectory().getPath())
                 .append("\n  userConfig: ")

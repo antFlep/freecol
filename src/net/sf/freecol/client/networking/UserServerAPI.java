@@ -26,7 +26,7 @@ import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.networking.Connection;
 import net.sf.freecol.common.networking.MessageHandler;
 import net.sf.freecol.common.networking.ServerAPI;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -75,7 +75,7 @@ public class UserServerAPI extends ServerAPI {
         throws IOException {
         int tries;
         if (port < 0) {
-            port = ConfigPara.getServerPort();
+            port = Parameters.getServerPort();
             tries = 10;
         } else {
             tries = 1;

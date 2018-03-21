@@ -23,15 +23,15 @@ public class Network {
     public static void startClient(String userMsg) {
         Specification spec = null;
         File savegame = FreeColDirectories.getSavegameFile();
-        if (ConfigPara.debugStart) {
-            spec = ConfigPara.getTCSpecification();
-        } else if (ConfigPara.fastStart) {
+        if (Parameters.debugStart) {
+            spec = Parameters.getTCSpecification();
+        } else if (Parameters.fastStart) {
             if (savegame == null) {
                 // continue last saved game if possible,
                 // otherwise start a new one
                 savegame = FreeColDirectories.getLastSaveGameFile();
                 if (savegame == null) {
-                    spec = ConfigPara.getTCSpecification();
+                    spec = Parameters.getTCSpecification();
                 }
             }
             // savegame was specified on command line
@@ -43,14 +43,14 @@ public class Network {
         // after the first Java2D call is made.
 
 
-        final FreeColClient freeColClient = new FreeColClient(ConfigPara.splashStream,
-                ConfigPara.fontName,
-                ConfigPara.guiScale,
-                ConfigPara.headless);
-        freeColClient.startClient(ConfigPara.windowSize,
+        final FreeColClient freeColClient = new FreeColClient(Parameters.splashStream,
+                Parameters.fontName,
+                Parameters.guiScale,
+                Parameters.headless);
+        freeColClient.startClient(Parameters.windowSize,
                 userMsg,
-                ConfigPara.sound,
-                ConfigPara.introVideo,
+                Parameters.sound,
+                Parameters.introVideo,
                 savegame,
                 spec);
     }
@@ -59,7 +59,7 @@ public class Network {
      * Start the server.
      */
     public static void startServer() {
-        ConfigPara.getLogger().info("Starting stand-alone server.");
+        Parameters.getLogger().info("Starting stand-alone server.");
         FreeColServer freeColServer;
         File saveGame = FreeColDirectories.getSavegameFile();
         if (saveGame != null) {
@@ -67,9 +67,9 @@ public class Network {
                 final FreeColSavegameFile fis
                         = new FreeColSavegameFile(saveGame);
                 freeColServer = new FreeColServer(fis, (Specification)null,
-                        ConfigPara.serverPort, ConfigPara.serverName);
+                        Parameters.serverPort, Parameters.serverName);
             } catch (Exception e) {
-                ConfigPara.getLogger().log(Level.SEVERE, "Load fail", e);
+                Parameters.getLogger().log(Level.SEVERE, "Load fail", e);
                 Logging.fatal(Messages.message(Tools.badFile("error.couldNotLoad", saveGame))
                         + ": " + e);
                 freeColServer = null;
@@ -79,22 +79,22 @@ public class Network {
 
             if (freeColServer == null) return;
         } else {
-            Specification spec = ConfigPara.getTCSpecification();
+            Specification spec = Parameters.getTCSpecification();
             try {
-                freeColServer = new FreeColServer(ConfigPara.publicServer, false, spec,
-                        ConfigPara.serverPort, ConfigPara.serverName);
+                freeColServer = new FreeColServer(Parameters.publicServer, false, spec,
+                        Parameters.serverPort, Parameters.serverName);
             } catch (Exception e) {
                 Logging.fatal(Messages.message("server.initialize")
                         + ": " + e.getMessage());
                 return;
             }
-            if (ConfigPara.publicServer && freeColServer != null
+            if (Parameters.publicServer && freeColServer != null
                     && !freeColServer.getPublicServer()) {
                 Logging.gripe(Messages.message("server.noRouteToServer"));
             }
         }
 
-        String quit = ConfigPara.SERVER_THREAD + "Quit Game";
+        String quit = Parameters.SERVER_THREAD + "Quit Game";
         final Controller controller = freeColServer.getController();
         Runtime.getRuntime().addShutdownHook(new Thread(quit) {
             @Override
@@ -105,7 +105,7 @@ public class Network {
     }
 
     public static void integrityCheck(FreeColServer freeColServer) {
-        if (ConfigPara.checkIntegrity) {
+        if (Parameters.checkIntegrity) {
             String k;
             int ret;
             int check;
@@ -127,7 +127,7 @@ public class Network {
                     break;
             }
             if (freeColServer == null) {
-                ConfigPara.getLogger().warning("Integrity test blocked");
+                Parameters.getLogger().warning("Integrity test blocked");
             }
             Logging.gripe(StringTemplate.template(k)
                     .add("%log%", FreeColDirectories.getLogFilePath()));

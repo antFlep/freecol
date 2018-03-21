@@ -31,7 +31,7 @@ import net.sf.freecol.client.gui.GUI;
 import net.sf.freecol.client.gui.panel.Utility;
 import net.sf.freecol.common.io.FreeColDirectories;
 import net.sf.freecol.common.option.FileOption;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -75,8 +75,8 @@ public final class FileOptionUI extends OptionUI<FileOption>  {
                         ? FreeColDirectories.getMapsDirectory()
                         : FreeColDirectories.getSaveDirectory();
                     final String extension = (isMap)
-                        ? ConfigPara.FREECOL_MAP_EXTENSION
-                        : ConfigPara.FREECOL_SAVE_EXTENSION;
+                        ? Parameters.FREECOL_MAP_EXTENSION
+                        : Parameters.FREECOL_SAVE_EXTENSION;
                     File f = gui.showLoadSaveFileDialog(root, extension);
                     if (f != null) setValue(f);
                 });

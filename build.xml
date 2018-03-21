@@ -974,22 +974,6 @@
         </java>
     </target>
 
-    <target name="pmd">
-        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask"
-                 classpath="./pmd-4.1/lib/pmd-4.1.jar"/>
-        <pmd shortFilenames="true">
-            <ruleset>basic</ruleset>
-            <ruleset>imports</ruleset>
-            <!-- <ruleset>optimizations</ruleset> -->
-            <ruleset>unusedcode</ruleset>
-            <formatter type="html" toFile="pmd_report.html"
-                       linkPrefix="http://pmd.sourceforge.net/xref/"/>
-            <fileset dir="src">
-                <include name="**/*.java"/>
-            </fileset>
-        </pmd>
-    </target>
-
     <target name="prepare-commit"
             description="Rebuild from scratch and run all tests."
             depends="clean,package,validate,testall"/>
@@ -999,45 +983,6 @@
         <java jar="FreeCol.jar" fork="true">
             <jvmarg value="-Xmx512M" />
         </java>
-    </target>
-
-    <target name="cobertura" depends="build">
-        <property name="cobertura.dir" value="cobertura" />
-        <path id="cobertura.classpath">
-            <fileset dir="${cobertura.dir}">
-                <include name="cobertura.jar" />
-                <include name="lib/**/*.jar" />
-            </fileset>
-        </path>
-
-        <taskdef classpathref="cobertura.classpath"
-                 resource="tasks.properties" />
-
-        <cobertura-instrument todir="build/instrumented-classes">
-            <fileset dir="build/net">
-                <include name="**/*.class"/>
-            </fileset>
-        </cobertura-instrument>
-
-        <delete dir="${freecol.build.dir}/report" />
-        <mkdir dir="${freecol.build.dir}/report"/>
-        <mkdir dir="${freecol.build.dir}/report/xml"/>
-
-        <junit printsummary="on" errorproperty="error.junit"
-               fork="yes" maxmemory="64M">
-            <classpath location="build/instrumented-classes"/>
-            <classpath location="build/net"/>
-            <classpath refid="cobertura.classpath"/>
-            <classpath refid="test.run.classpath"/>
-            <formatter type="xml" />
-
-            <test todir="${freecol.build.dir}/report/xml"
-                  name="net.sf.freecol.AllTests" fork="yes"/>
-            <sysproperty key="java.awt.headless" value="true" />
-        </junit>
-
-        <cobertura-report srcdir="${freecol.src.dir}"
-                          destdir="cobertura/report"/>
     </target>
 
 </project>

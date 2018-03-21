@@ -101,7 +101,6 @@ import net.sf.freecol.client.gui.dialog.MonarchDialog;
 import net.sf.freecol.client.gui.dialog.NativeDemandDialog;
 import net.sf.freecol.client.gui.dialog.NegotiationDialog;
 import net.sf.freecol.client.gui.panel.NewPanel;
-import net.sf.freecol.client.gui.dialog.Parameters;
 import net.sf.freecol.client.gui.dialog.ParametersDialog;
 import net.sf.freecol.client.gui.dialog.PreCombatDialog;
 import net.sf.freecol.client.gui.panel.PurchasePanel;
@@ -177,7 +176,7 @@ import net.sf.freecol.common.resources.ResourceManager;
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
 import net.sf.freecol.common.util.Utils;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Tools;
 
 
@@ -1569,7 +1568,7 @@ public final class Canvas extends JDesktopPane {
                 g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                 g2d.drawImage(bgImage, 0, 0, size.width, size.height, this);
-                String versionStr = "v. " + ConfigPara.getVersion();
+                String versionStr = "v. " + Parameters.getVersion();
                 Font oldFont = g2d.getFont();
                 Color oldColor = g2d.getColor();
                 Font newFont = oldFont.deriveFont(Font.BOLD);
@@ -1927,7 +1926,7 @@ public final class Canvas extends JDesktopPane {
         DifficultyDialog dd = new DifficultyDialog(freeColClient, frame,
                                                    spec, group, editable);
         OptionGroup ret = showFreeColDialog(dd, null);
-        if (ret != null) ConfigPara.setDifficulty(ret);
+        if (ret != null) Parameters.setDifficulty(ret);
         return ret;
     }
 
@@ -2391,7 +2390,7 @@ public final class Canvas extends JDesktopPane {
      * 
      * @return The response returned by the dialog.
      */
-    public Parameters showParametersDialog() {
+    public net.sf.freecol.client.gui.dialog.Parameters showParametersDialog() {
         return showFreeColDialog(new ParametersDialog(freeColClient, frame),
                                  null);
     }

@@ -47,7 +47,7 @@ public class Logging {
         }
     }
     static final List<LogLevel> logLevels = new ArrayList<>();
-    static { logLevels.add(new LogLevel("", ConfigPara.LOGLEVEL_DEFAULT)); }
+    static { logLevels.add(new LogLevel("", Parameters.LOGLEVEL_DEFAULT)); }
 
     /** The special client options that must be processed early. */
     private static Map<String,String> specialOptions = null;
@@ -59,7 +59,7 @@ public class Logging {
         }
         try {
             Writer writer = FreeColDirectories.getLogWriter();
-            baseLogger.addHandler(new DefaultHandler(ConfigPara.consoleLogging, writer));
+            baseLogger.addHandler(new DefaultHandler(Parameters.consoleLogging, writer));
             for (LogLevel ll : logLevels) ll.buildLogger();
         } catch (FreeColException e) {
             System.err.println("Logging initialization failure: " + e.getMessage());
@@ -81,22 +81,22 @@ public class Logging {
             specialOptions = ClientOptions.getSpecialOptions();
         } catch (FreeColException fce) {
             specialOptions = new HashMap<>();
-            ConfigPara.getLogger().log(Level.WARNING, "Special options unavailable", fce);
+            Parameters.getLogger().log(Level.WARNING, "Special options unavailable", fce);
         }
         String cLang;
         if (localeArg == null
                 && (cLang = specialOptions.get(ClientOptions.LANGUAGE)) != null
                 && !Messages.AUTOMATIC.equalsIgnoreCase(cLang)
-                && ConfigPara.setLocale(cLang)) {
-            Messages.loadMessageBundle(ConfigPara.getLocale());
-            ConfigPara.getLogger().info("Loaded messages for " + ConfigPara.getLocale());
+                && Parameters.setLocale(cLang)) {
+            Messages.loadMessageBundle(Parameters.getLocale());
+            Parameters.getLogger().info("Loaded messages for " + Parameters.getLocale());
         }
 
         // Now we have the user mods directory and the locale is now
         // stable, load the TCs, the mods and their messages.
         FreeColTcFile.loadTCs();
         FreeColModFile.loadMods();
-        Messages.loadModMessageBundle(ConfigPara.getLocale());
+        Messages.loadModMessageBundle(Parameters.getLocale());
 
         // Handle other special options
         processSpecialOptions();
@@ -149,7 +149,7 @@ public class Logging {
         // XRender is available for most unix (not MacOS?)
         xRender(lb);
 
-        lb.log(ConfigPara.getLogger(), Level.INFO);
+        lb.log(Parameters.getLogger(), Level.INFO);
     }
 
     public static LogBuilder xRender (LogBuilder lb) {

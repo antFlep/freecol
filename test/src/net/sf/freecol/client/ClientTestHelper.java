@@ -23,14 +23,13 @@ import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
 
-import net.sf.freecol.FreeCol;
 import net.sf.freecol.client.control.ConnectController;
 import net.sf.freecol.common.model.Game.LogoutReason;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.model.Specification;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.common.debug.FreeColDebugger;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 public class ClientTestHelper {
@@ -49,8 +48,8 @@ public class ClientTestHelper {
         FreeColDebugger.enableDebugMode(FreeColDebugger.DebugMode.MENUS);
         FreeColDebugger.setDebugRunTurns(1);
 
-        ConfigPara.setLocale(null);
-        Messages.loadMessageBundle(ConfigPara.getLocale());
+        Parameters.setLocale(null);
+        Messages.loadMessageBundle(Parameters.getLocale());
 
         logger.info("Debug value: " + FreeColDebugger.isInDebugMode());
 

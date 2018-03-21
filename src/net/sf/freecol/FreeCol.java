@@ -45,8 +45,8 @@ public final class FreeCol {
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        String fcRev = ConfigPara.FREECOL_VERSION;
-        ConfigPara.setFreeColRevision(fcRev);
+        String fcRev = Parameters.FREECOL_VERSION;
+        Parameters.setFreeColRevision(fcRev);
         JarURLConnection juc;
         try {
             juc = Tools.getJarURLConnection(FreeCol.class);
@@ -63,14 +63,14 @@ public final class FreeCol {
             try {
                 String revision = Tools.readVersion(juc);
                 if (revision != null) {
-                    ConfigPara.setFreeColRevision(fcRev += " (Revision: " + revision + ")");
+                    Parameters.setFreeColRevision(fcRev += " (Revision: " + revision + ")");
                 }
             } catch (Exception e) {
                 System.err.println("Unable to load Manifest: "
                     + e.getMessage());
             }
             try {
-                ConfigPara.setSplashStream (Tools.getDefaultSplashStream(juc));
+                Parameters.setSplashStream (Tools.getDefaultSplashStream(juc));
             } catch (Exception e) {
                 System.err.println("Unable to open default splash: "
                     + e.getMessage());
@@ -87,8 +87,8 @@ public final class FreeCol {
         // Now we have the data directory, establish the base locale.
         // Beware, the locale may change!
         String localeArg = ArgsHandler.findArg("--default-locale", args);
-        ConfigPara.setLocale(localeArg);
-        Messages.loadMessageBundle(ConfigPara.getLocale());
+        Parameters.setLocale(localeArg);
+        Messages.loadMessageBundle(Parameters.getLocale());
         // Now that we can emit error messages, parse the other
         // command line arguments.
         ArgsHandler.handleArgs(args);
@@ -113,10 +113,10 @@ public final class FreeCol {
 
 
         // Report on where we are.
-        ConfigPara.getLogger().info(Tools.getConfiguration().toString());
+        Parameters.getLogger().info(Tools.getConfiguration().toString());
 
         // Ready to specialize into client or server.
-        if (ConfigPara.isStandAloneServer()) {
+        if (Parameters.isStandAloneServer()) {
             Network.startServer();
         } else {
             Network.startClient(userMsg);

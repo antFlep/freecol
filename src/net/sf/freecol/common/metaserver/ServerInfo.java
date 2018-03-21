@@ -20,6 +20,8 @@
 package net.sf.freecol.common.metaserver;
 
 
+import net.sf.freecol.start.Parameters;
+
 /**
  * Container class for information about a single server as retrieved
  * from the meta-server.
@@ -121,7 +123,7 @@ public class ServerInfo {
      * Get the FreeCol version of the server.
      *
      * @return The version.
-     * @see net.sf.freecol.start.ConfigPara#getVersion
+     * @see Parameters#getVersion
      */
     public String getVersion() {
         return this.version;

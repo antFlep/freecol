@@ -27,7 +27,7 @@ import javax.xml.stream.XMLStreamException;
 import net.sf.freecol.common.i18n.Messages;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 import static net.sf.freecol.common.util.StringUtils.*;
@@ -118,10 +118,10 @@ public class NationOptions extends FreeColSpecObject {
     public NationOptions(Specification specification) {
         super(specification);
         
-        this.nationalAdvantages = ConfigPara.getAdvantages();
+        this.nationalAdvantages = Parameters.getAdvantages();
         if (specification != null) {
             int counter = 0;
-            int maxEuropeans = ConfigPara.getEuropeanCount();
+            int maxEuropeans = Parameters.getEuropeanCount();
             for (Nation nation : transform(specification.getNations(),
                     n -> !n.isUnknownEnemy() && !n.getType().isREF())) {
                 if (nation.getType().isEuropean() && nation.isSelectable()) {

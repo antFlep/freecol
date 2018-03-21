@@ -27,7 +27,7 @@ import javax.xml.stream.XMLStreamException;
 import net.sf.freecol.common.io.FreeColXMLReader;
 import net.sf.freecol.common.io.FreeColXMLWriter;
 import net.sf.freecol.common.model.Specification;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -171,7 +171,7 @@ public class FileOption extends AbstractOption<File> {
         // Type attribute added
         if (type == null) {
             setType((value != null && value.getPath()
-                    .endsWith("." + ConfigPara.FREECOL_MAP_EXTENSION)) ? "map"
+                    .endsWith("." + Parameters.FREECOL_MAP_EXTENSION)) ? "map"
                 : "save");
         }
         // end @compat 0.11.6

@@ -44,7 +44,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
 import net.sf.freecol.common.util.Utils;
 import net.sf.freecol.server.FreeColServer;
 import net.sf.freecol.server.FreeColServer.ServerState;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 import net.sf.freecol.start.Logging;
 import net.sf.freecol.start.Tools;
 
@@ -89,7 +89,7 @@ public final class ConnectController extends FreeColClientHolder {
 
         StringTemplate err = null;
         try {
-            if (askServer().connect(ConfigPara.CLIENT_THREAD + user,
+            if (askServer().connect(Parameters.CLIENT_THREAD + user,
                                     host, port) != null) {
                 getFreeColClient().changeClientState(false);
                 logger.info("Connected to " + host + ":" + port
@@ -171,7 +171,7 @@ public final class ConnectController extends FreeColClientHolder {
             final String name = player.getName();
             try {
                 if (askServer().reconnect() != null
-                    && askServer().login(name, ConfigPara.getVersion(),
+                    && askServer().login(name, Parameters.getVersion(),
                                          fcc.getSinglePlayer(),
                                          fcc.currentPlayerIsMyPlayer())) {
                     logger.info("Reconnected for client " + name);
@@ -212,8 +212,8 @@ public final class ConnectController extends FreeColClientHolder {
             // Ask the server to log in a player with the given user
             // name.  Control effectively transfers through the server
             // back to PGIH.login() and then to login() below.
-            logger.info("Login request for client " + ConfigPara.getName());
-            if (askServer().login(user, ConfigPara.getVersion(),
+            logger.info("Login request for client " + Parameters.getName());
+            if (askServer().login(user, Parameters.getVersion(),
                                   fcc.getSinglePlayer(),
                                   fcc.currentPlayerIsMyPlayer())) {
                 return true;
@@ -314,7 +314,7 @@ public final class ConnectController extends FreeColClientHolder {
         final FreeColClient fcc = getFreeColClient();
         fcc.setMapEditor(false);
 
-        if (!fcc.unblockServer(ConfigPara.getServerPort())) return false;
+        if (!fcc.unblockServer(Parameters.getServerPort())) return false;
 
         if (fcc.isLoggedIn()) { // Should not happen, warn and suppress
             logger.warning("startSinglePlayer while logged in!");
@@ -328,10 +328,10 @@ public final class ConnectController extends FreeColClientHolder {
         // FIXME: allow in stand alone server starts?
         List<FreeColModFile> mods = getClientOptions().getActiveMods();
         spec.loadMods(mods);
-        Messages.loadActiveModMessageBundle(mods, ConfigPara.getLocale());
+        Messages.loadActiveModMessageBundle(mods, Parameters.getLocale());
 
         FreeColServer fcs = fcc.startServer(false, true, spec, -1);
-        return (fcs != null) && requestLogin(ConfigPara.getName(),
+        return (fcs != null) && requestLogin(Parameters.getName(),
                 fcs.getHost(), fcs.getPort());
     }
 
@@ -382,7 +382,7 @@ public final class ConnectController extends FreeColClientHolder {
         }
         if (values != null && values.size() == savedKeys.size()) {
             String str = values.get(0);
-            if (str != null) ConfigPara.setName(str);
+            if (str != null) Parameters.setName(str);
             defaultSinglePlayer = Boolean.parseBoolean(values.get(1));
             defaultPublicServer = Boolean.parseBoolean(values.get(2));
         } else {
@@ -413,7 +413,7 @@ public final class ConnectController extends FreeColClientHolder {
             port = -1;
         }
         Messages.loadActiveModMessageBundle(options.getActiveMods(),
-                                            ConfigPara.getLocale());
+                                            Parameters.getLocale());
         if (!fcc.unblockServer(port)) return false;
 
         if (fcc.isLoggedIn()) { // Should not happen, warn and suppress
@@ -426,7 +426,7 @@ public final class ConnectController extends FreeColClientHolder {
         if (fcs == null) return false;
         fcc.setFreeColServer(fcs);
         fcc.setSinglePlayer(true);
-        return requestLogin(ConfigPara.getName(), fcs.getHost(), fcs.getPort());
+        return requestLogin(Parameters.getName(), fcs.getHost(), fcs.getPort());
     }
 
     /**
@@ -454,7 +454,7 @@ public final class ConnectController extends FreeColClientHolder {
         if (fcs == null) return false;
         fcc.setFreeColServer(fcs);
         fcc.setSinglePlayer(false);
-        return requestLogin(ConfigPara.getName(), fcs.getHost(), fcs.getPort());
+        return requestLogin(Parameters.getName(), fcs.getHost(), fcs.getPort());
     }
 
     /**
@@ -474,7 +474,7 @@ public final class ConnectController extends FreeColClientHolder {
         }
 
         // Connect and disconnect, allow GameState message to arrive
-        String name = ConfigPara.getName();
+        String name = Parameters.getName();
         StringTemplate err = connect(name, host, port);
         if (err != null) {
             getGUI().showErrorMessage(err);

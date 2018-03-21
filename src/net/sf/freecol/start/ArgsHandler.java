@@ -41,10 +41,10 @@ public final class ArgsHandler {
             { "d", "freecol-data", "cli.freecol-data", argDir },
             { "L", "default-locale", "cli.default-locale", "cli.arg.locale" },
             // Ordinary options
-            { "a", "advantages", ConfigPara.getAdvantagesDescription(), "cli.arg.advantages" },
+            { "a", "advantages", Parameters.getAdvantagesDescription(), "cli.arg.advantages" },
             { null,  "check-savegame", "cli.check-savegame", argFile },
             { "O", "clientOptions", "cli.clientOptions", "cli.arg.clientOptions" },
-            { "D", "debug", ConfigPara.getDebugDescription(), "cli.arg.debug" },
+            { "D", "debug", Parameters.getDebugDescription(), "cli.arg.debug" },
             { "R", "debug-run", "cli.debug-run", "cli.arg.debugRun" },
             { "S", "debug-start", "cli.debug-start", null },
             { "D", "difficulty", "cli.difficulty", "cli.arg.difficulty" },
@@ -52,7 +52,7 @@ public final class ArgsHandler {
             { null,  "fast", "cli.fast", null },
             { "f", "font", "cli.font", "cli.arg.font" },
             { "F", "full-screen", "cli.full-screen", null },
-            { "g", "gui-scale", ConfigPara.getGUIScaleDescription(), "!cli.arg.gui-scale" },
+            { "g", "gui-scale", Parameters.getGUIScaleDescription(), "!cli.arg.gui-scale" },
             { "H", "headless", "cli.headless", null },
             { "l", "load-savegame", "cli.load-savegame", argFile },
             { null,  "log-console", "cli.log-console", null },
@@ -117,10 +117,10 @@ public final class ArgsHandler {
 
             if (line.hasOption("advantages")) {
                 String arg = line.getOptionValue("advantages");
-                Advantages a = ConfigPara.selectAdvantages(arg);
+                Advantages a = Parameters.selectAdvantages(arg);
                 if (a == null) {
                     Logging.fatal(StringTemplate.template("cli.error.advantages")
-                            .addName("%advantages%", ConfigPara.getValidAdvantages())
+                            .addName("%advantages%", Parameters.getValidAdvantages())
                             .addName("%arg%", arg));
                 }
             }
@@ -131,8 +131,8 @@ public final class ArgsHandler {
                     Logging.fatal(StringTemplate.template("cli.err.save")
                             .addName("%string%", arg));
                 }
-                ConfigPara.checkIntegrity = true;
-                ConfigPara.standAloneServer = true;
+                Parameters.checkIntegrity = true;
+                Parameters.standAloneServer = true;
             }
 
             if (line.hasOption("clientOptions")) {
@@ -162,52 +162,52 @@ public final class ArgsHandler {
                 FreeColDebugger.configureDebugRun(line.getOptionValue("debug-run"));
             }
             if (line.hasOption("debug-start")) {
-                ConfigPara.debugStart = true;
+                Parameters.debugStart = true;
                 FreeColDebugger.enableDebugMode(FreeColDebugger.DebugMode.MENUS);
             }
 
             if (line.hasOption("difficulty")) {
                 String arg = line.getOptionValue("difficulty");
-                String difficulty = ConfigPara.selectDifficulty(arg);
+                String difficulty = Parameters.selectDifficulty(arg);
                 if (difficulty == null) {
                     Logging.fatal(StringTemplate.template("cli.error.difficulties")
-                            .addName("%difficulties%", ConfigPara.getValidDifficulties())
+                            .addName("%difficulties%", Parameters.getValidDifficulties())
                             .addName("%arg%", arg));
                 }
             }
 
             if (line.hasOption("europeans")) {
-                int e = ConfigPara.selectEuropeanCount(line.getOptionValue("europeans"));
+                int e = Parameters.selectEuropeanCount(line.getOptionValue("europeans"));
                 if (e < 0) {
                     Logging.gripe(StringTemplate.template("cli.error.europeans")
-                            .addAmount("%min%", ConfigPara.EUROPEANS_MIN));
+                            .addAmount("%min%", Parameters.EUROPEANS_MIN));
                 }
             }
 
             if (line.hasOption("fast")) {
-                ConfigPara.fastStart = true;
-                ConfigPara.introVideo = false;
+                Parameters.fastStart = true;
+                Parameters.introVideo = false;
             }
 
             if (line.hasOption("font")) {
-                ConfigPara.fontName = line.getOptionValue("font");
+                Parameters.fontName = line.getOptionValue("font");
             }
 
             if (line.hasOption("full-screen")) {
-                ConfigPara.windowSize = null;
+                Parameters.windowSize = null;
             }
 
             if (line.hasOption("gui-scale")) {
                 String arg = line.getOptionValue("gui-scale");
-                if(!ConfigPara.setGUIScale(arg)) {
+                if(!Parameters.setGUIScale(arg)) {
                     Logging.gripe(StringTemplate.template("cli.error.gui-scale")
-                            .addName("%scales%", ConfigPara.getValidGUIScales())
+                            .addName("%scales%", Parameters.getValidGUIScales())
                             .addName("%arg%", arg));
                 }
             }
 
             if (line.hasOption("headless")) {
-                ConfigPara.headless = true;
+                Parameters.headless = true;
             }
 
             if (line.hasOption("load-savegame")) {
@@ -219,7 +219,7 @@ public final class ArgsHandler {
             }
 
             if (line.hasOption("log-console")) {
-                ConfigPara.consoleLogging = true;
+                Parameters.consoleLogging = true;
             }
 
             if (line.hasOption("log-file")) {
@@ -237,44 +237,44 @@ public final class ArgsHandler {
 
             if (line.hasOption("meta-server")) {
                 String arg = line.getOptionValue("meta-server");
-                if (!ConfigPara.setMetaServer(arg)) {
+                if (!Parameters.setMetaServer(arg)) {
                     Logging.gripe(StringTemplate.template("cli.error.meta-server").addName("%arg%", arg));
                 }
             }
 
             if (line.hasOption("name")) {
-                ConfigPara.setName(line.getOptionValue("name"));
+                Parameters.setName(line.getOptionValue("name"));
             }
 
             if (line.hasOption("no-intro")) {
-                ConfigPara.introVideo = false;
+                Parameters.introVideo = false;
             }
             if (line.hasOption("no-java-check")) {
-                ConfigPara.javaCheck = false;
+                Parameters.javaCheck = false;
             }
             if (line.hasOption("no-memory-check")) {
-                ConfigPara.memoryCheck = false;
+                Parameters.memoryCheck = false;
             }
             if (line.hasOption("no-sound")) {
-                ConfigPara.sound = false;
+                Parameters.sound = false;
             }
             if (line.hasOption("no-splash")) {
-                ConfigPara.splashStream = null;
+                Parameters.splashStream = null;
             }
 
             if (line.hasOption("private")) {
-                ConfigPara.publicServer = false;
+                Parameters.publicServer = false;
             }
 
             if (line.hasOption("server")) {
-                ConfigPara.standAloneServer = true;
+                Parameters.standAloneServer = true;
             }
             if (line.hasOption("server-name")) {
-                ConfigPara.serverName = line.getOptionValue("server-name");
+                Parameters.serverName = line.getOptionValue("server-name");
             }
             if (line.hasOption("server-port")) {
                 String arg = line.getOptionValue("server-port");
-                if (!ConfigPara.setServerPort(arg)) {
+                if (!Parameters.setServerPort(arg)) {
                     Logging.fatal(StringTemplate.template("cli.error.serverPort").addName("%string%", arg));
                 }
             }
@@ -287,22 +287,22 @@ public final class ArgsHandler {
                 String splash = line.getOptionValue("splash");
                 try {
                     FileInputStream fis = new FileInputStream(splash);
-                    ConfigPara.splashStream = fis;
+                    Parameters.splashStream = fis;
                 } catch (FileNotFoundException fnfe) {
                     Logging.gripe(StringTemplate.template("cli.error.splash").addName("%name%", splash));
                 }
             }
 
             if (line.hasOption("tc")) {
-                ConfigPara.setTC(line.getOptionValue("tc")); // Failure is deferred.
+                Parameters.setTC(line.getOptionValue("tc")); // Failure is deferred.
             }
 
             if (line.hasOption("timeout")) {
                 String arg = line.getOptionValue("timeout");
-                if (!ConfigPara.setTimeout(arg)) { // Not fatal
+                if (!Parameters.setTimeout(arg)) { // Not fatal
                     Logging.gripe(StringTemplate.template("cli.error.timeout")
                             .addName("%string%", arg)
-                            .addName("%minimum%", Long.toString(ConfigPara.TIMEOUT_MIN)));
+                            .addName("%minimum%", Long.toString(Parameters.TIMEOUT_MIN)));
                 }
             }
 
@@ -331,13 +331,13 @@ public final class ArgsHandler {
             }
 
             if (line.hasOption("version")) {
-                System.out.println("FreeCol " + ConfigPara.getVersion());
+                System.out.println("FreeCol " + Parameters.getVersion());
                 System.exit(0);
             }
 
             if (line.hasOption("windowed")) {
                 String arg = line.getOptionValue("windowed");
-                ConfigPara.setWindowSize(arg); // Does not fail
+                Parameters.setWindowSize(arg); // Does not fail
             }
 
         } catch (ParseException e) {

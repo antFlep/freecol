@@ -28,7 +28,7 @@ import java.util.logging.LogRecord;
 import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.debug.FreeColDebugger;
 import net.sf.freecol.common.util.OSUtils;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -64,9 +64,9 @@ public final class DefaultHandler extends Handler {
         try {
             StringBuilder sb = new StringBuilder(512);
             sb.append("FreeCol game version: ")
-                .append(ConfigPara.getRevision())
+                .append(Parameters.getRevision())
                 .append("\nFreeCol protocol version: ")
-                .append(ConfigPara.getFreeColProtocolVersion())
+                .append(Parameters.getFreeColProtocolVersion())
                 .append("\n\nJava vendor: ")
                 .append(System.getProperty("java.vendor"))
                 .append("\nJava version: ")

@@ -52,7 +52,7 @@ import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.common.util.Utils;
 import net.sf.freecol.server.model.ServerPlayer;
 import net.sf.freecol.server.networking.DummyConnection;
-import net.sf.freecol.start.ConfigPara;
+import net.sf.freecol.start.Parameters;
 
 
 /**
@@ -268,7 +268,7 @@ public abstract class AIPlayer extends AIObject {
      * @param runnable The {@code Runnable} work to do.
      */
     public void invoke(final Runnable runnable) {
-        final String name = ConfigPara.SERVER_THREAD + "AIPlayer("
+        final String name = Parameters.SERVER_THREAD + "AIPlayer("
             + getPlayer().getName() + ")";
         Thread thread = new Thread(name) {
                 @Override
