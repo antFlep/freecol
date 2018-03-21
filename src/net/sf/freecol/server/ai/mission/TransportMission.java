@@ -66,7 +66,7 @@ public class TransportMission extends Mission {
 
     public static final String TAG = "transportMission";
 
-    private static final String tag = "AI transport";
+    private static final String MISSION_TAG = "AI transport";
     
     private static enum CargoResult {
         TCONTINUE,  // Cargo should continue
@@ -121,7 +121,7 @@ public class TransportMission extends Mission {
      */
     @Override
     public void dispose() {
-        logger.finest(tag + " disposing (" + clearCargoes() + "): " + this);
+        logger.finest(MISSION_TAG + " disposing (" + clearCargoes() + "): " + this);
         super.dispose();
     }
 
@@ -1394,7 +1394,7 @@ public class TransportMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         checkCargoes(lb);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
@@ -1415,7 +1415,7 @@ public class TransportMission extends Mission {
                     if (m != null) return lbDone(lb, false, "going pirate");
                 }                    
                 if ((reason = invalidReason()) != null) {
-                    logger.warning(tag + " post-stop failure(" + reason
+                    logger.warning(MISSION_TAG + " post-stop failure(" + reason
                         + "): " + this.toFullString());
                     return lbFail(lb, false, reason);
                 }
@@ -1431,7 +1431,7 @@ public class TransportMission extends Mission {
                 return lbFail(lb, false, AIUNITDIED);
 
             case MOVE_NO_TILE: // Another unit is blocking a river?
-                moveRandomly(tag, null);
+                moveRandomly(MISSION_TAG, null);
                 return lbDodge(lb);
 
             case ATTACK_UNIT:
@@ -1447,7 +1447,7 @@ public class TransportMission extends Mission {
                 // blockage using its own path finding.
                 if (unit.getTile().isAdjacent(target.getTile())
                     || costDecider == fallBackDecider) {
-                    moveRandomly(tag, null);
+                    moveRandomly(MISSION_TAG, null);
                     return lbDodge(lb);
                 }
                 costDecider = fallBackDecider; // Retry

@@ -213,11 +213,12 @@ public final class TileViewer extends FreeColClientHolder {
         final TileType tileType = tile.getType();
         Dimension terrainTileSize = lib.tileSize;
         BufferedImage overlayImage = lib.getOverlayImage(tile);
-        final int compoundHeight = (overlayImage != null)
-            ? overlayImage.getHeight()
-            : tileType.isForested()
-                ? lib.tileForestSize.height
-                : terrainTileSize.height;
+        final int compoundHeight;
+
+        if (overlayImage != null) compoundHeight = overlayImage.getHeight();
+        else if (tileType.isForested()) compoundHeight = lib.tileForestSize.height;
+        else compoundHeight = terrainTileSize.height;
+
         BufferedImage image = new BufferedImage(
             terrainTileSize.width, compoundHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -238,11 +239,12 @@ public final class TileViewer extends FreeColClientHolder {
         final TileType tileType = tile.getType();
         Dimension terrainTileSize = lib.tileSize;
         BufferedImage overlayImage = lib.getOverlayImage(tile);
-        final int compoundHeight = (overlayImage != null)
-            ? overlayImage.getHeight()
-            : tileType.isForested()
-                ? lib.tileForestSize.height
-                : terrainTileSize.height;
+        final int compoundHeight;
+
+        if (overlayImage != null) compoundHeight = overlayImage.getHeight();
+        else if (tileType.isForested()) compoundHeight = lib.tileForestSize.height;
+        else compoundHeight = terrainTileSize.height;
+
         BufferedImage image = new BufferedImage(
             terrainTileSize.width, compoundHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -268,11 +270,12 @@ public final class TileViewer extends FreeColClientHolder {
         final TileType tileType = tile.getType();
         Dimension terrainTileSize = lib.tileSize;
         BufferedImage overlayImage = lib.getOverlayImage(tile);
-        final int compoundHeight = (overlayImage != null)
-            ? overlayImage.getHeight()
-            : tileType.isForested()
-                ? lib.tileForestSize.height
-                : terrainTileSize.height;
+        final int compoundHeight;
+
+        if (overlayImage != null) compoundHeight = overlayImage.getHeight();
+        else if (tileType.isForested()) compoundHeight = lib.tileForestSize.height;
+        else compoundHeight = terrainTileSize.height;
+
         BufferedImage image = new BufferedImage(
             terrainTileSize.width, compoundHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();

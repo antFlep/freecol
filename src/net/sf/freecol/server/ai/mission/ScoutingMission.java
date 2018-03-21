@@ -52,7 +52,7 @@ public class ScoutingMission extends Mission {
     public static final String TAG = "scoutingMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI scout";
+    private static final String MISSION_TAG = "AI scout";
 
     /**
      * The target for this mission.
@@ -396,7 +396,7 @@ public class ScoutingMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (isTargetReason(reason)) {
             return retargetMission(reason, lb);
@@ -424,14 +424,14 @@ public class ScoutingMission extends Mission {
             return this;
 
         case MOVE_NO_TILE:
-            moveRandomly(tag, null);
+            moveRandomly(MISSION_TAG, null);
             return lbDodge(lb);
 
         case ATTACK_UNIT:
             // Could be adjacent to the destination but it is
             // temporarily blocked by another unit.  Make a random
             // (directed if possible) move and try again.
-            moveRandomly(tag, unit.getTile()
+            moveRandomly(MISSION_TAG, unit.getTile()
                 .getDirection(getTarget().getTile()));
             return lbDodge(lb);
 

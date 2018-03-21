@@ -59,7 +59,7 @@ public class PioneeringMission extends Mission {
     public static final String TAG = "pioneeringMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI pioneer";
+    private static final String MISSION_TAG = "AI pioneer";
 
     /** The improvement this pioneer is to work on. */
     private TileImprovementPlan tileImprovementPlan;
@@ -530,7 +530,7 @@ public class PioneeringMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         final AIUnit aiUnit = getAIUnit();
 
         // Check for completion and tileImprovement failure up front.
@@ -687,7 +687,7 @@ public class PioneeringMission extends Mission {
                 // unit at the target.  Move randomly and retry if
                 // adjacent.
                 Direction d = unit.getTile().getDirection(tile);
-                if (d != null) moveRandomly(tag, d);
+                if (d != null) moveRandomly(MISSION_TAG, d);
                 continue;
 
             default:

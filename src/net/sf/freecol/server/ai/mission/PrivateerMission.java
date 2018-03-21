@@ -49,7 +49,7 @@ public class PrivateerMission extends Mission {
     public static final String TAG = "privateerMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI privateer";
+    private static final String MISSION_TAG = "AI privateer";
 
     /**
      * The target for this mission.
@@ -368,7 +368,7 @@ public class PrivateerMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         final AIUnit aiUnit = getAIUnit();
         if (aiUnit.hasCargo()) { // Deliver the goods
             Mission m = getEuropeanAIPlayer().getTransportMission(aiUnit);
@@ -394,7 +394,7 @@ public class PrivateerMission extends Mission {
 
         Location newTarget = findTarget(aiUnit, 1, true);
         if (newTarget == null) {
-            moveRandomlyTurn(tag);
+            moveRandomlyTurn(MISSION_TAG);
             return lbAt(lb);
         }
 
@@ -411,7 +411,7 @@ public class PrivateerMission extends Mission {
             return lbFail(lb, false, AIUNITDIED);
 
         case MOVE_NO_TILE: // Can happen when another unit blocks a river
-            moveRandomly(tag, null);
+            moveRandomly(MISSION_TAG, null);
             return lbDodge(lb);
 
         case ATTACK_UNIT: // Arrived
@@ -428,7 +428,7 @@ public class PrivateerMission extends Mission {
                         unit.getTile().getDirection(blocker.getTile()));
                     lbAttack(lb, blocker);
                 } else { // Might be dangerous, try to confuse them:-)
-                    moveRandomlyTurn(tag);
+                    moveRandomlyTurn(MISSION_TAG);
                     lb.add(" avoiding ", blocker, ".");
                 }
             }

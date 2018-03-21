@@ -53,7 +53,7 @@ public class CashInTreasureTrainMission extends Mission {
     public static final String TAG = "cashInTreasureTrainMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI treasureTrain";
+    private static final String MISSION_TAG = "AI treasureTrain";
 
     /**
      * The location to cash this treasure train in at, either a Colony
@@ -394,7 +394,7 @@ public class CashInTreasureTrainMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (isTargetReason(reason)) {
             return retargetMission(reason, lb);

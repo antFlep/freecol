@@ -61,7 +61,7 @@ public class BuildColonyMission extends Mission {
     public static final String TAG = "buildColonyMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI colony builder";
+    private static final String MISSION_TAG = "AI colony builder";
 
     /**
      * The target of this mission.  It can either be a Tile where a
@@ -356,7 +356,7 @@ public class BuildColonyMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         final AIMain aiMain = getAIMain();
         final AIUnit aiUnit = getAIUnit();
         final Unit unit = getUnit();
@@ -501,7 +501,7 @@ public class BuildColonyMission extends Mission {
             // Log the colony values so we can improve things
             if (logger.isLoggable(Level.FINE)) {
                 LogBuilder l2 = new LogBuilder(64);
-                l2.add(tag, " score-at-foundation ", tile, ":");
+                l2.add(MISSION_TAG, " score-at-foundation ", tile, ":");
                 for (Double d : player.getAllColonyValues(tile)) {
                     l2.add(" ", d);
                 }

@@ -57,8 +57,8 @@ public class ForestMaker {
             = { 1, 2, 4, 8 };
 
 
-    private static final boolean drawBorders = true;
-    private static final boolean drawTrees = true;
+    private static final boolean DRAW_BORDERS = true;
+    private static final boolean DRAW_TREES = true;
 
 
     private static class ImageLocation implements Comparable<ImageLocation> {
@@ -220,7 +220,7 @@ public class ForestMaker {
                     treeCount++;
                 }
 
-                if (drawBorders) {
+                if (DRAW_BORDERS) {
                     int dx = right.x + left.x;
                     int dy = right.y + left.y;
                     g.setColor(Color.RED);
@@ -230,7 +230,7 @@ public class ForestMaker {
                     g.drawLine(left.x, left.y, 0, 0);
                 }
 
-                if (drawTrees) {
+                if (DRAW_TREES) {
                     List<ImageLocation> trees = new ArrayList<>(TREES);
                     // reduce number of trees if river branches are present
                     int numberOfTrees = (6 - treeCount) * TREES / 6;

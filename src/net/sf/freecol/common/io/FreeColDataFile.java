@@ -59,7 +59,7 @@ public class FreeColDataFile {
     protected static final String ZIP_FILE_EXTENSION = "zip";
 
     /** A fake URI scheme for resources delegating to other resources. */
-    private static final String resourceScheme = "resource:";
+    private static final String RESOURCE_SCHEME = "resource:";
 
     /** The file this object represents. */
     private final File file;
@@ -200,7 +200,7 @@ public class FreeColDataFile {
                 alternatives.add(key);
             } else {
                 final String value = properties.getProperty(key);
-                if (value.startsWith(resourceScheme)) {
+                if (value.startsWith(RESOURCE_SCHEME)) {
                     todo.add(key);
                 } else {
                     URI uri = getURI(value);
@@ -219,7 +219,7 @@ public class FreeColDataFile {
             while (!todo.isEmpty()) {
                 final String key = todo.remove(0);
                 final String value = properties.getProperty(key)
-                    .substring(resourceScheme.length());
+                    .substring(RESOURCE_SCHEME.length());
                 if (!rc.duplicateResource(value, key)) {
                     miss.add(key);
                 } else {

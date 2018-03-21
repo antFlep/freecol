@@ -41,7 +41,7 @@ public class WorkInsideColonyMission extends Mission {
     public static final String TAG = "workInsideColonyMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI worker";
+    private static final String MISSION_TAG = "AI worker";
 
     /** The target colony to work inside. */
     private Colony colony;
@@ -154,7 +154,7 @@ public class WorkInsideColonyMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 

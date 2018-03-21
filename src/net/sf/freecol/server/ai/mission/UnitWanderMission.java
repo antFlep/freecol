@@ -36,7 +36,7 @@ public class UnitWanderMission extends Mission {
     public static final String TAG = "unitWanderMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI wanderer";
+    private static final String MISSION_TAG = "AI wanderer";
 
 
     /**
@@ -113,12 +113,12 @@ public class UnitWanderMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 
         // Just move in random directions.
-        moveRandomlyTurn(tag);
+        moveRandomlyTurn(MISSION_TAG);
         return lbAt(lb);
     }
 

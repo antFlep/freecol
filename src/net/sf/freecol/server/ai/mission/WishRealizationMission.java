@@ -45,7 +45,7 @@ public class WishRealizationMission extends Mission {
     public static final String TAG = "wishRealizationMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI wisher";
+    private static final String MISSION_TAG = "AI wisher";
 
     /** The wish to be realized. */
     private Wish wish;
@@ -170,7 +170,7 @@ public class WishRealizationMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 

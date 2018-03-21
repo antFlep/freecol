@@ -204,8 +204,9 @@ public class ChoiceItem<T> implements Comparable<ChoiceItem<T>> {
      */
     @Override
     public int compareTo(ChoiceItem<T> other) {
-        return (this.text == null) ? -1 : (other.text == null) ? 1
-            : this.text.compareTo(other.text);
+        if (this.text == null) return -1;
+        else if (other.text == null) return 1;
+        else return this.text.compareTo(other.text);
     }
 
 

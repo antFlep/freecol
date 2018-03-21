@@ -147,11 +147,11 @@ public final class ImageLibrary {
          * @return A suitable {@code PathType}.
          */
         public static PathType getPathType(Unit u) {
-            return (u == null) ? PathType.FOOT
-                : (u.isNaval()) ? PathType.NAVAL
-                : (u.isMounted()) ? PathType.HORSE
-                : (u.isPerson()) ? PathType.FOOT
-                : PathType.WAGON;
+            if (u == null) return PathType.FOOT;
+            else if (u.isNaval()) return PathType.NAVAL;
+            else if (u.isMounted()) return PathType.HORSE;
+            else if (u.isPerson()) return PathType.FOOT;
+            else return PathType.WAGON;
         }
     }
 
@@ -318,18 +318,17 @@ public final class ImageLibrary {
      */
     public static Color getGoodsColor(GoodsType goodsType, int amount,
                                       Location location) {
-        final String key = (!goodsType.limitIgnored()
-            && location instanceof Colony
-            && ((Colony)location).getWarehouseCapacity() < amount)
-            ? "color.foreground.GoodsLabel.capacityExceeded"
-            : (location instanceof Colony && goodsType.isStorable()
-                && ((Colony)location).getExportData(goodsType).getExported())
-            ? "color.foreground.GoodsLabel.exported"
-            : (amount == 0)
-            ? "color.foreground.GoodsLabel.zeroAmount"
-            : (amount < 0)
-            ? "color.foreground.GoodsLabel.negativeAmount"
-            : "color.foreground.GoodsLabel.positiveAmount";
+        final String key;
+        if (!goodsType.limitIgnored()
+                && location instanceof Colony
+                && ((Colony) location).getWarehouseCapacity() < amount)
+            key = "color.foreground.GoodsLabel.capacityExceeded";
+        else if (location instanceof Colony && goodsType.isStorable()
+                && ((Colony) location).getExportData(goodsType).getExported())
+            key = "color.foreground.GoodsLabel.exported";
+        else if (amount == 0) key = "color.foreground.GoodsLabel.zeroAmount";
+        else if (amount < 0) key = "color.foreground.GoodsLabel.negativeAmount";
+        else key = "color.foreground.GoodsLabel.positiveAmount";
         return getColor(key, Color.BLACK);
     }
 

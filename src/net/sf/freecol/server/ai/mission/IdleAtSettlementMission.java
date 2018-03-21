@@ -38,7 +38,7 @@ public class IdleAtSettlementMission extends Mission {
     public static final String TAG = "idleAtSettlementMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI idler";
+    private static final String MISSION_TAG = "AI idler";
 
 
     /**
@@ -140,7 +140,7 @@ public class IdleAtSettlementMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 
@@ -154,7 +154,7 @@ public class IdleAtSettlementMission extends Mission {
         Location target = getTarget();
         if (target == null) {
             // Just make a random moves if no target can be found.
-            moveRandomlyTurn(tag);
+            moveRandomlyTurn(MISSION_TAG);
             return lbWait(lb);
         }
 

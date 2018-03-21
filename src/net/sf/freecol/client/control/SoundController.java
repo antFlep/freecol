@@ -123,11 +123,10 @@ public class SoundController {
      */
     public String getSoundMixerLabelText() {
         Mixer mixer;
-        String text = (soundPlayer == null)
-            ? Messages.message("nothing")
-            : ((mixer = soundPlayer.getMixer()) == null)
-                ? Messages.message("none")
-                : mixer.getMixerInfo().getName();
+        String text;
+        if (soundPlayer == null) text = Messages.message("nothing");
+        else if ((mixer = soundPlayer.getMixer()) == null) text = Messages.message("none");
+        else text = mixer.getMixerInfo().getName();
         return Messages.message("current") + ":  " + text;
     }
 

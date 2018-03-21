@@ -183,10 +183,12 @@ public final class SelectDestinationDialog extends FreeColDialog<Location>
                     if (sk != null) {
                         final Predicate<Unit> upgradePred = u ->
                             u.getUnitChange(UnitChangeType.NATIVES) != null;
-                        Unit up = (unit.isCarrier())
-                            ? find(unit.getUnits(), upgradePred)
-                            : (upgradePred.test(unit)) ? unit
-                            : null;
+
+                        Unit up;
+                        if (unit.isCarrier()) up = find(unit.getUnits(), upgradePred);
+                        else if (upgradePred.test(unit)) up = unit;
+                        else up = null;
+
                         if (up != null) {
                             lb.add("[", Messages.getName(sk), "]");
                         }
@@ -198,11 +200,13 @@ public final class SelectDestinationDialog extends FreeColDialog<Location>
                         String sale = owner.getLastSaleString(loc, g);
                         String more = null;
                         if (loc instanceof IndianSettlement) {
+
                             IndianSettlement is = (IndianSettlement)loc;
-                            more = (g == is.getWantedGoods(0)) ? "***"
-                                : (g == is.getWantedGoods(1)) ? "**"
-                                : (g == is.getWantedGoods(2)) ? "*"
-                                : null;
+                            if (g == is.getWantedGoods(0)) more = "***";
+                            else if (g == is.getWantedGoods(1)) more = "**";
+                            else if (g == is.getWantedGoods(2)) more = "*";
+                            else more = null;
+
                         }
                         if (sale != null && more != null) {
                             lb.add(Messages.getName(g), " ", sale, more, sep);
@@ -217,13 +221,10 @@ public final class SelectDestinationDialog extends FreeColDialog<Location>
         }
 
         private int calculateScore() {
-            return (location instanceof Europe || location instanceof Map)
-                ? 10
-                : (location instanceof Colony)
-                ? ((unit.getOwner().owns((Colony)location)) ? 20 : 30)
-                : (location instanceof IndianSettlement)
-                ? 40
-                : 100;
+            if (location instanceof Europe || location instanceof Map) return 10;
+            else if (location instanceof Colony) return (unit.getOwner().owns((Colony) location)) ? 20 : 30;
+            else if (location instanceof IndianSettlement) return 40;
+            else return 100;
         }
     }
 
@@ -383,10 +384,9 @@ public final class SelectDestinationDialog extends FreeColDialog<Location>
                 SelectDestinationDialog.this.destinations.sort(SelectDestinationDialog.this.destinationComparator);
                 updateDestinationList();
             });
-        this.comparatorBox.setSelectedIndex(
-            (this.destinationComparator instanceof NameComparator) ? 1
-            : (this.destinationComparator instanceof DistanceComparator) ? 2
-            : 0);
+        if (this.destinationComparator instanceof NameComparator) this.comparatorBox.setSelectedIndex(1);
+        else if (this.destinationComparator instanceof DistanceComparator) this.comparatorBox.setSelectedIndex(2);
+        else this.comparatorBox.setSelectedIndex(0);
 
         MigPanel panel = new MigPanel(new MigLayout("wrap 1, fill",
                                                     "[align center]", ""));

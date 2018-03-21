@@ -54,7 +54,7 @@ public class UnitSeekAndDestroyMission extends Mission {
     public static final String TAG = "unitSeekAndDestroyMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI seek+destroyer";
+    private static final String MISSION_TAG = "AI seek+destroyer";
 
     /**
      * The object we are trying to destroy. This can be a
@@ -411,7 +411,7 @@ public class UnitSeekAndDestroyMission extends Mission {
                 if (settlement.isConnectedPort()) {
                     transportTarget = settlement.getTile()
                         .getBestDisembarkTile(unit.getOwner());
-                    logger.finest(tag + " chose dropoff " + transportTarget
+                    logger.finest(MISSION_TAG + " chose dropoff " + transportTarget
                         + " for attack on "
                         + ((settlement.canBombardEnemyShip()) ? "hazardous"
                             : "normal")
@@ -443,7 +443,7 @@ public class UnitSeekAndDestroyMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         final AIUnit aiUnit = getAIUnit();
         String reason = invalidReason();
         if (isTargetReason(reason)) {

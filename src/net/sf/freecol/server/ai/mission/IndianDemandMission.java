@@ -63,7 +63,7 @@ public class IndianDemandMission extends Mission {
     private static final int GOODS_DEMAND_MIN = 30;
     
     /** The tag for this mission. */
-    private static final String tag = "AI native demander";
+    private static final String MISSION_TAG = "AI native demander";
 
     /** Predicates for demand goods selection. */
     private static final List<Predicate<GoodsType>> selectPredicates
@@ -335,7 +335,7 @@ public class IndianDemandMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 
@@ -363,7 +363,7 @@ public class IndianDemandMission extends Mission {
             case ATTACK_UNIT: // Something is blocking our path
                 Location blocker = resolveBlockage(aiUnit, getTarget());
                 if (blocker == null) {
-                    moveRandomly(tag, null);
+                    moveRandomly(MISSION_TAG, null);
                     return lbWait(lb);
                 }
                 d = unit.getTile().getDirection(blocker.getTile());

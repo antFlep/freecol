@@ -143,8 +143,11 @@ public class FreeColDialog<T> extends JDialog implements PropertyChangeListener 
             else if (ci.isOK()) ok = i;
             i++;
         }
-        return (def >= 0) ? def : (can >= 0) ? can : (ok >= 0) ? ok
-            : options.size() - 1;
+
+        if (def >= 0) return def;
+        else if (can >= 0) return can;
+        else if (ok >= 0) return ok;
+        else return options.size() - 1;
     }
 
     /**

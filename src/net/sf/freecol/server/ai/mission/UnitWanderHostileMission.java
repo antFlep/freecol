@@ -44,7 +44,7 @@ public class UnitWanderHostileMission extends Mission {
     public static final String TAG = "unitWanderHostileMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI hostile-wanderer";
+    private static final String MISSION_TAG = "AI hostile-wanderer";
 
 
     /**
@@ -164,7 +164,7 @@ public class UnitWanderHostileMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 
@@ -174,7 +174,7 @@ public class UnitWanderHostileMission extends Mission {
         final AIUnit aiUnit = getAIUnit();
         int check = 0;
         int checkTurns = randomInt(logger, "Hostile", getAIRandom(), 4);
-        Direction d = Direction.getRandomDirection(tag, logger, getAIRandom());
+        Direction d = Direction.getRandomDirection(MISSION_TAG, logger, getAIRandom());
         while (unit.getMovesLeft() > 0) {
             // Every checkTurns, look for a target of opportunity.
             if (check == 0) {
@@ -185,7 +185,7 @@ public class UnitWanderHostileMission extends Mission {
                 check = checkTurns;
             } else check--;
 
-            if ((d = moveRandomly(tag, d)) == null) break;
+            if ((d = moveRandomly(MISSION_TAG, d)) == null) break;
         }
         return lbAt(lb);
     }

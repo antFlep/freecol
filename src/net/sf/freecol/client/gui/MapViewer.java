@@ -1878,11 +1878,10 @@ public final class MapViewer extends FreeColClientHolder {
             Point point = calculateTilePosition(tile);
             if (point == null) continue;
 
-            BufferedImage image = (p.isOnCarrier())
-                ? ImageLibrary.getPathImage(ImageLibrary.PathType.NAVAL)
-                : (activeUnit != null)
-                ? ImageLibrary.getPathImage(activeUnit)
-                : null;
+            BufferedImage image;
+            if (p.isOnCarrier()) image = ImageLibrary.getPathImage(ImageLibrary.PathType.NAVAL);
+            else if (activeUnit != null) image = ImageLibrary.getPathImage(activeUnit);
+            else image = null;
 
             BufferedImage turns = (p.getTurns() <= 0) ? null
                 : lib.getStringImage(g, Integer.toString(p.getTurns()),

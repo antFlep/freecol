@@ -129,10 +129,15 @@ final class UnitMoveAnimation extends FreeColClientHolder
             labelHeight, srcP);
         final Point dstPoint = gui.calculateUnitLabelPositionInTile(labelWidth,
             labelHeight, dstP);
-        final int stepX = (srcPoint.getX() == dstPoint.getX()) ? 0
-            : (srcPoint.getX() > dstPoint.getX()) ? -1 : 1;
-        final int stepY = (srcPoint.getY() == dstPoint.getY()) ? 0
-            : (srcPoint.getY() > dstPoint.getY()) ? -1 : 1;
+        final int stepX;
+        if (srcPoint.getX() == dstPoint.getX()) stepX = 0;
+        else if (srcPoint.getX() > dstPoint.getX()) stepX = -1;
+        else stepX = 1;
+
+        final int stepY;
+        if (srcPoint.getY() == dstPoint.getY()) stepY = 0;
+        else if (srcPoint.getY() > dstPoint.getY()) stepY = -1;
+        else stepY = 1;
 
         int dropFrames = 0;
         Point point = srcPoint;

@@ -1047,10 +1047,13 @@ public final class NegotiationDialog extends FreeColDialog<DiplomaticTrade> {
     @Override
     public DiplomaticTrade getResponse() {
         Object value = getValue();
-        TradeStatus s = (value == null) ? TradeStatus.REJECT_TRADE
-                : (value == this.accept) ? TradeStatus.ACCEPT_TRADE
-                : (value == this.send) ? TradeStatus.PROPOSE_TRADE
-                : TradeStatus.REJECT_TRADE;
+        TradeStatus s;
+
+        if (value == null) s = TradeStatus.REJECT_TRADE;
+        else if (value == this.accept) s = TradeStatus.ACCEPT_TRADE;
+        else if (value == this.send) s = TradeStatus.PROPOSE_TRADE;
+        else s = TradeStatus.REJECT_TRADE;
+
         agreement.setStatus(s);
         return agreement;
     }

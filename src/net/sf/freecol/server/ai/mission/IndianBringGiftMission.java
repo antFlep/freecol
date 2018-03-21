@@ -53,7 +53,7 @@ public class IndianBringGiftMission extends Mission {
     public static final String TAG = "indianBringGiftMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI native gifter";
+    private static final String MISSION_TAG = "AI native gifter";
 
     /** The Colony to receive the gift. */
     private Colony colony;
@@ -227,7 +227,7 @@ public class IndianBringGiftMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (reason != null) return lbFail(lb, false, reason);
 
@@ -257,7 +257,7 @@ public class IndianBringGiftMission extends Mission {
                         .getDirection(blocker.getTile()))) {
                     return lbAttack(lb, blocker);
                 }
-                moveRandomly(tag, null);
+                moveRandomly(MISSION_TAG, null);
                 continue;
 
             default:
@@ -302,7 +302,7 @@ public class IndianBringGiftMission extends Mission {
                         .getDirection(blocker.getTile()))) {
                     return lbAttack(lb, blocker);
                 }
-                moveRandomly(tag, null);
+                moveRandomly(MISSION_TAG, null);
                 continue;
             
             default:

@@ -33,10 +33,7 @@ import net.sf.freecol.common.model.PathNode;
 import net.sf.freecol.common.model.Player;
 import net.sf.freecol.common.model.Settlement;
 import net.sf.freecol.common.model.Unit;
-import net.sf.freecol.common.model.pathfinding.CostDecider;
 import net.sf.freecol.common.model.pathfinding.CostDeciders;
-import net.sf.freecol.common.model.pathfinding.GoalDecider;
-import net.sf.freecol.common.model.pathfinding.GoalDeciders;
 import net.sf.freecol.common.util.LogBuilder;
 import net.sf.freecol.server.ai.AIMain;
 import net.sf.freecol.server.ai.AIMessage;
@@ -51,7 +48,7 @@ public class MissionaryMission extends Mission {
     public static final String TAG = "missionaryMission";
 
     /** The tag for this mission. */
-    private static final String tag = "AI missionary";
+    private static final String MISSION_TAG = "AI missionary";
 
     /**
      * The target to aim for, used for a TransportMission.
@@ -284,7 +281,7 @@ public class MissionaryMission extends Mission {
      */
     @Override
     public Mission doMission(LogBuilder lb) {
-        lb.add(tag);
+        lb.add(MISSION_TAG);
         String reason = invalidReason();
         if (isTargetReason(reason)) {
             return retargetMission(reason, lb);

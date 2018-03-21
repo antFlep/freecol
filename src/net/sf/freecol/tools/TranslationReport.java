@@ -42,10 +42,10 @@ public class TranslationReport {
         public int superfluousKeys;
     }
 
-    private static final String stars =
+    private static final String STARS =
         "*****************************************************************";
 
-    private static final boolean printSummary = true;
+    private static final boolean PRINT_SUMMARY = true;
 
     public static void main(String[] args) throws Exception {
         ArrayList<LanguageStatsRecord> statistics = new ArrayList<>();
@@ -75,9 +75,9 @@ public class TranslationReport {
             File propertyFile = new File(directory, name);
             Properties properties = new Properties();
             properties.load(new FileInputStream(propertyFile));
-            System.out.println(name.length()+8 < stars.length() ? stars.substring(0, name.length() + 8) : stars);
+            System.out.println(name.length()+8 < STARS.length() ? STARS.substring(0, name.length() + 8) : STARS);
             System.out.println("*** " + name + " ***");
-            System.out.println(name.length()+8 < stars.length() ? stars.substring(0, name.length() + 8) : stars);
+            System.out.println(name.length()+8 < STARS.length() ? STARS.substring(0, name.length() + 8) : STARS);
 
             ArrayList<String> missingKeys      = new ArrayList<>();
             ArrayList<String> missingVariables = new ArrayList<>();
@@ -216,10 +216,10 @@ public class TranslationReport {
             statistics.add(lstat);
         }
         
-        if (printSummary){
-            System.out.println(stars);
+        if (PRINT_SUMMARY){
+            System.out.println(STARS);
             System.out.println("*** Summary of translation efforts (" + master.size() + " keys in master file) ***");
-            System.out.println(stars);
+            System.out.println(STARS);
             for (LanguageStatsRecord stats : statistics){
                 StringBuilder output = new StringBuilder();
                 output.append(shortenName(stats.localFile));

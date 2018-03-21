@@ -161,7 +161,7 @@ public class REFAIPlayer extends EuropeanAIPlayer {
         }
     }
 
-    private static final int seekAndDestroyRange = 12;
+    private static final int SEEK_AND_DESTROY_RANGE = 12;
 
     /** Map of target to count. */
     private final Map<Location, Integer> targetMap = new HashMap<>();
@@ -641,8 +641,8 @@ public class REFAIPlayer extends EuropeanAIPlayer {
         // - defend the closest port
         // - go idle in a port
         for (AIUnit aiu : land) {
-            Location target = UnitSeekAndDestroyMission.findTarget(aiu, 
-                seekAndDestroyRange, false);
+            Location target = UnitSeekAndDestroyMission.findTarget(aiu,
+                    SEEK_AND_DESTROY_RANGE, false);
             if (target != null) {
                 int count = (targetMap.containsKey(target))
                     ? targetMap.get(target) : 0;
